@@ -1,5 +1,5 @@
 ---
-layout: defalt
+layout: default
 title: "An introduction to Intensive Listening"
 date: "2010-04-02 02:12:52 +0200"
 publication: AAlborg universitet
