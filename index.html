@@ -1,0 +1,55 @@
+---
+layout: default
+overview: true
+---
+
+<section class="homepage-hero">
+  <div class="row">
+    <div class="large-12 columns">
+        <h1>Erik Christensen</h1>
+        <h2>Musicologist, Educator &amp; Researcher</h2>
+    </div>
+  </div>
+  <a href="http://www.davidmalin.com/" target="_blank" class="photo-credits">&copy; Australian Astronomical Observatory/David Malin</a>
+</section>
+
+<section class="intro-blurb">
+  <div class="row">
+    <div class="large-12 columns">
+      <p class="lead">Music Phenomenology, Intensive Listening, Music and Neuroscience, Contemporary Music</p>
+    </div>
+  </div>
+</section>
+
+<section class="courses">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Upcoming Courses</h1>
+      <ul class="courses">
+        {% for post in site.categories.courses %}
+          <li>
+            <h3>{{post.title}}</h3>
+            <p>{{post.location}}, {{post.date}} <a herf="#">Link</a></p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="publications">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>Latest publications</h1>
+      <ul class="publications">
+        {% for post in site.categories.publications %}
+          <li>
+            <h3>{{post.title}}</h3>
+            <a href="#">{{post.publication}}, {{post.date}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+      <a href="#">All publications</a>
+    </div>
+  </div>
+</section>
