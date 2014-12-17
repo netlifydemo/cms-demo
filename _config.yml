@@ -1,1 +1,12 @@
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - bin
+  - node_modules
+  - package.json
+  - gulpfile.js
+
+sass:
+  sass_dir: _sass
+
 relative_permalinks: false
