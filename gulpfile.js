@@ -15,7 +15,7 @@ gulp.task('dev', function(){
 
   console.log('Server running at http://localhost:3000/');
 
-  watch(['*.html', '_includes/*.html', 'css/*.css', 'css/*.scss', 'js/*.js'])
+  watch(['*.html', '_layouts/*.html','_includes/*.html', 'css/*.css', 'css/*.scss', 'js/*.js', '_posts/*.md'])
     .pipe(exec('jekyll build'))
     .pipe(connect.reload());
 });

@@ -97,18 +97,23 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-$color-black: #181820;
+$color-black: #000;
 $color-white: #fff;
-$color-blue: #008cba;
+$color-cream: #f7f6f3;
+$color-bg: $color-cream;
+$color-text: #181820;
+$color-link: #008cba;
 
-$scale: 1.414;
-$font-size-h4: 1.25em;
+$font-family-serif: 'Alegreya', serif; 
+$font-family-sans-serif: 'montserrat', sans-serif;
 
+// Variables for gridlover
+// http://modularscale.com/scale/?px1=16&px2=&ra1=1.618&ra2=0
+$base-font-size: 22px/16px + 0em;
+$base-line-height: 1.414;
+$scale: 1.618;
 
-a, a:visited {
- text-decoration: none;
- color: $color-blue;
-}
+$container-max-width: 960px;
 
 /* 
  * Global Typography 
@@ -116,83 +121,122 @@ a, a:visited {
 @import "gridlover";
 @include gridlover-typography();
 
-
+/* Font family */
 body {
-  font-family: 'Alegreya', serif;
+  background-color: $color-cream;
+  font-family: $font-family-serif;
 }                    
 
-h1,
+h1 small,
 h3,
-.brand,
+.top-bar,
 .button {
-  font-family: 'Montserrat', sans-serif;
+  font-family: $font-family-sans-serif;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
 }
 
 h1 {
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: left; 
-  
+  letter-spacing: -2px;
   small {
-    text-transform: none;
     display: block;
-    font-size: 45%;
-    margin-top: $size-s;
-    
-    &:before {
-      content: '';
-      display: block;
-      border-top: $size-4xs solid;
-      width: 10%;
-      margin-top: -$size-xs;
-      padding-top: $size-m;
-    }
+    font-size: $size-2xs;
+    line-height: $size-xl;
+    letter-spacing: 0;
   }
 }
 
-h2 {
+h3 {
+  letter-spacing: -1px;
+}
+
+/* Links */
+a, a:visited {
+ text-decoration: none;
+ color: $color-link;
+}
+
+a {
+  h1, h2, h3, h4, h5 {
+    color: $color-text;
+  }
+}
+
+.no-touch a:hover {
+  color: $color-black;
+}
+
+.button { 
+  color: inherit;
+  font-size: 1em / $base-font-size * 1em; // 16px
   font-weight: normal;
-  text-align: center;
-  margin-top: $size-l;
-  margin-bottom: $size-l;
+  display: inline-block;
+  border: 1px solid;
+  padding: $size-xs $size-m;
   
-  &:after {
-    content: '';
-    display: block;
-    width: 20%;
-    margin: $size-l auto;
-    border-bottom: 1px solid;
-  }
+  .no-touch &:hover,
+  .no-touch &:active {
+    background-color: $color-text;
+    color: $color-white 
+  } 
 }
 
-h4 {
-  font-weight: normal;
-}
-
+/* Lists */
 ul {
-  margin-left: 0;
-  padding-left: 0;
   
   h4 {
-    margin-bottom: 0;
+     margin-bottom: 0;
   }
   
   p {
-    margin-top: 0;
+     margin-top: 0;
+  }
+
+  &.no-bullets {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  &.inline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  
+    li {
+      display: inline-block;
+      padding: 0 $size-s;
+    }
+  }
+
+  &.bullet-separator {
+    li {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    li:before {
+      content: '•';
+      display: inline-block;
+      padding: 0 $size-m;
+    }
+    li:first-child {
+      padding-left: 0;
+      &:before {
+        display: none;
+      }
+    }
   }
 }
 
 /*
  *  Global Layout
  */
-.container {
-  max-width: 60em;
-  margin: 0 auto;
-  padding: 0 $size-m;
-}
 
-.container, .header, .section, .footer {
-  position: relative;
+html, body {
+  height: 100%; // for fullscreen height
 }
 
 .left {
@@ -203,6 +247,37 @@ ul {
   float: right;
 }
 
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $size-m;
+}
+
+.container, .header, .section, .footer {
+  position: relative;
+}
+
+.fullscreen {
+  width: 100%;
+  height: 100%;
+  display: table;
+  position: relative;
+}
+.middle {
+  display:table-cell;
+  vertical-align: middle;
+}
+.bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+.top {
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+
 .top-bar,
 .header,
 .footer {
@@ -211,18 +286,31 @@ ul {
   text-shadow: rgba(0,0,0,0.9) 1px 1px 5px;
   
   a, a:visited {
-    color: inherit;
+    color: $color-white;
+    
+    strong {
+      color: $color-link;
+    }
+    
+    .no-touch &:hover {
+      color: $color-link;      
+    }
   }
 }
 
 .top-bar {
+  z-index: 1;
   overflow: hidden;
-  .brand {
-    float: left;
-  }
+  
   a {
     display: block; 
-    line-height: $size-2xl;
+    font-size: $size-s;
+    line-height: $size-xl;
+  }
+  .brand {
+    float: left;
+    font-size: $size-m;
+    padding-right: $size-s;
   }
   ul {
     list-style: none;
@@ -232,16 +320,15 @@ ul {
   }
   li {
     float: left;
-  }
-  li a {
-    padding: 0 $size-s;
+    a {
+      text-transform: uppercase;
+      padding: $size-m $size-s 0;
+    }
   }
 }
 
 .header {
-  padding: $size-4xl 0 $size-2xl;
-  border-bottom: $size-l solid $color-black;
-  
+  position: relative;
   &:before {
     content:'';
     display: block;
@@ -250,12 +337,53 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background: $color-black url(../img/vela-bg.jpg) no-repeat center top;
+    background: transparent url(../img/vela-bg-lightroom.jpg) no-repeat center top;
     background-size: cover;
-    opacity: 0.5; 
+    opacity: 0.4; 
+  }
+  h1 {
+    margin-left: -6px;
+    //margin-top: 30%;
+    small {
+      margin-left: 5px;
+    }
+    small:before {
+      content: "";
+      display: block;
+      width: 12%;
+      border-bottom: $size-2xs solid;
+      margin-top: $size-2xs;
+    }
+  }
+  .bottom {
+    background-color: $color-black;
+    font-size: 1em / $base-font-size * 1em; // 16px
+    text-transform: uppercase;
+    padding: $size-s 0;
+    margin: $size-xl 0 0;
   }
 }
 
+.section {
+  margin: $size-2xl 0;
+}
+
+.footer {
+  overflow: hidden;
+  padding-bottom: $size-m;
+  small {
+    font-size: 14px;
+    opacity: 0.8;
+    float: left;
+    margin-left: $size-xs;
+  }
+  small:first-child {
+    margin-left: 0;
+  }
+  small:last-child {
+    float: right;
+  };
+}
 
 @include gridlover-grid();
 

@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<div class="section">
+  <div class="container">
+    <p><small>{{page.publication}}, {{page.date | date: "%B %-d, %Y"}}</small></p>
+
+    <h2>{{page.title}}</h2>
+
+    <!-- this is an MLAlike entry with some freedom to avoid distinguishing between journals, internet shit, books, etc -->
+    <p><small>{{page.author}}: "{{page.title}}." <em>{{page.publication}}.</em> {{page.city}}, {{page.date | date: "%Y"}}</small></p>
+    
+    {{ content }}
+    
+    {% if page.link %}
+    <p><a href="{{page.link}}">Read the full article</a></p>
+    {% endif %}
+  </div>
+</div>

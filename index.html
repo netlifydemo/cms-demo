@@ -3,38 +3,54 @@ layout: default
 overview: true
 ---
 
-<section class="section">
-  <div class="container">
-    <h2>Music Phenomenology, Intensive Listening, Music and Neuroscience, Contemporary Music</h2>
+<div class="header fullscreen">
+  <div class="middle">
+    <div class="container">
+      <h1>Erik Christensen <small>Musicologist, Educator &amp; Researcher</small></h1>
+    </div>
+    <div class="section bottom">
+      <div class="container">
+        <ul class="inline bullet-separator">
+          <li>Music Phenomenology</li>
+          <li>Intensive Listening</li>
+          <li>Music and Neuroscience</li>
+          <li>Contemporary Music</li>
+        </ul>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
-<section class="section courses">
+<div class="section courses">
   <div class="container">
-    <h3>Upcoming Courses</h3>
-    <ul class="courses">
+    <h2 class="line"><span>Upcoming Courses</span></h2>
+    <ul class="courses no-bullets">
       {% for post in site.categories.courses %}
         <li>
-          <h4><a href="#">{{post.title}}</a></h4>
-          <p>{{post.location}}, {{post.date}}</p>
+          <a href="{{post.url}}">
+          <h4>{{post.title}}</h4>
+          <p><small>{{post.location}}, {{post.date | date: "%B %-d, %Y"}}</small></p>
+          </a>
         </li>
       {% endfor %}
     </ul>
     <a href="/courses" class="button">All courses</a>
   </div>
-</section>
+</div>
 
-<section class="section publications">
+<div class="section publications">
   <div class="container">
-    <h3>Latest publications</h3>
-    <ul class="publications">
+    <h2 class="line"><span>Latest publications</span></h2>
+    <ul class="publications no-bullets">
       {% for post in site.categories.publications %}
+        <a href="{{post.url}}">
         <li>
-          <h4><a href="#">{{post.title}}</a></h4>
-          <p>{{post.publication}}, {{post.date}}</p>
+          <h4>{{post.title}}</h4>
+          <p><small>{{post.publication}}, {{post.date | date: "%B %-d, %Y"}}</small></p>
         </li>
+        </a>
       {% endfor %}
     </ul>
     <a href="/publications" class="button">All publications</a>
   </div>
-</section>
+</div>
