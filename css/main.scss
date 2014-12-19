@@ -170,12 +170,21 @@ h1, h2, h3, h4, h5 {
 }
 
 a.button { 
-  color: $color-black;
-  text-transform: uppercase;
+  display: inline-block;
+  color: $color-white;
+  background: $color-text;
   font-size: $size-s;
   font-weight: normal;
-  display: inline-block;
-  padding: $size-2xs $size-s;
+  text-transform: uppercase;
+  line-height: 1;//$size-l + $size-2xs;
+  padding: $size-xs $size-s;
+  border: 1px solid;
+  
+  .no-touch &:hover {
+    color: $color-text;
+    background: transparent;
+    text-decoration: none;
+  }
 }
 
 /* Lists */
@@ -412,7 +421,6 @@ html, body {
   }
   
   h2 {
-    //@include vertical-rhythm(0.8181em);
     font-size: 1em;
     line-height: $base-line-height;
     text-transform: uppercase;
