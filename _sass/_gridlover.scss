@@ -21,6 +21,24 @@ $size-4xs: $size-3xs / $scale !default;
 $size-5xs: $size-4xs / $scale !default;
 $size-6xs: $size-5xs / $scale !default;
 
+
+@debug("base font-size: #{$base-font-size}, #{$base-font-size * 16}px");
+@debug("base line-height: #{$base-line-height}");
+@debug("scale: #{$scale}");
+@debug("size 6xl: #{$size-6xl}, #{($size-6xl * $base-font-size) / 1em * 16}px");
+@debug("size 5xl: #{$size-5xl}, #{($size-5xl * $base-font-size) / 1em * 16}px");
+@debug("size 4xl: #{$size-4xl}, #{($size-4xl * $base-font-size) / 1em * 16}px");
+@debug("size 3xl: #{$size-3xl}, #{($size-3xl * $base-font-size) / 1em * 16}px");
+@debug("size 2xl: #{$size-2xl}, #{($size-2xl * $base-font-size) / 1em * 16}px");
+@debug("size l: #{$size-l}, #{($size-l * $base-font-size) / 1em * 16}px");
+@debug("size m: #{$size-m}, #{($size-m * $base-font-size) / 1em * 16}px");
+@debug("size s: #{$size-s}, #{($size-s * $base-font-size) / 1em * 16}px");
+@debug("size xs: #{$size-xs}, #{($size-xs * $base-font-size) / 1em * 16}px");
+@debug("size 2xs: #{$size-2xs}, #{($size-2xs * $base-font-size) / 1em * 16}px");
+@debug("size 3xs: #{$size-3xs}, #{($size-3xs * $base-font-size) / 1em * 16}px");
+@debug("size 4xs: #{$size-4xs}, #{($size-4xs * $base-font-size) / 1em * 16}px");
+@debug("size 3xs: #{$size-5xs}, #{($size-5xs * $base-font-size) / 1em * 16}px");
+
 $font-size-h1: $size-2xl !default;
 $font-size-h2: $size-xl !default;
 $font-size-h3: $size-l !default;
