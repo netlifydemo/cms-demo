@@ -123,12 +123,9 @@ $container-max-width: 960px;
 
 /* Font family */
 body {
-  background-color: $color-cream;
   font-family: $font-family-serif;
 }                    
 
-h1 small,
-h3,
 .top-bar,
 .button {
   font-family: $font-family-sans-serif;
@@ -250,10 +247,13 @@ html, body {
 .container {
   max-width: $container-max-width;
   margin: 0 auto;
-  padding: 0 $size-m;
+  padding: 0 $size-l;
 }
 
-.container, .header, .section, .footer {
+.container, 
+.header, 
+.section, 
+.footer {
   position: relative;
 }
 
@@ -263,22 +263,26 @@ html, body {
   display: table;
   position: relative;
 }
+
 .middle {
   display:table-cell;
   vertical-align: middle;
 }
+
 .bottom {
   position: absolute;
-  width: 100%;
   bottom: 0;
-}
-.top {
-  position: absolute;
-  width: 100%;
-  top: 0;
+  left: 0;
+  right: 0;
 }
 
-.top-bar,
+.top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .header,
 .footer {
   background-color: $color-black;
@@ -296,39 +300,16 @@ html, body {
       color: $color-link;      
     }
   }
-}
-
-.top-bar {
-  z-index: 1;
-  overflow: hidden;
   
-  a {
-    display: block; 
-    font-size: $size-s;
-    line-height: $size-xl;
-  }
-  .brand {
-    float: left;
-    font-size: $size-m;
-    padding-right: $size-s;
-  }
-  ul {
-    list-style: none;
-    margin: 0 (-$size-s) 0 0;
-    padding: 0;
-    float: right;
-  }
-  li {
-    float: left;
-    a {
-      text-transform: uppercase;
-      padding: $size-m $size-s 0;
-    }
+  .container {
+    max-width: none;
   }
 }
 
 .header {
-  position: relative;
+  box-sizing: border-box;
+  border-right: $size-l solid $color-white;
+  
   &:before {
     content:'';
     display: block;
@@ -337,35 +318,122 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: transparent url(../img/vela-bg-lightroom.jpg) no-repeat center top;
+    background: black url(../img/vela-bg.jpg) no-repeat center top;
     background-size: cover;
-    opacity: 0.4; 
+    opacity: 0.5;
   }
-  h1 {
-    margin-left: -6px;
-    //margin-top: 30%;
-    small {
-      margin-left: 5px;
-    }
-    small:before {
-      content: "";
-      display: block;
-      width: 12%;
-      border-bottom: $size-2xs solid;
-      margin-top: $size-2xs;
-    }
-  }
+
   .bottom {
     background-color: $color-black;
     font-size: 1em / $base-font-size * 1em; // 16px
     text-transform: uppercase;
+    text-align: center;
     padding: $size-s 0;
     margin: $size-xl 0 0;
   }
 }
 
+.masthead {
+  h1 {
+    font-family: "league gothic";
+    text-transform: uppercase;
+    font-size: $size-3xl;
+    letter-spacing: -4px;
+    margin: 0;
+    padding: 0;
+    .char-i {
+      margin-left: 4px;
+      margin-right: 0px;
+    }
+    .char-a {
+      margin-left: -6px;
+      margin-right: -1px;
+    }
+    .char-dot {
+      margin-left: 1px;
+      margin-right: -2px;
+    }
+  }
+  
+//  h1 {
+//    font-family: "univers ultracondensed";
+//    letter-spacing: -1px;
+//    .char-a {
+//      margin-left: -12px;
+//      margin-right: -2px;
+//    }
+//  }
+//
+  h5 {
+    font-size: $size-s;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: $size-m;
+    small {
+      font-size: 1em;
+    }
+    small:before {
+      content: "—";
+    };
+  }
+}  
+
+.top-bar {
+  background: $color-white;
+  color: $color-text;
+  text-shadow: none;
+  z-index: 1;
+  padding: 1em 0 $size-2xs;
+  
+  a, a:visited {
+    color: inherit;
+  }
+  
+  ul {
+    position: absolute;
+    bottom: $size-xs;
+    right: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    border-right: $size-m solid;
+    padding-right: $size-m;
+    
+    a {
+      display: block; 
+      font-size: $size-s;
+      line-height: $size-xl;
+      text-transform: uppercase;
+    }
+  }
+}
+
 .section {
   margin: $size-2xl 0;
+}
+
+.main {
+  max-width: 35em;
+  margin-left: auto;
+  border-left: $size-xs solid;
+  p, ul {
+    max-width: 30em;
+  }
+  h2 {
+    font-family: "league gothic";
+    text-transform: uppercase;
+    width: 5em;
+    text-align: right;
+    position:absolute;
+    left: 0;
+    left: -5em - $size-s;
+    top: 0;
+    margin: 0;
+  }
+  h4 {
+    font-family: "montserrat";
+  }
 }
 
 .footer {

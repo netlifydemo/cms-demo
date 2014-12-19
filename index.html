@@ -4,53 +4,64 @@ overview: true
 ---
 
 <div class="header fullscreen">
-  <div class="middle">
+  <div class="top-bar top">
     <div class="container">
-      <h1>Erik Christensen <small>Musicologist, Educator &amp; Researcher</small></h1>
-    </div>
-    <div class="section bottom">
-      <div class="container">
-        <ul class="inline bullet-separator">
-          <li>Music Phenomenology</li>
-          <li>Intensive Listening</li>
-          <li>Music and Neuroscience</li>
-          <li>Contemporary Music</li>
-        </ul>
+      <div class="masthead">
+        <h5><a href="/about">Erik Christensen <small>Musicologist, Educator &amp; Researcher</small></a></h5>
+        <h1><a href="/">t<span class="char-i">i</span>mesp<span class="char-a">a</span>ce<span class="char-dot">.</span>dk</a></h1>
       </div>
+      <ul>
+        <li class="{% if page.name == 'about.html' %}active{% endif %}"><a href="/about">About</a></li>
+        <li class="{% if page.name == 'publications.html' %}active{% endif %}"><a href="#">Publications</a></li>
+        <li class="{% if page.name == 'courses.html' %}active{% endif %}"><a href="#">Courses</a></li>
+        <li class="{% if page.name == 'contact.html' %}active{% endif %}"><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="section bottom">
+    <div class="container">
+      <ul class="inline bullet-separator">
+        <li>Music Phenomenology</li>
+        <li>Intensive Listening</li>
+        <li>Music and Neuroscience</li>
+        <li>Contemporary Music</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<div class="section courses">
-  <div class="container">
-    <h2 class="line"><span>Upcoming Courses</span></h2>
-    <ul class="courses no-bullets">
-      {% for post in site.categories.courses %}
-        <li>
-          <a href="{{post.url}}">
-          <h4>{{post.title}}</h4>
-          <p><small>{{post.location}}, {{post.date | date: "%B %-d, %Y"}}</small></p>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-    <a href="/courses" class="button">All courses</a>
+<div class="main">
+  <div class="section courses">
+    <div class="container">
+      <h2>Upcoming Courses</h2>
+      <ul class="courses no-bullets">
+        {% for post in site.categories.courses %}
+          <li>
+            <a href="{{post.url}}">
+            <h4>{{post.title}}</h4>
+            <p><small>{{post.location}}, {{post.date | date: "%B %-d, %Y"}}</small></p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      <a href="/courses" class="button">All courses</a>
+    </div>
   </div>
-</div>
 
-<div class="section publications">
-  <div class="container">
-    <h2 class="line"><span>Latest publications</span></h2>
-    <ul class="publications no-bullets">
-      {% for post in site.categories.publications %}
-        <a href="{{post.url}}">
-        <li>
-          <h4>{{post.title}}</h4>
-          <p><small>{{post.publication}}, {{post.date | date: "%B %-d, %Y"}}</small></p>
-        </li>
-        </a>
-      {% endfor %}
-    </ul>
-    <a href="/publications" class="button">All publications</a>
+  <div class="section publications">
+    <div class="container">
+      <h2>Latest publications</h2>
+      <ul class="publications no-bullets">
+        {% for post in site.categories.publications %}
+          <a href="{{post.url}}">
+          <li>
+            <h4>{{post.title}}</h4>
+            <p><small>{{post.publication}}, {{post.date | date: "%B %-d, %Y"}}</small></p>
+          </li>
+          </a>
+        {% endfor %}
+      </ul>
+      <a href="/publications" class="button">All publications</a>
+    </div>
   </div>
 </div>

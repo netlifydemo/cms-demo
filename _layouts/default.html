@@ -10,17 +10,6 @@
   </head>
   <body class="{% if page.name == 'index.html' %}home{% endif %}">
     
-    <div class="top-bar nav top">
-      <div class="container">
-        <a href="/" class="brand">timespace.dk</a>
-        <ul>
-          <li class="{% if page.name == 'about.html' %}active{% endif %}"><a href="/about">About</a></li>
-          <li class="{% if page.name == 'publications.html' %}active{% endif %}"><a href="#">Publications</a></li>
-          <li class="{% if page.name == 'courses.html' %}active{% endif %}"><a href="#">Courses</a></li>
-          <li class="{% if page.name == 'contact.html' %}active{% endif %}"><a href="#">Contact</a></li>
-        </ul>
-      </div>
-    </div>
     
     {{content}}
     
