@@ -109,8 +109,8 @@ $font-family-sans-serif: 'Montserrat', sans-serif;
 
 // Variables for gridlover
 $base-font-size: 22px/16px + 0em;
-$base-line-height: 1.5;
-$scale: 1.5;
+$base-line-height: 1.414;
+$scale: 1.618;
 
 $container-max-width: 960px;
 
@@ -391,12 +391,12 @@ html, body {
 
 .main {
   max-width: 28em;
-  margin: $size-xl $size-2xl $size-xl auto;
+  margin: $size-2xl $size-2xl $size-2xl auto;
 
   .section {
     border-left: 1px solid;
     margin: 0;
-    padding-top: $size-xl;
+    padding-top: $size-2xl;
     &:first-child {
       padding-top: $size-s;
     }
@@ -412,7 +412,9 @@ html, body {
   }
   
   h2 {
-    @include vertical-rhythm(0.8181em);
+    //@include vertical-rhythm(0.8181em);
+    font-size: 1em;
+    line-height: $base-line-height;
     text-transform: uppercase;
     margin: 0;
     position: absolute;
