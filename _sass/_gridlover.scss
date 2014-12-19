@@ -92,15 +92,13 @@ $headings: (
   $grid-bg-color: #F4F4F4 !default;
   $grid-line-color: #ddd !default;
   
-  .gridlover-grid {
-    background: $grid-bg-color !important;
-    background: -moz-linear-gradient(top, $grid-line-color 0%, $grid-bg-color 5%, $grid-bg-color 100%) !important;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E9E9E9), color-stop(5%,$grid-bg-color), color-stop(100%,$grid-bg-color)) !important;
-    background: -webkit-linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
-    background: -o-linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
-    background: -ms-linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
-    background: linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
-    background-size: 100% $base-line-height * 1em  !important;
-  }
+  background: $grid-bg-color !important;
+  background: -moz-linear-gradient(top, $grid-line-color 0%, $grid-bg-color 5%, $grid-bg-color 100%) !important;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#E9E9E9), color-stop(5%,$grid-bg-color), color-stop(100%,$grid-bg-color)) !important;
+  background: -webkit-linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
+  background: -o-linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
+  background: -ms-linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
+  background: linear-gradient(top, $grid-line-color 0%,$grid-bg-color 5%,$grid-bg-color 100%) !important;
+  background-size: 100% $base-line-height * 1em  !important;
 }
 
