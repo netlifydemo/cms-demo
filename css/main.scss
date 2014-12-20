@@ -107,19 +107,19 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-$color-black: #181820;
+$color-black: #181818;
 $color-white: #fff;
 $color-cream: #f7f6f3;
 $color-bg: $color-white;
-$color-text: $color-black;
-$color-link: #008cba;
+$color-text: #333;
+$color-link: #d40000;//#008cba;
 
 $font-family-serif: 'Alegreya', serif; 
 $font-family-sans-serif: 'Montserrat', sans-serif;
 
 // Variables for gridlover
 $base-font-size: 22px/16px + 0em;
-$base-line-height: 1.414;
+$base-line-height: 1.5;
 $scale: 1.618;
 
 $container-max-width: 960px;
@@ -142,28 +142,13 @@ body {
 
 .header,
 .button,
-h2,
-h3 {
+.pull-left {
   font-family: $font-family-sans-serif;
 }
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-}
-
-h1 {
-  letter-spacing: -2px;
-  small {
-    display: block;
-    font-size: $size-2xs;
-    line-height: $size-xl;
-    letter-spacing: 0;
-  }
-}
-
-h3 {
-  letter-spacing: -1px;
 }
 
 /* Links */
@@ -175,13 +160,14 @@ a, a:visited {
 .no-touch a:hover {
   color: $color-text;
   text-decoration: underline;
-  
+  &.no-underline {
+    text-decoration: none;
+  }
   &:not(.no-underline) {
     text-decoration: none;
     @include underline($color-text, $color-bg);
   }
 }
-
 
 h1, h2, h3, h4, h5 {
   a, a:visited {
@@ -204,6 +190,14 @@ a.button {
     color: $color-text;
     background: transparent;
     text-decoration: none;
+  }
+}
+
+a.icon-link {
+  font-size: 1em;
+  svg {
+    width: 1em;
+    height: 1em;
   }
 }
 
@@ -244,6 +238,11 @@ ul {
       }
     }
   }
+}
+
+/* Other */
+abbr[title] {
+  border-bottom: none;
 }
 
 /*
@@ -307,7 +306,9 @@ html, body {
   color: $color-white;
   text-shadow: rgba(0,0,0,0.9) 1px 1px 5px;
   
-  a, a:visited, a:hover {
+  a, 
+  a:visited, 
+  a:hover {
     color: $color-white;
     
     strong {
@@ -321,10 +322,17 @@ html, body {
 }
 
 .header {
+  text-transform: uppercase;
   box-sizing: border-box;
-  border-left: $size-l solid $color-bg;
+  border-style: solid;
+  border-color: $color-bg;
+  border-width: 0 $size-l;
   
-  &:before {
+  &.fullscreen {
+    border-right: 0;
+  }
+  
+  &.fullscreen:before {
     content:'';
     display: block;
     position: absolute;
@@ -345,60 +353,136 @@ html, body {
     margin: 0;
     ul {
       font-size: $size-s;
-      text-transform: uppercase;
       text-align: center;
     }
   }
 }
 
-.masthead {
-  h1 { 
-    margin: 0;
-    float: left;
-  }
-  h5 {
-    font-size: $size-s;
-    text-transform: uppercase;
-    margin: 0 0 $size-s;
-    small {
-      font-size: 1em;
-    }
-    small:before {
-      content: "• ";
-    }
-    a {
-      display: inline-block;
-    }
-  }
-}  
-
 .top-bar {
   background: $color-bg;
   color: $color-text;
   text-shadow: none;
-  z-index: 1;
   padding: $size-m 0;
+  border-bottom: 1px solid;
+  overflow: hidden;
+
+  a, a:visited, a:hover {
+    color: inherit;
+  }
 
   .container {
     padding-left: 0;
   }
   
-  a, a:visited, a:hover {
-    color: inherit;
+  .fullscreen & {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
+}
+
+.masthead {
+  
+  h1 { 
+    display: none;
+  }
+
+  h5 {
+    float: right;
+    text-align: right;
+    font-size: $size-s;
+    margin: 0;
+    
+    small {
+      font-size: 1em;
+      line-height: $size-l;
+      display: none;
+
+      &:before {
+        content: "• ";
+      }
+    }
+    
+    a {
+      display: inline-block;
+    }
+  }
+
+  .fullscreen & {
+
+    h1 {
+      display: block;
+      float: left;
+      clear: left;
+      margin: 0;
+    }
+    
+    h5 {
+      float: left;
+      text-align: left;
+      margin-bottom: $size-s;
+      
+      small {
+        display: inline-block;
+      }
+    }
+  }
+}  
+
+.nav {
+  float: right;
+  clear: right;
+  text-align: right;
+  overflow: hidden;
   
   ul {
-    float: right;
-    clear: right;
     list-style: none;
     margin: 0;
     padding: 0;
-    text-align: right;
-    a {
-      display: inline-block; 
-      font-size: $size-s;
-      text-transform: uppercase;
-    }
+  }
+  
+  a {
+    display: inline-block; 
+    font-size: $size-s;
+  }
+}
+
+#navigation {
+  transition: height 150ms ease-in;
+  height: 0;
+
+  &:target,
+  &.active {
+    height: 8em;
+  }
+  
+  .fullscreen & {
+    height: auto;
+  }
+}
+
+#nav-button {
+  position: absolute;
+  font-size: 1em;
+  top: -$size-xs;
+  right: 0;
+  
+  .fullscreen & {
+    display: none;
+  }
+}
+
+.breadcrumb {
+  a, 
+  span {
+    font-size: $size-s;
+    float: left;
+    margin-right: $size-xs;
+  }
+  span {
+    color: #aaa;
   }
 }
 
@@ -407,22 +491,25 @@ html, body {
 }
 
 .main {
-  max-width: 28em;
-  margin: $size-2xl $size-2xl $size-2xl auto;
-
+  width: 50%;
+  margin: $size-2xl ($size-xl + $size-m) $size-2xl auto;
+  
   .section {
     border-left: 1px solid;
     margin: 0;
     padding-top: $size-2xl;
+    padding-left: $size-l;
     &:first-child {
-      padding-top: $size-s;
+      padding-top: 0;
     }
   }
   
   p, 
-  ul {
-    max-width: 30em;
+  ul,
+  ol,
+  dl {
     margin-top: 0;
+    max-width: 30em;
   }
   
   li {
@@ -430,14 +517,8 @@ html, body {
   }
   
   h2 {
-    font-size: 1em;
-    line-height: $base-line-height;
+    @include vertical-rhythm(1em / $base-font-size * 1em);
     text-transform: uppercase;
-    margin: 0;
-    position: absolute;
-    width: 9em;
-    left: -9em - $size-l;
-    text-align: right;
   }
 
   h4 {
@@ -451,11 +532,42 @@ html, body {
   
   .buttons {
     text-align: right;
-    margin-top: -$size-l;
-    margin-bottom: 0;
-  } 
+    margin: 0;
+  }
+  
+  .pull-left {
+    position: absolute;
+    width: 15em;
+    left: -15em - $size-m;
+    direction: rtl;
+    > h2 {
+      margin-top: 0;
+      width: 0; // force each word on a new line
+    }
+  }
+  
+  &.narrow {
+    width: 40%;
+    max-width: 22em;
+    padding-right: $size-2xl + $size-l;
+    .section {
+      padding-left: $size-m;
+    }
+  }
 }
 
+// Drop cap
+.article p:first-child:first-letter {
+  float: left;
+  font-size: $size-3xl;
+  line-height: 1;
+  text-indent: 0;
+  margin-right: 0.1em;
+  background: $color-black;
+  color: $color-white;
+  padding: 0 0.1em;
+}
+  
 .footer {
   overflow: hidden;
   padding-bottom: $size-m;

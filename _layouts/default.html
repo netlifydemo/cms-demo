@@ -8,8 +8,82 @@
     <link rel="stylesheet" href="/css/main.css" />
     <script src="/js/vendor/modernizr.custom.min.js"></script>
   </head>
-  <body class="{% if page.name == 'index.html' %}home{% endif %}">
+  <body>
     
+    <!-- SVG Definitions
+         XML namespace is removed to prevent IE8 from choking on the tag 
+         (http://stuntbox.com/blog/2013/06/bulletproof-inline-svg/)
+    -->
+    <svg display="none">
+      <defs>
+        <symbol id="icon-nav" viewBox="0 0 32 32">
+        	<title>nav</title>
+          <path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4 c-1.104,0-2,0.896-2,2c0,1.104,0.896,2,2,2h24c1.104,0,2-0.896,2-2C30,14.896,29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2 s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,22,28,22z"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="header {% if page.home %}fullscreen{% endif %}">
+      <div class="top-bar">
+        <div class="container">
+          
+          <div class="masthead">
+            <h5>
+              <a href="/about">Erik Christensen <small>Musicologist, Educator &amp; Researcher</small></a>
+            </h5>
+            <h1>
+              <a href="/" class="no-underline"><img src="/img/logo-v3.svg" class="logo" alt="Timespace"></a>
+            </h1>
+          </div>
+          
+        {% if page.home %}
+          <!-- No breadcrumb -->
+        {% else %}
+          <div class="breadcrumb">
+            <a href="/">Timespace</a>
+            <span>/ Name of the page </span>
+          </div>
+        {% endif %}
+          
+          <div class="nav">
+            <a id="nav-button" class="icon-link no-underline" href="#navigation">
+              <svg class="icon-nav">
+                <use xlink:href="#icon-nav"></use>
+                <foreignObject>
+                  <span class="svg-fallback icon-nav">Menu</span>
+                </foreignObject>
+              </svg>
+            </a>
+            <ul id="navigation">
+            {% if page.home %}
+              <!-- No link to home -->
+            {% else %}
+              <li><a href="/">Home</a></li>
+            {% endif %}
+              <li><a href="/about">About</a></li>
+              <li><a href="#">Publications</a></li>
+              <li><a href="#">Courses</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+      
+      {% if page.home %}
+      <div class="section bottom">
+        <div class="container">
+          <ul class="inline bullet-separator">
+            <li>Music Phenomenology</li>
+            <li>Intensive Listening</li>
+            <li>Music and Neuroscience</li>
+            <li>Contemporary Music</li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
     
     {{content}}
     

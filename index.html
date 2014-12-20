@@ -1,68 +1,40 @@
 ---
 layout: default
-overview: true
+home: true
 ---
 
-<div class="header fullscreen">
-  <div class="top-bar top">
-    <div class="container">
-      <div class="masthead">
-        <h5><a href="/about">Erik Christensen <small>Musicologist, Educator &amp; Researcher</small></a></h5>
-        <h1><a href="/" class="no-underline"><img src="img/logo-v2.svg"></a></h1>
-      </div>
-      <ul>
-        <li class="{% if page.name == 'about.html' %}active{% endif %}"><a href="/about">About</a></li>
-        <li class="{% if page.name == 'publications.html' %}active{% endif %}"><a href="#">Publications</a></li>
-        <li class="{% if page.name == 'courses.html' %}active{% endif %}"><a href="#">Courses</a></li>
-        <li class="{% if page.name == 'contact.html' %}active{% endif %}"><a href="#">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="section bottom">
-    <div class="container">
-      <ul class="inline bullet-separator">
-        <li>Music Phenomenology</li>
-        <li>Intensive Listening</li>
-        <li>Music and Neuroscience</li>
-        <li>Contemporary Music</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="main">
+<div class="main narrow">
   <div class="section courses">
-    <div class="container">
+    <div class="pull-left">
       <h2>Upcoming Courses</h2>
-      <ul class="courses no-bullets">
-        {% for post in site.categories.courses %}
-          <li>
-            <h4><a href="{{post.url}}">{{post.title}}</a></h4>
-            <p><small><span class="small-caps">{{post.location}}</span>, {{post.date | date: "%B %-d, %Y"}}</small></p>
-          </li>
-        {% endfor %}
-      </ul>
-      <p class="buttons">
-        <a href="/courses" title="All Courses" class="button">More</a>
-      </p>
     </div>
+    <ul class="courses no-bullets">
+      {% for post in site.categories.courses %}
+        <li>
+          <h4><a href="{{post.url}}">{{post.title}}</a></h4>
+          <p><small><span class="small-caps">{{post.location}}</span>, {{post.date | date: "%B %-d, %Y"}}</small></p>
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="buttons">
+      <a href="/courses" title="All Courses" class="button">More</a>
+    </p>
   </div>
 
   <div class="section publications">
-    <div class="container">
+    <div class="pull-left">
       <h2>Latest Publications</h2>
-      <ul class="publications no-bullets">
-        {% for post in site.categories.publications %}
-          
-          <li>
-            <h4><a href="{{post.url}}">{{post.title}}</a></h4>
-            <p><small><span class="small-caps">{{post.publication}}</span>, {{post.date | date: "%B %-d, %Y"}}</small></p>
-          </li>
-        {% endfor %}
-      </ul>
-      <p class="buttons">
-        <a href="/publications" title="All Publications" class="button">More</a>
-      </p>
     </div>
+    <ul class="publications no-bullets">
+      {% for post in site.categories.publications %}
+        <li>
+          <h4><a href="{{post.url}}">{{post.title}}</a></h4>
+          <p><small><span class="small-caps">{{post.publication}}</span>, {{post.date | date: "%B %-d, %Y"}}</small></p>
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="buttons">
+      <a href="/publications" title="All Publications" class="button">More</a>
+    </p>
   </div>
 </div>
