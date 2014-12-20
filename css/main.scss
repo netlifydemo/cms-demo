@@ -352,36 +352,14 @@ html, body {
 }
 
 .masthead {
-  float: left;
-  
-  h1 { 
-    font-family: "Univers LT 59 UltraCondensed";
-    font-size: $size-2xl + $size-m + 1em;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: normal;
-    margin: 0;
-    .char-i {
-      margin-left: 2px;
-    }
-    .char-a {
-      margin-left: -9px;
-      margin-right: -2px;
-    }
-    .char-dot {
-      margin-right: -3px;
-    }
-    .inverse {
-      background: $color-text;
-      color: $color-bg;
-      display: inline-block;
-      vertical-align: bottom;
-      padding-right: 0.077em;
-      text-indent: -1px;
-      overflow: hidden;
-    }
+  h1,
+  h5 {
+    float: left;
+    clear: left;
   }
-  
+  h1 { 
+    margin: 0;
+  }
   h5 {
     font-size: $size-s;
     text-transform: uppercase;
@@ -404,6 +382,7 @@ html, body {
   
   .container {
     padding-left: 0;
+    overflow: hidden;
   }
   
   a, a:visited, a:hover {
@@ -412,6 +391,7 @@ html, body {
   
   ul {
     float: right;
+    clear: right;
     list-style: none;
     margin: 0;
     padding: 0;
