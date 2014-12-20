@@ -1,5 +1,15 @@
 ---
 ---
+
+// Prettier link underlines (https://eager.io/blog/smarter-link-underlines/)
+@mixin underline($color, $bgcolor) {
+  text-shadow: .03em 0 $bgcolor, -.03em 0 $bgcolor, 0 .03em $bgcolor, 0 -.03em $bgcolor, .06em 0 $bgcolor, -.06em 0 $bgcolor, .09em 0 $bgcolor, -.09em 0 $bgcolor, .12em 0 $bgcolor, -.12em 0 $bgcolor, .15em 0 $bgcolor, -.15em 0 $bgcolor;
+  background-image: linear-gradient($bgcolor, $bgcolor), linear-gradient($bgcolor, $bgcolor), linear-gradient($color, $color);
+  background-size: .05em 1px, .05em 1px, 1px 1px;
+  background-repeat: no-repeat, no-repeat, repeat-x;
+  background-position: 0% 90%, 100% 90%, 0% 90%;
+}
+
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
 /*
@@ -97,11 +107,11 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-$color-black: #000;
+$color-black: #181820;
 $color-white: #fff;
 $color-cream: #f7f6f3;
-$color-bg: $color-cream;
-$color-text: #181820;
+$color-bg: $color-white;
+$color-text: $color-black;
 $color-link: #008cba;
 
 $font-family-serif: 'Alegreya', serif; 
@@ -120,10 +130,14 @@ $container-max-width: 960px;
 @import "gridlover";
 @include gridlover-typography();
 
+body {
+  background-color: $color-bg;
+  color: $color-text;
+}
+
 /* Font family */
 body {
   font-family: $font-family-serif;
-  color: $color-black;
 }                    
 
 .header,
@@ -158,25 +172,31 @@ a, a:visited {
  color: $color-link;
 }
 
+.no-touch a:hover {
+  color: $color-text;
+  text-decoration: underline;
+  
+  &:not(.no-underline) {
+    text-decoration: none;
+    @include underline($color-text, $color-bg);
+  }
+}
+
+
 h1, h2, h3, h4, h5 {
   a, a:visited {
     color: inherit;
   }
 }
 
-.no-touch a:hover {
-  color: $color-black;
-  text-decoration: underline;
-}
-
 a.button { 
   display: inline-block;
-  color: $color-white;
   background: $color-text;
+  color: $color-white;
   font-size: $size-s;
   font-weight: normal;
   text-transform: uppercase;
-  line-height: 1;//$size-l + $size-2xs;
+  line-height: 1;
   padding: $size-xs $size-s;
   border: 1px solid;
   
@@ -281,12 +301,13 @@ html, body {
   right: 0;
 }
 
-.header, .footer {
+.header, 
+.footer {
   background-color: $color-black;
   color: $color-white;
   text-shadow: rgba(0,0,0,0.9) 1px 1px 5px;
   
-  a, a:visited {
+  a, a:visited, a:hover {
     color: $color-white;
     
     strong {
@@ -301,7 +322,7 @@ html, body {
 
 .header {
   box-sizing: border-box;
-  border-left: $size-l solid $color-white;
+  border-left: $size-l solid $color-bg;
   
   &:before {
     content:'';
@@ -316,15 +337,14 @@ html, body {
     opacity: 0.8;
   }
 
-  .bottom {
-    background-color: $color-white;
-    color: $color-black;
+  .section {
+    background-color: $color-bg;
+    color: $color-text;
     text-shadow: none;
     padding: $size-xs 0;
     margin: 0;
     ul {
       font-size: $size-s;
-      opacity: 0.9;
       text-transform: uppercase;
       text-align: center;
     }
@@ -336,17 +356,29 @@ html, body {
   
   h1 { 
     font-family: "Univers LT 59 UltraCondensed";
-    font-size: $size-2xl + $size-m;
+    font-size: $size-2xl + $size-m + 1em;
     font-weight: normal;
     text-transform: uppercase;
     letter-spacing: normal;
     margin: 0;
+    .char-i {
+      margin-left: 2px;
+    }
     .char-a {
       margin-left: -9px;
       margin-right: -2px;
     }
     .char-dot {
       margin-right: -3px;
+    }
+    .inverse {
+      background: $color-text;
+      color: $color-bg;
+      display: inline-block;
+      vertical-align: bottom;
+      padding-right: 0.077em;
+      text-indent: -1px;
+      overflow: hidden;
     }
   }
   
@@ -364,7 +396,7 @@ html, body {
 }  
 
 .top-bar {
-  background: $color-white;
+  background: $color-bg;
   color: $color-text;
   text-shadow: none;
   z-index: 1;
@@ -374,7 +406,7 @@ html, body {
     padding-left: 0;
   }
   
-  a, a:visited {
+  a, a:visited, a:hover {
     color: inherit;
   }
   
@@ -386,9 +418,8 @@ html, body {
     text-align: right;
     
     a {
-      display: block; 
+      display: inline-block; 
       font-size: $size-s;
-      line-height: $size-xl;
       text-transform: uppercase;
     }
   }
@@ -411,7 +442,8 @@ html, body {
     }
   }
   
-  p, ul {
+  p, 
+  ul {
     max-width: 30em;
     margin-top: 0;
   }
