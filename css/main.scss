@@ -214,7 +214,7 @@ ul {
     list-style: none;
     margin: 0;
     padding: 0;
-  
+    max-width: none;
     li {
       display: inline-block;
       padding: 0 $size-s;
@@ -243,6 +243,10 @@ ul {
 /* Other */
 abbr[title] {
   border-bottom: none;
+}
+
+p, ul, ol, blockquote {
+  max-width: 30em;
 }
 
 /*
@@ -482,7 +486,7 @@ html, body {
     margin-right: $size-xs;
   }
   span {
-    color: #aaa;
+    opacity:0.4;
   }
 }
 
@@ -492,7 +496,15 @@ html, body {
 
 .main {
   width: 50%;
-  margin: $size-2xl ($size-xl + $size-m) $size-2xl auto;
+  margin: $size-2xl 10% $size-2xl auto;
+
+  &.narrow {
+    width: 33%;
+    padding-right: $size-2xl + $size-l;
+    .section {
+      padding-left: $size-m;
+    }
+  }
   
   .section {
     border-left: 1px solid;
@@ -509,7 +521,6 @@ html, body {
   ol,
   dl {
     margin-top: 0;
-    max-width: 30em;
   }
   
   li {
@@ -546,27 +557,19 @@ html, body {
     }
   }
   
-  &.narrow {
-    width: 40%;
-    max-width: 22em;
-    padding-right: $size-2xl + $size-l;
-    .section {
-      padding-left: $size-m;
-    }
+  // Drop cap
+  .article p:first-child:first-letter {
+    float: left;
+    font-size: $size-3xl;
+    line-height: 1;
+    text-indent: 0;
+    margin-right: 0.1em;
+    background: $color-black;
+    color: $color-white;
+    padding: 0 0.1em;
   }
 }
 
-// Drop cap
-.article p:first-child:first-letter {
-  float: left;
-  font-size: $size-3xl;
-  line-height: 1;
-  text-indent: 0;
-  margin-right: 0.1em;
-  background: $color-black;
-  color: $color-white;
-  padding: 0 0.1em;
-}
   
 .footer {
   overflow: hidden;
