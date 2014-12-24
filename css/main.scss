@@ -133,7 +133,7 @@ $size-2xl: 4.797em;
 $size-s: 0.7em;    // 14px
 $size-xs: 0.618em; // 12.361px
 
-$font-size-h1: 2.618em;
+$font-size-h1: 3em; // Should be 2.618em according to the scale, but copying the headline sizes from http://dragone.com/
 $font-size-h2: 1.618em;
 $font-size-h3: 1.133em;
 $font-size-h4: $base-font-size-sans-serif * 1.133 + 0em;
@@ -183,14 +183,18 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+// Based on headline sizes from http://dragone.com/en
+// h1 (60px/62px) h1 small (30px/45px)
 h1 {
   letter-spacing: -0.03em;
+  line-height: 1.0333333;
   small {
-    font-size: 0.618em;
+    font-size: 0.5em;
+    line-height: 1.5;
     font-style: italic;
-    margin-top: 0.267em;
   }
 }
+
 h2 {
   line-height: 1.25em;
 }
@@ -318,9 +322,10 @@ p.dropcap,
   
   &:first-letter {
     float: left;
-    @include vertical-rhythm($size-3xl);
+    font-size: $size-3xl;
+    line-height: 0.95;
     text-indent: 0;
-    margin-right: $size-3xs;
+    margin-right: $size-4xs;
     padding: 0 $size-4xs;
     background: $color-black;
     color: $color-white;
@@ -682,6 +687,14 @@ html, body {
       display: inline-block;
       width: 12em - $size-l;
       margin-bottom: $base-line-height + 0em;
+    }
+    &.bottom {
+      position: absolute;
+      bottom: 0;
+      left: -$size-l;
+      * {
+        margin-bottom: 0;
+      }
     }
   }
   
