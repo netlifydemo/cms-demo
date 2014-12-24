@@ -1,5 +1,5 @@
 
-angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams, Github, Collections, Content) ->
+angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams, Github, Deploy, Collections, Content) ->
   regexp = /^---\n([^]*?)\n---\n([^]*)$/
   $scope.collections = Collections
   $scope.item = {}
@@ -59,11 +59,17 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
 
   $scope.save = ->
     $scope.saving = true
-    content = generateContent($scope.item)
-    Github.update_file {
-      path: filePath()
-      message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
-      content: content,
-      sha: $scope.item.$sha
-    }, ->
-      console.log "Saved?"
+    Deploy.withTimestamp ->
+      content = generateContent($scope.item)
+      Github.update_file {
+        path: filePath()
+        message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
+        content: content,
+        sha: $scope.item.$sha
+      }, ->
+        $scope.saving = false
+        $scope.deploying = true
+        Deploy.waitForDeploy ->
+          console.log "Site deployed"
+          $scope.deploying = false
+      

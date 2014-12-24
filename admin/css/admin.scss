@@ -5,12 +5,19 @@
   cursor: pointer;
 }
 
+.cms-form {
+  display: table;
+  width: 100%;
+}
 .widget {
+  display: table-row;
 }
 .form-control, .preview {
-  float: left;
-  width: 50%;
   box-sizing: border-box;
+  display: table-cell;
+  padding-bottom: 20px;
+  vertical-align: top;
+  width: 50%;
 }
 .form-control {
   padding-right: 20px;

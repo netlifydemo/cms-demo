@@ -12,7 +12,7 @@ angular.module('cmsApp')
           "/admin/views/widgets/#{scope.field.widget}#{if preview then "_preview" else ""}.html"
       template: 
         '''
-        <div class="widget {{field.widget}} clearfix">
+        <div class="widget {{field.widget}}">
           <div class="form-control">
             <ng-include src="getTemplateUrl()"/>
           </div>
@@ -31,6 +31,5 @@ angular.module('cmsApp')
  .filter 'markdown', ($sce, markdown) ->
     (text) ->
       return '' unless text
-      
       html = markdown.makeHtml(text)
       $sce.trustAsHtml(html)

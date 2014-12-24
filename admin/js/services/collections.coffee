@@ -24,7 +24,6 @@ angular.module('cmsApp').service 'Collections', ->
         {label: "Full Title", name: "full_title", widget: "string"}
         {label: "Bibliography entry", name: "bib", widget: "markdown_string"}
         {label: "Links", name: "links", widget: "links"}
-        {label: "Date", name: "date", widget: "date"}
         {label: "Article Abstract", name: "body", widget: "markdown"}
       ]
     },

@@ -3,10 +3,13 @@
     <h2>Loading {{collection.singular}}</h2>
   </div>
 
-  <form ng-submit="save()" ng-hide="loading">
+  <form ng-submit="save()" ng-hide="loading" class="cms-form">
     <cms-widget field="field" item="item" ng-repeat="field in collection.fields"></cms-widget>
     <div class="controls">
-      <button class="button">{{new_item ? "Create" : "Update"}} {{collection.singular}}</button>
+      <button class="button" ng-disabled="saving">
+        <span ng-hide="saving">{{new_item ? "Create" : "Update"}} {{collection.singular}}</span>
+        <span ng-show="saving">Saving {{collection.singular}}...</span>
+      </button>
     </div>
   </form>
 </div>
