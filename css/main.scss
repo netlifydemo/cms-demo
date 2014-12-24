@@ -475,7 +475,13 @@ html, body {
   right: 0;
 }
 
-.header, 
+.header,
+.footer {
+  .container {
+    max-width: none;
+  }
+}
+
 .footer {
   background-color: $color-black;
   color: $color-white;
@@ -490,18 +496,11 @@ html, body {
       color: $color-link;
     }
   }
-  
-  .container {
-    max-width: none;
-  }
 }
 
 .header {
   text-transform: uppercase;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: $color-bg;
-  border-width: 0 $size-l;
+  background: $color-bg;
   
   &.fullscreen {
     border-right: 0;
@@ -512,12 +511,11 @@ html, body {
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: $size-l;
+    right: 0;
     height: 100%;
-    background: $color-black url(../img/vela-bg-lightroom.jpg) no-repeat center top;
+    background: url(../img/vela-bg-lightroom.jpg) no-repeat center top;
     background-size: cover;
-    opacity: 0.8;
   }
 
   .section {
@@ -546,7 +544,7 @@ html, body {
   }
 
   .container {
-    padding-left: 0;
+    padding-right: 3em;
   }
   
   .fullscreen & {
@@ -555,6 +553,11 @@ html, body {
     left: 0;
     right: 0;
     z-index: 1;
+    border-bottom: 0;
+    
+    .container {
+      padding-right: $size-l;
+    }
   }
 }
 
@@ -642,7 +645,7 @@ html, body {
   font-size: 1em;
   position: absolute;
   top: -$size-s;
-  right: 0;
+  right: 1em;
   
   .fullscreen & {
     display: none;
