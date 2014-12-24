@@ -10,6 +10,25 @@
   background-position: 0% 90%, 100% 90%, 0% 90%;
 }
 
+@mixin font-face($font-family, $font-filename, $font-style, $font-weight) {
+  @font-face {
+    font-family: $font-family;
+    src: url('../fonts/#{$font-filename}.ttf')  format('truetype');
+    font-style: $font-style;
+    font-weight: $font-weight;
+  }
+}
+
+@include font-face('alegreya-web', 'Alegreya_regular', normal, normal);
+@include font-face('alegreya-web', 'Alegreya_italic', italic, normal);
+@include font-face('alegreya-web', 'Alegreya_700', normal, bold);
+@include font-face('alegreya-web', 'Alegreya_700italic', italic, bold);
+@include font-face('montserrat-web', 'Montserrat_regular', normal, normal);
+@include font-face('montserrat-web', 'Montserrat_700', normal, bold);
+@include font-face('tenso-web', 'Tenso_regular', normal, normal);
+@include font-face('univers-web', 'Univers_LT_55_Roman', normal, normal);
+
+
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
 
 /*
@@ -113,10 +132,10 @@ $color-bg: $color-white;
 $color-text: #333;
 $color-link: #d40000;
 
-$font-family-serif: 'Alegreya', serif; 
-$font-family-sans-serif: 'Montserrat', sans-serif;
-$font-family-condensed: 'Tenso', sans-serif;
-$font-family-dropcap: 'Univers LT 55', 'Montserrat', sans-serif;
+$font-family-serif: 'alegreya-web', serif; 
+$font-family-sans-serif: 'montserrat-web', sans-serif;
+$font-family-condensed: 'tenso-web', sans-serif;
+$font-family-dropcap: 'univers-web', 'montserrat-web', sans-serif;
 
 $base-font-size-serif: 20px/16px + 0em;
 $base-font-size-sans-serif: 1em / $base-font-size-serif + 0em; // 16px
@@ -341,15 +360,6 @@ p.dropcap,
     font-weight: normal;
     text-transform: uppercase;
   }
-  
-  // Shame that chrome has a bug that makes text-transform
-  // not work for first-line :(
-  //
-  //&:first-line {
-  //  font-family: $font-family-sans-serif;
-  //  font-variant: small-caps;
-  //  text-transform: lowercase;
-  //}
 }
 
 /* Blockquotes */
