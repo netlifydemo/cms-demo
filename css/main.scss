@@ -106,23 +106,39 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
+   
 $color-black: #181818;
 $color-white: #fff;
-$color-cream: #f7f6f3;
 $color-bg: $color-white;
 $color-text: #333;
-$color-link: #d40000;//#008cba;
+$color-link: #d40000;
 
 $font-family-serif: 'Alegreya', serif; 
 $font-family-sans-serif: 'Montserrat', sans-serif;
+$font-family-condensed: 'Tenso', sans-serif;
+
+$base-font-size-serif: 20px/16px + 0em;
+$base-font-size-sans-serif: 1em / $base-font-size-serif + 0em; // 16px
+
+$container-max-width: 50em; // 1000px (same as body max-width in http://practicaltypography.com/)
 
 // Variables for gridlover
-$base-font-size: 22px/16px + 0em;
-$base-line-height: 1.5;
+// Modular scale http://modularscale.com/scale/?px1=20&px2=14&ra1=1.618&ra2=0
+$base-font-size: $base-font-size-serif;
+$base-line-height: 1.414;
 $scale: 1.618;
 
-$container-max-width: 960px;
+$size-3xl: 6.853em;
+$size-2xl: 4.797em;
+$size-s: 0.7em;    // 14px
+$size-xs: 0.618em; // 12.361px
+
+$font-size-h1: 2.618em;
+$font-size-h2: 1.618em;
+$font-size-h3: 1.133em;
+$font-size-h4: $base-font-size-sans-serif * 1.133 + 0em;
+$font-size-h5: $base-font-size-sans-serif;
+$font-size-h6: $size-s;
 
 /* 
  * Global Typography 
@@ -140,15 +156,53 @@ body {
   font-family: $font-family-serif;
 }                    
 
+h4,
+h5, 
+h6,
+.content h2,
+.content h3,
 .header,
 .button,
-.pull-left {
+.meta {
   font-family: $font-family-sans-serif;
+}
+
+.condensed {
+  font-family: $font-family-condensed;
 }
 
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
+  
+  small {
+    display: block;
+    font-weight: normal;
+    line-height: $base-line-height;
+    letter-spacing: normal;
+  }
+}
+
+h1 {
+  letter-spacing: -0.03em;
+  small {
+    font-size: 0.618em;
+    font-style: italic;
+    margin-top: 0.267em;
+  }
+}
+h2 {
+  line-height: 1.25em;
+}
+
+h3 {
+  small {
+    line-height: 1.57;
+  }
+}
+
+h4, h5, h6 {
+  text-transform: uppercase;
 }
 
 /* Links */
@@ -177,14 +231,15 @@ h1, h2, h3, h4, h5 {
 
 a.button { 
   display: inline-block;
-  background: $color-text;
-  color: $color-white;
-  font-size: $size-s;
+  @include vertical-rhythm($size-xs);
   font-weight: normal;
   text-transform: uppercase;
-  line-height: 1;
-  padding: $size-xs $size-s;
+  background: $color-text;
+  color: $color-white;
+  padding: 0 $size-s;
   border: 1px solid;
+  position: relative;
+  top: -2px;
   
   .no-touch &:hover {
     color: $color-text;
@@ -194,16 +249,28 @@ a.button {
 }
 
 a.icon-link {
-  font-size: 1em;
+  @include vertical-rhythm(1em);
   svg {
     width: 1em;
     height: 1em;
   }
 }
 
+.links {
+  a[href^='http']:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+    margin-left: $size-3xs;
+    background: url(../img/icon-external-link.svg) no-repeat;
+  }
+}
+
 /* Lists */
 ul {
-  
+
   &.no-bullets {
     list-style: none;
     margin-left: 0;
@@ -221,7 +288,7 @@ ul {
     }
   }
 
-  &.bullet-separator {
+  &.bullets {
     li {
       padding-left: 0;
       padding-right: 0;
@@ -229,7 +296,7 @@ ul {
     li:before {
       content: '•';
       display: inline-block;
-      padding: 0 $size-m;
+      padding: 0 1em;
     }
     li:first-child {
       padding-left: 0;
@@ -240,14 +307,64 @@ ul {
   }
 }
 
+dl dd {
+  margin: 0;
+}
+
+/* Paragraphs */
+
+p.dropcap,
+.dropcap > p:first-child {
+  
+  &:first-letter {
+    float: left;
+    @include vertical-rhythm($size-3xl);
+    text-indent: 0;
+    margin-right: $size-3xs;
+    padding: 0 $size-4xs;
+    background: $color-black;
+    color: $color-white;
+  }
+}
+
 /* Other */
+
+blockquote {
+  margin: 3.6em $size-xl;
+  position: relative;
+  &:before {
+    content: "“";
+    font-size: $size-2xl;
+    font-style: normal;
+    line-height: 0;
+    opacity: 0.1;
+    position: absolute;
+    left: -0.4em;
+    top: 0.3em;
+  }
+  p {
+    font-size: $font-size-h3;
+    font-style: italic;
+    margin-bottom: 1em;
+  }
+  p:last-child {
+    font-size: $font-size-h5;
+    font-style: normal;
+    text-align: right;
+    em {
+      font-style: normal;
+      text-transform: uppercase;
+    }
+    &:before {
+      content: "—";
+    }
+  }
+}
+
 abbr[title] {
   border-bottom: none;
 }
 
-p, ul, ol, blockquote {
-  max-width: 30em;
-}
 
 /*
  *  Global Layout
@@ -271,9 +388,9 @@ html, body {
   padding: 0 $size-l;
 }
 
-.container, 
+.container,
+.body,
 .header, 
-.section, 
 .footer {
   position: relative;
 }
@@ -353,11 +470,11 @@ html, body {
     background-color: $color-bg;
     color: $color-text;
     text-shadow: none;
-    padding: $size-xs 0;
     margin: 0;
+    padding: $size-xs 0;
+    text-align: center;
     ul {
-      font-size: $size-s;
-      text-align: center;
+      @include vertical-rhythm($size-s);
     }
   }
 }
@@ -366,7 +483,7 @@ html, body {
   background: $color-bg;
   color: $color-text;
   text-shadow: none;
-  padding: $size-m 0;
+  padding: 1em 0;
   border-bottom: 1px solid;
   overflow: hidden;
 
@@ -393,15 +510,12 @@ html, body {
     display: none;
   }
 
-  h5 {
+  h6 {
     float: right;
     text-align: right;
-    font-size: $size-s;
     margin: 0;
     
-    small {
-      font-size: 1em;
-      line-height: $size-l;
+    span {
       display: none;
 
       &:before {
@@ -423,12 +537,12 @@ html, body {
       margin: 0;
     }
     
-    h5 {
+    h6 {
       float: left;
       text-align: left;
       margin-bottom: $size-s;
       
-      small {
+      span {
         display: inline-block;
       }
     }
@@ -449,7 +563,7 @@ html, body {
   
   a {
     display: inline-block; 
-    font-size: $size-s;
+    @include vertical-rhythm($size-s);
   }
 }
 
@@ -459,7 +573,7 @@ html, body {
 
   &:target,
   &.active {
-    height: 8em;
+    height: 6em;
   }
   
   .fullscreen & {
@@ -468,9 +582,9 @@ html, body {
 }
 
 #nav-button {
+  @include vertical-rhythm(1em);
   position: absolute;
-  font-size: 1em;
-  top: -$size-xs;
+  top: -2px;
   right: 0;
   
   .fullscreen & {
@@ -479,114 +593,136 @@ html, body {
 }
 
 .breadcrumb {
-  a, 
+  @include vertical-rhythm($size-s);
   span {
-    font-size: $size-s;
-    float: left;
-    margin-right: $size-xs;
-  }
-  span {
-    opacity:0.4;
+    opacity: 0.4;
   }
 }
 
-.section {
-  margin: $size-2xl 0;
+.meta, 
+.content {
+  h2, h3, h4, h5, h6 {
+    text-transform: uppercase;
+  }
+  h2 {
+    @include vertical-rhythm($font-size-h4, true, 2);
+  }
+  h3 {
+    @include vertical-rhythm($font-size-h5, true);
+    text-transform: uppercase;
+  }
+}
+
+.meta {
+  p, ul, ol, dl {
+    @include vertical-rhythm($size-s, true);
+  }
 }
 
 .main {
-  width: 50%;
-  margin: $size-2xl 10% $size-2xl auto;
-
-  &.narrow {
-    width: 33%;
-    padding-right: $size-2xl + $size-l;
-    .section {
-      padding-left: $size-m;
-    }
+  margin: 1em 0 $size-3xl;
+  overflow: hidden;
+  min-height:53%;
+  
+  h1 {
+    margin-top: 1.46em;
   }
   
-  .section {
-    border-left: 1px solid;
-    margin: 0;
-    padding-top: $size-2xl;
-    padding-left: $size-l;
-    &:first-child {
-      padding-top: 0;
+  h1, h2, h3, h4, h5, h6 {
+    a {
+      font-weight: bold;
+      -webkit-font-smoothing: antialiased;
+      font-smoothing: antialiased;
+    }
+    small {
+      -webkit-font-smoothing: auto;
+      font-smoothing: auto;
     }
   }
-  
-  p, 
-  ul,
-  ol,
-  dl {
+  p, ul, ol, blockquote {
     margin-top: 0;
   }
   
   li {
-    margin-bottom: $size-l;
-  }
-  
-  h2 {
-    @include vertical-rhythm(1em / $base-font-size * 1em);
-    text-transform: uppercase;
-  }
-
-  h4 {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  
-  small {
-    font-size: 1em / $base-font-size * 1em;
-  }
-  
-  .buttons {
-    text-align: right;
-    margin: 0;
-  }
-  
-  .pull-left {
-    position: absolute;
-    width: 15em;
-    left: -15em - $size-m;
-    direction: rtl;
-    > h2 {
+    margin-bottom: $base-line-height * 1em;
+    
+    h1,h2, h3, h4, h5, h6 {
       margin-top: 0;
-      width: 0; // force each word on a new line
+      margin-bottom: 0;
     }
-  }
-  
-  // Drop cap
-  .article p:first-child:first-letter {
-    float: left;
-    font-size: $size-3xl;
-    line-height: 1;
-    text-indent: 0;
-    margin-right: 0.1em;
-    background: $color-black;
-    color: $color-white;
-    padding: 0 0.1em;
   }
 }
 
+// Margins inspired by the layout of http://practicaltypography.com/
+.body {
+  display: block;
+  margin: 3.6em 3em 3em 13.8em;
+  border-left: 1px solid;
+  padding-left: $size-l;
+
+  &.narrow {
+    margin-left: 24em;
+    padding-left: 1em;
+    .pull-left {
+      left: -2em;
+    }
+  }
   
+  .pull-left {
+    position: relative;
+    float: left;
+    width: 12em;
+    margin-left: -12em;
+    left: -$size-l * 2;
+    text-align: right;
+    * {
+      margin-top: 0;
+    }
+    img {
+      display: inline-block;
+      width: 12em - $size-l;
+      margin-bottom: $base-line-height + 0em;
+    }
+  }
+  
+  .rtl {
+    direction: rtl;
+  }
+
+  .wbr {
+    width: 0;
+  }
+  
+  .section {
+    margin: ($base-line-height * 2em) 0;
+  }
+  
+  .buttons {
+    float: right;
+    margin: 0;
+  }
+}  
+
 .footer {
   overflow: hidden;
-  padding-bottom: $size-m;
+  padding-bottom: $size-l;
+  
   small {
     font-size: $size-s;
     opacity: 0.8;
     float: left;
     margin-left: $size-xs;
   }
+  
   small:first-child {
     margin-left: 0;
   }
+  
   small:last-child {
     float: right;
   };
 }
+
 
 .gridlover-grid {
   @include gridlover-grid();

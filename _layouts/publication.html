@@ -4,18 +4,37 @@ name: Publications
 ---
 
 <div class="article">
-  <div class="container">
-    <p><small>{{page.publication}}, {{page.date | date: "%B %-d, %Y"}}</small></p>
 
-    <h2>{{page.title}}</h2>
+  <h1>{{ page.title }}{% if page.subtitle %}<small>{{page.subtitle}}</small>{% endif %}</h1>
+  
+  <div class="body">
 
-    <!-- this is an MLAlike entry with some freedom to avoid distinguishing between journals, internet shit, books, etc -->
-    <p><small>{{page.author}}: "{{page.title}}." <em>{{page.publication}}.</em> {{page.city}}, {{page.date | date: "%Y"}}</small></p>
+    <div class="pull-left meta">
+      {% if page.image %}
+        <img src="{{page.image}}">
+      {% endif %}
+      
+      {% if page.bib %}
+        <div class="condensed">
+        {{ page.bib | markdownify }}
+        </div>
+      {% endif %}
+      
+      {% if page.links %}
+        <div class="links">
+          {{ page.links | markdownify }}
+        </div>
+      {% endif %}
+    </div>
     
-    {{ content }}
+    <div class="content dropcap">
+      {{ content }}
+    </div>
     
-    {% if page.link %}
-    <p><a href="{{page.link}}">Read the full article</a></p>
-    {% endif %}
+  {%if page.footer %}
+    <div class="meta links">
+      {{ page.footer | markdownify }}
+    </div>
+  {% endif %}
   </div>
 </div>

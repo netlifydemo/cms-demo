@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>timespace.dk – Erik Christensen</title>
+    <title>Erik Christensen – Timespace</title>
     <link rel="stylesheet" href="/css/normalize.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <script src="/js/vendor/modernizr.custom.min.js"></script>
   </head>
-  <body>
+  <body class="{{ page.name | remove_first: '.html' | downcase }}">
     
     <!-- SVG Definitions
          XML namespace is removed to prevent IE8 from choking on the tag 
@@ -28,12 +28,14 @@
         <div class="container">
           
           <div class="masthead">
-            <h5>
-              <a href="/about">Erik Christensen <small>Musicologist, Educator &amp; Researcher</small></a>
-            </h5>
+            <h6>
+              <a href="/about">Erik Christensen <span>Musicologist, Educator &amp; Researcher</span></a>
+            </h6>
+            {% if page.home %}
             <h1>
               <a href="/" class="no-underline"><img src="/img/logo-v3.svg" class="logo" alt="Timespace"></a>
             </h1>
+            {% endif %}
           </div>
           
         {% if page.home %}
@@ -41,7 +43,11 @@
         {% else %}
           <div class="breadcrumb">
             <a href="/">Timespace</a>
-            <span>/ {{ page.name }}</span>
+            {% if page.name %}
+            <span> / {{ page.name | remove_first: '.html' }}</span>
+            {% else %}
+            / <a href="/{{page/menu}}.html"> {{ page.menu }}</a>
+            {% endif %}
           </div>
         {% endif %}
           
@@ -55,15 +61,10 @@
               </svg>
             </a>
             <ul id="navigation">
-            {% if page.home %}
-              <!-- No link to home -->
-            {% else %}
-              <li><a href="/">Home</a></li>
-            {% endif %}
               <li><a href="/about">About</a></li>
-              <li><a href="#">Publications</a></li>
-              <li><a href="#">Courses</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="/publications.html">Publications</a></li>
+              <li><a href="/courses.html">Courses</a></li>
+              <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
           
@@ -73,7 +74,7 @@
       {% if page.home %}
       <div class="section bottom">
         <div class="container">
-          <ul class="inline bullet-separator">
+          <ul class="inline bullets">
             <li>Music Phenomenology</li>
             <li>Intensive Listening</li>
             <li>Music and Neuroscience</li>
@@ -85,7 +86,11 @@
     </div>
 
     
-    {{content}}
+    <div class="main">
+      <div class="container">
+        {{content}}
+      </div>
+    </div>
     
     <div class="footer">
       <div class="container">

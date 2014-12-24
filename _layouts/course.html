@@ -3,6 +3,14 @@ layout: default
 name: Courses
 ---
 
-<h1>I'm a course</h1>
-
-{{ content }}
+<div class="article">
+  <h1>{{ page.title }}{% if page.subtitle %} <small>{{page.subtitle}}</small>{% endif %}</h1>
+  <div class="body">
+    <div class="pull-left meta">
+      {{page.info | markdownify}}
+    </div>
+    <div class="content">
+      {{ content }}
+    </div>
+  </div>
+</div>

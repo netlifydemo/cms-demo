@@ -10,3 +10,38 @@ sass:
   sass_dir: _sass
 
 relative_permalinks: false
+
+collections:
+  articles:
+    output: true
+    permalink: /publications/:path.html
+  books:
+    output: true
+    permalink: /publications/:path.html
+  courses:
+    output: true
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "publication"
+      menu: "publications"
+  -
+    scope:
+      path: ""
+      type: "books"
+    values:
+      layout: "publication"
+      menu: "publications"
+  -
+    scope:
+      path: ""
+      type: "courses"
+    values:
+      layout: "course"
+      menu: "courses"
+    
+      

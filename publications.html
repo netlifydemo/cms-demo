@@ -1,0 +1,60 @@
+---
+layout: default
+title: Publications
+---
+
+<div class="body">
+  <div class="section books">
+    <div class="pull-left meta">
+      <h2>Books</h2>
+    </div>
+    <ul class="no-bullets">
+    {% for book in site.books | sort: 'date', 'last' %}
+      <li>
+        <h3>
+          <a href="{{book.url}}">
+            {{ book.full_title | default: book.title }}
+            {% if book.bib %}
+            <small>
+              {{ book.bib | markdownify | strip_p }}
+            </small>
+            {% endif %}
+          </a>
+        </h3>
+        {% if book.links %}
+        <div class="links meta">
+          {{ book.links | markdownify }}
+        </div>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="section articles">
+    <div class="pull-left meta">
+      <h2>Articles</h2>
+    </div>
+    <ul class="no-bullets">
+      {% for article in site.articles | sort: 'title' %}
+        <li>
+          <h3>
+            <a href="{{article.url}}">
+              {{article.full_title | default: article.title }}
+              {% if article.bib %}
+              <small>
+                {{ article.bib | markdownify | strip_p }}
+              </small>
+              {% endif %}
+            </a>
+          </h3>
+          {% if article.links %}
+          <div class="links meta">
+            {{ article.links | markdownify }}
+          </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
