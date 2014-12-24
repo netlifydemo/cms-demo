@@ -682,7 +682,6 @@ html, body {
 .main {
   margin: 0 0 $size-2xl;
   overflow: hidden;
-  min-height:53%;
   
   h1, h2, h3, h4, h5, h6 {
     a {
@@ -880,6 +879,26 @@ html, body {
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+}
+
+@media only screen and (max-width: 60em) {
+  .body,
+  .body.narrow {
+    margin-left: 10em;
+
+    .pull-left {
+      width: 8em;
+      margin-left: -8em;
+      
+      img {
+        width: 100%;
+      }
+    }
+  }
+  body.contact .main {
+    margin-top: 2em;
+    margin-bottom: 6em;
+  }
 }
 
 @media print,
