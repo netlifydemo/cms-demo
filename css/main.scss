@@ -126,7 +126,7 @@ $container-max-width: 50em; // 1000px (same as body max-width in http://practica
 // Variables for gridlover
 // Modular scale http://modularscale.com/scale/?px1=20&px2=14&ra1=1.618&ra2=0
 $base-font-size: $base-font-size-serif;
-$base-line-height: 1.414;
+$base-line-height: 1.333;
 $scale: 1.618;
 
 $size-3xl: 6.853em;
@@ -196,10 +196,8 @@ h1 {
   small {
     font-size: 0.5em;
     font-style: italic;
-  }
-  small {
     line-height: 1.5;
-    padding: 0.25em 0;
+    padding: 0.3em 0;
   }
 }
 
@@ -608,8 +606,10 @@ html, body {
   }
   
   a {
-    display: inline-block; 
-    @include vertical-rhythm($size-s);
+    display: inline-block;
+    font-size: $size-s;
+    line-height: 1;
+    padding: $size-s 0;
   }
 }
 
@@ -619,7 +619,8 @@ html, body {
 
   &:target,
   &.active {
-    height: 6em;
+    padding-top: $size-s;
+    height: 7em;
   }
   
   .fullscreen & {
@@ -628,9 +629,9 @@ html, body {
 }
 
 #nav-button {
-  @include vertical-rhythm(1em);
+  font-size: 1em;
   position: absolute;
-  top: -2px;
+  top: -$size-s;
   right: 0;
   
   .fullscreen & {
