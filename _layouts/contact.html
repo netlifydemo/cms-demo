@@ -3,11 +3,8 @@ layout: default
 name: Contact
 ---
 
-<div class="body">
-  <div class="content dropcap">
-    {{ content }}
-  </div>  
-  <div class="meta">
+<div class="body narrow">
+  <div class="meta pull-left">
     <dl>
       <dt class="visuallyhidden">Address</dt>
       <dd>
@@ -22,4 +19,22 @@ name: Contact
       <dd><a href="mailto:erc@timespace.dk">erc@timespace.dk</a></dd>
     </dl>
   </div>
+  <div class="content dropcap">
+    {{ content }}
+  </div>
+  <form>
+    <p>
+      <label>Your Name</label>
+      <input type="text" name="name" required>
+    </p>
+    <p>
+      <label>Your Email</label>
+      <input type="email" name="email" required>
+    </p>
+    <p>
+      <label>Your Message</label>
+      <textarea name="message" rows="10" required></textarea>
+    </p>
+    <button class="button" type="submit">Send</button>
+  </form>
 </div>

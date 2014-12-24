@@ -161,6 +161,7 @@ body {
 h4,
 h5, 
 h6,
+label,
 .content h2,
 .content h3,
 .header,
@@ -240,6 +241,7 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+.button,
 a.button { 
   display: inline-block;
   @include vertical-rhythm($size-xs);
@@ -341,8 +343,10 @@ p.dropcap,
     font-weight: normal;
     text-transform: uppercase;
   }
-  // Such a shame that chrome has a bug that makes text-transform
+  
+  // Shame that chrome has a bug that makes text-transform
   // not work for first-line :(
+  //
   //&:first-line {
   //  font-family: $font-family-sans-serif;
   //  font-variant: small-caps;
@@ -350,8 +354,7 @@ p.dropcap,
   //}
 }
 
-/* Other */
-
+/* Blockquotes */
 blockquote {
   margin: 3.6em $size-l;
   position: relative;
@@ -384,6 +387,26 @@ blockquote {
   }
 }
 
+/* Forms */
+form {
+  margin: $size-xl auto;
+  label {
+    @include vertical-rhythm($size-s);
+    display: block;
+    text-transform: uppercase;
+  }
+  input, textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 1px solid $color-text;
+  }
+  .button {
+    padding: 0 $size-l;
+  }
+}
+
+/* Other */
 abbr[title] {
   border-bottom: none;
 }
@@ -680,11 +703,7 @@ html, body {
   padding-left: $size-l;
 
   &.narrow {
-    margin-left: 24em;
-    padding-left: 1em;
-    .pull-left {
-      left: -2em;
-    }
+    margin-left: 22em;
   }
   
   .pull-left {
@@ -694,14 +713,21 @@ html, body {
     margin-left: -12em;
     left: -$size-l * 2;
     text-align: right;
+    
     * {
       margin-top: 0;
     }
+    
     img {
       display: inline-block;
       width: 12em - $size-l;
       margin-bottom: $base-line-height + 0em;
     }
+    
+    h1, h2, h3, h4, h6, h6 {
+      margin-right: (-$size-l + 1);
+    }
+    
     &.bottom {
       position: absolute;
       bottom: 0;
