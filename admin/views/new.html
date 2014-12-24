@@ -1,0 +1,28 @@
+<div class="editor">
+  <div class="form">
+    <div class="loader" ng-show="loading">
+      <h2>Loading {{collection.singular}}</h2>
+    </div>
+
+    ----
+    <cms-widget></cms-widget>
+    ----
+    <form ng-submit="save()" ng-hide="loading">
+      <div ng-repeat="field in collection.fields">
+        <div>Field outside: {{field | json}}</div>
+        
+      </div>
+
+      <div class="widget markdown">
+        <label for="field_body">Body text</label>
+        <textarea ng-model="item.body" cols="80" rows="40"></textarea>
+      </div>
+      <div class="controls">
+        <button class="button">{{new_item ? "Create" : "Update"}} {{collection.singular}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="preview">
+
+  </div>
+</div>

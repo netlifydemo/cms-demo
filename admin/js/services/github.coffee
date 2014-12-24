@@ -1,10 +1,8 @@
----
----
-
-angular.module('cmsApp').service 'Github', ["$http", ($http) ->
+angular.module('cmsApp').service 'Github', ($http) ->
   ENDPOINT = "https://api.github.com/"
   REPO = "biilmann/timespace.dk"
-  GithubToken = null
+  BRANCH = "cms"
+  GithubToken = localStorage.getItem("gh_token")
 
   request = (method, path, config, cb) ->
     headers = {"Authorization": "token #{GithubToken}"}
@@ -21,7 +19,12 @@ angular.module('cmsApp').service 'Github', ["$http", ($http) ->
 
   {
     hasToken: -> !!GithubToken
-    setToken: (token) -> GithubToken = token
+    setToken: (token) ->
+      GithubToken = token
+      localStorage.setItem("gh_token", token)
+    removeToken: ->
+      GithubToken = null
+      localStorage.removeItem("gh_token")
     
     repo_branches: (cb) ->
       request("get", "repos/#{REPO}/branches", {}, cb)
@@ -29,8 +32,26 @@ angular.module('cmsApp').service 'Github', ["$http", ($http) ->
     repo_contents: (cb) ->
       request("get", "repos/#{REPO}/contents/", {}, cb)
 
+    repo_file_info: (options, cb) ->
+      request("get", "repos/#{REPO}/contents/#{options.path}", {
+        params: {ref: BRANCH}
+      }, cb)
+
     repo_file: (options, cb) ->
-      "application/vnd.github.VERSION.raw"
-      request("get", "repos/#{REPO}/contents/#{options.path}", {headers: {"Accept": "application/vnd.github.VERSION.raw"}, transformResponse: angular.identity}, cb)
+      request("get", "repos/#{REPO}/contents/#{options.path}", {
+        headers: {"Accept": "application/vnd.github.VERSION.raw"},
+        transformResponse: angular.identity,
+        params: {ref: BRANCH}
+      }, cb)
+
+    update_file: (options, cb) ->
+      console.log "Updating file %o", options
+      request("put", "repos/#{REPO}/contents/#{options.path}", {
+        data: {
+          message: options.message
+          content: btoa(options.content) # Base64 encode content
+          sha: options.sha
+          branch: BRANCH
+        }
+      }, cb)
   }
-]

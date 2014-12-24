@@ -1,14 +1,9 @@
----
----
-
 angular
   .module('cmsApp', [
     'ngRoute'
   ])
-  .config ["$routeProvider", "$locationProvider", "$httpProvider", "$provide", ($routeProvider, $locationProvider, $httpProvider, $provide) ->
+  .config ($routeProvider, $locationProvider, $httpProvider, $provide) ->
     console.log "Helloooo"
-    window.NETLIFY_CFG = {api_base: "http://api.netlify.lo/api/v1/"}
-
     netlify.configure({site_id: "consultant-geraldine-65480.netlify.lo"})
 
     $locationProvider.html5Mode({enabled: true, requireBase: false})
@@ -17,23 +12,23 @@ angular
       .when '/admin/',
         templateUrl: "/admin/views/index.html"
         controller: "CMSCtrl"
+      .when '/admin/:collection/new',
+        templateUrl: "/admin/views/new.html"
+        controller: "CMSCtrl"
+      .when '/admin/:collection/:slug/edit',
+        templateUrl: "/admin/views/new.html"
+        controller: "CMSCtrl"
       .when '/admin/login',
         templateUrl: "/admin/views/login.html"
         controller: "LoginCtrl"
         public: true
+      .when '/admin/logout',
+        resolve: {logout: ["Github", (Github) -> Github.removeToken()]}
+        redirectTo: '/login'
       .otherwise
         redirectTo: '/admin/'
-  ]
-  .run ["$rootScope", "$location", ($rootScope, $location) ->
-    console.log "running"
-    loadUser = ->
-      json = localStorage && localStorage.getItem("user")
-
+  .run ($rootScope, $location, Github) ->
     $rootScope.$on "$routeChangeStart", (event, next, current) ->
-      loadUser() unless $rootScope.user
-
-    unless $rootScope.user || (next? && next.$$route.public)
-      $rootScope.site = null
-      $rootScope.return_to = $location.path
-      $location.path("/admin/login")
-  ]
+      console.log "Github has token: %o", Github.hasToken()
+      unless Github.hasToken() || (next? && next.$$route.public)
+        $location.path("/admin/login")

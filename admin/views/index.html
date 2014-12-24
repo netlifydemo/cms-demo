@@ -1,1 +1,25 @@
-<h1>Hello</h1>
+<div class="body narrow">
+  <div class="section courses">
+    <div class="pull-left meta rtl">
+      <h2>Add new content</h2>
+    </div>
+    <ul class="no-bullets">
+      <li ng-repeat="collection in collections | filter:{create:true}">
+        <h3>
+          <a ng-href="/admin/{{collection.slug}}/new">New {{collection.singular}}</a>
+        </h3>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section publications">
+    <div class="pull-left meta rtl">
+      <h2>Edit existing content</h2>
+    </div>
+    <ul class="no-bullets">
+      <li>
+        <h3><a ng-href="/admin/articles/2014-12-18-The_Neurosciences_and_Music_An_Overview_and_Discussion/edit">Nothing here yet <small>waaaa</small></a></h3>
+      </li>
+    </ul>
+  </div>
+</div>

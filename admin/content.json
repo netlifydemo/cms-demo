@@ -1,0 +1,38 @@
+---
+---
+{
+  "articles": [
+    {% for article in site.articles %}
+    {
+      "title": {{ article.title | json }},
+      "subtitle": {{ article.subtitle | json }},
+      "full_title": {{ article.full_title | json }},
+      "bib": {{ article.bib | markdownify | json }},
+      "links": {{ article.links | markdownify | json }},
+      "date": {{ article.date | json }},
+      "body": {{ article.content | markdownify | json }}
+    }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ],
+  "courses": [
+    {% for course in site.courses %}
+    {
+      "title": {{ course.title | json }},
+      "info": {{ course.info | json }},
+      "body": {{ course.content | markdownify | json }}
+    }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ],
+  "books": [
+    {% for book in site.books %}
+    {
+      "title": {{ book.title | json }},
+      "info": {{ book.info | json }},
+      "subtitle": {{ book.subtitle | json }},
+      "full_title": {{ book.full_title | json }},
+      "bib": {{ book.bib | markdownify | json }},
+      "body": {{ book.content | markdownify | json }}
+    }{% if forloop.last == false %},{% endif %}
+    {% endfor %}
+  ]
+}
