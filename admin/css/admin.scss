@@ -4,3 +4,25 @@
 [ng-click] {
   cursor: pointer;
 }
+
+.widget {
+}
+.form-control, .preview {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+}
+.form-control {
+  padding-right: 20px;
+  margin-bottom: 20px;
+}
+.markdown {
+  min-height: 10em;
+}
+.preview {
+  padding-left: 20px;
+  border-left: 1px solid;
+}
+.preview h1 {
+  margin: 0
+}

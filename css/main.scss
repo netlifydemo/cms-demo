@@ -441,6 +441,9 @@ html, body {
   margin: 0 auto;
   padding: 0 $size-l;
 }
+.no-max-width {
+  max-width: none;
+}
 
 .container,
 .body,
