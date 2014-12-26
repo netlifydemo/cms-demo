@@ -1,9 +1,14 @@
 <div class="container no-max-width">
-  <div class="loader" ng-show="loading">
+  <div class="loader meta" ng-show="loading">
     <h2>Loading {{collection.singular}}</h2>
   </div>
 
   <form ng-submit="save()" ng-hide="loading" class="cms-form">
+    <div class="widget meta">
+      <div class="form-control"><h2>{{new_item ? "Create" : "Edit"}} {{collection.singular}}</h2></div>
+      <div class="preview"><h2>Preview {{collection.singular}}</h2></div>
+    </div>
+
     <cms-widget field="field" item="item" ng-repeat="field in collection.fields"></cms-widget>
     <div class="controls">
       <button class="button" ng-disabled="saving">

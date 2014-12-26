@@ -19,10 +19,10 @@ angular.module('cmsApp').service 'Collections', ->
       folder: "_articles"
       create: true
       fields: [
-        {label: "Title", name: "title", widget: "title"}
-        {label: "Subtitle", name: "subtitle", widget: "string"}
-        {label: "Full Title", name: "full_title", widget: "string"}
-        {label: "Bibliography entry", name: "bib", widget: "markdown_string"}
+        {label: "Title", name: "title", widget: "string", tagname: "h1"}
+        {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h3"}
+        {label: "Full Title", name: "full_title", widget: "string", tagname: "h3"}
+        {label: "Bibliography entry", name: "bib", widget: "markdown_string", class: "condensed"}
         {label: "Links", name: "links", widget: "links"}
         {label: "Article Abstract", name: "body", widget: "markdown"}
       ]
@@ -33,12 +33,22 @@ angular.module('cmsApp').service 'Collections', ->
       singular: "Book"
       folder: "_books"
       fields: [
-        {label: "Title", name: "title", widget: "title"}
-        {label: "Subtitle", name: "subtitle", widget: "string"}
-        {label: "Full Title", name: "full_title", widget: "string"}
-        {label: "Bibliography entry", name: "bib", widget: "markdown_string"}
+        {label: "Title", name: "title", widget: "string", tagname: "h1"}
+        {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h3"}
+        {label: "Full Title", name: "full_title", widget: "string", tagname: "h3"}
+        {label: "Bibliography entry", name: "bib", widget: "markdown_string", class: "condensed"}
         {label: "Image", name: "image", widget: "image", folder: "images"}
         {label: "Book Abstract", name: "body", widget: "markdown"}
+      ]
+    },
+    {
+      slug: "pages"
+      label: "Pages"
+      singular: "Page"
+      folder: "pages"
+      fields: [
+        {label: "Title", name: "title", widget: "string", tagname: "h1"}
+        {label: "Body Text", name: "body", widget: "markdown"}
       ]
     }
   ]

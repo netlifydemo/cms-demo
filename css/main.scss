@@ -520,7 +520,6 @@ html, body {
     height: 100%;
     background: $color-black url(../img/vela-bg-lightroom.jpg) no-repeat center top;
     background-size: cover;
-    opacity: 0.8;
   }
 
   .section {
@@ -887,6 +886,7 @@ html, body {
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
     /* Style adjustments for high resolution devices */
+
 }
 
 /* ==========================================================================

@@ -6,7 +6,7 @@
     <ul class="no-bullets">
       <li ng-repeat="collection in collections | filter:{create:true}">
         <h3>
-          <a ng-href="/admin/{{collection.slug}}/new">New {{collection.singular}}</a>
+          <a ng-href="/admin/{{collection.slug}}/new">New {{collection.singular}} <small>Add a new {{collection.singular}} to your website</small></a>
         </h3>
       </li>
     </ul>
@@ -14,12 +14,46 @@
 
   <div class="section publications">
     <div class="pull-left meta rtl">
-      <h2>Edit existing content</h2>
+      <h2>Edit Existing Courses</h2>
     </div>
     <ul class="no-bullets">
-      <li>
-        <h3><a ng-href="/admin/articles/2014-12-18-The_Neurosciences_and_Music_An_Overview_and_Discussion/edit">Nothing here yet <small>waaaa</small></a></h3>
+      <li ng-repeat="course in sitemap.courses">
+        <h3><a ng-href="/admin/courses/{{course.slug}}/edit">{{course.title}} <small>{{course.info}}</small></a></h3>
       </li>
     </ul>
   </div>
+
+  <div class="section publications">
+    <div class="pull-left meta rtl">
+      <h2>Edit Existing Articles</h2>
+    </div>
+    <ul class="no-bullets">
+      <li ng-repeat="article in sitemap.articles">
+        <h3><a ng-href="/admin/articles/{{article.slug}}/edit">{{article.title}} <small>{{article.subtitle}}</small></a></h3>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section publications">
+    <div class="pull-left meta rtl">
+      <h2>Edit Books</h2>
+    </div>
+    <ul class="no-bullets">
+      <li ng-repeat="book in sitemap.books">
+        <h3><a ng-href="/admin/books/{{book.slug}}/edit">{{book.title}} <small>{{book.subtitle}}</small></a></h3>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section publications">
+    <div class="pull-left meta rtl">
+      <h2>Edit Pages</h2>
+    </div>
+    <ul class="no-bullets">
+      <li>
+        <h3><a ng-href="/admin/pages/about/edit">About Page <small>Bio and contact info</small></a></h3>
+      </li>
+    </ul>
+  </div>
+
 </div>
