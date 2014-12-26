@@ -22,11 +22,9 @@
 @include font-face('alegreya-web', 'Alegreya_regular', normal, normal);
 @include font-face('alegreya-web', 'Alegreya_italic', italic, normal);
 @include font-face('alegreya-web', 'Alegreya_700', normal, bold);
-@include font-face('alegreya-web', 'Alegreya_700italic', italic, bold);
 @include font-face('montserrat-web', 'Montserrat_regular', normal, normal);
-@include font-face('montserrat-web', 'Montserrat_700', normal, bold);
 @include font-face('tenso-web', 'Tenso_regular', normal, normal);
-@include font-face('univers-web', 'Univers_LT_55_Roman', normal, normal);
+@include font-face('dropcap', 'dropcap', normal, normal);
 
 
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
@@ -135,7 +133,7 @@ $color-link: #d40000;
 $font-family-serif: 'alegreya-web', serif; 
 $font-family-sans-serif: 'montserrat-web', sans-serif;
 $font-family-condensed: 'tenso-web', sans-serif;
-$font-family-dropcap: 'univers-web', 'montserrat-web', sans-serif;
+$font-family-dropcap: 'dropcap', 'montserrat-web', sans-serif;
 
 $base-font-size-serif: 20px/16px + 0em;
 $base-font-size-sans-serif: 1em / $base-font-size-serif + 0em; // 16px
@@ -252,9 +250,19 @@ a, a:visited {
   }
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   a, a:visited {
     color: inherit;
+
+    span:after {
+      content: " »";
+      color: $color-link;
+      font-weight: normal;
+    }
+    
+    .no-touch &:hover span:after {
+      color: $color-text;
+    }
   }
 }
 

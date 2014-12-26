@@ -7,7 +7,7 @@ title: Courses
   <ul class="no-bullets">
     {% for course in site.courses | sort: ‘date’, ‘last’ %}
       <li>
-        <h3><a href="{{course.url}}">{{course.title}}
+        <h3><a href="{{course.url}}"><span>{{course.title}}</span>
           <small>{{course.subtitle | default: course.info | markdownify | strip_html %}}</small></a></h4>
       </li>
     {% endfor %}
