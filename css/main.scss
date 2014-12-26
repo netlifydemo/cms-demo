@@ -259,6 +259,14 @@ h1, h2, h3, h4, h5, h6 {
       color: $color-link;
     }
     
+    span small {
+      display: inline;
+      &:before {
+        content: "";
+        display: block;
+      }
+    }
+    
     .no-touch &:hover span:after {
       color: $color-text;
     }
