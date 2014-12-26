@@ -23,7 +23,7 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
   parseContent = (content) ->
     match = content.match(regexp)
     item = jsyaml.safeLoad(match[1])
-    item.body = match[2]
+    item.body = (match[2] || "").replace(/^\n+/, '')
     item
 
   generateContent = (item) ->
