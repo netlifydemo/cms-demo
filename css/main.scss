@@ -255,9 +255,8 @@ h1, h2, h3, h4, h5, h6 {
     color: inherit;
 
     span:after {
-      content: " »";
+      content: " ›";
       color: $color-link;
-      font-weight: normal;
     }
     
     .no-touch &:hover span:after {
