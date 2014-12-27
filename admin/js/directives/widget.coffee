@@ -136,7 +136,7 @@ angular.module('cmsApp')
           scope.insertLink()
 
     template: '''
-    <div class="markdown-editor">
+    <div class="markdown-editor"">
       <div class="markdown-label">
         <label>{{label}}</label>
       </div>

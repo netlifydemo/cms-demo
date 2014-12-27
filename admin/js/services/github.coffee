@@ -49,7 +49,7 @@ angular.module('cmsApp').service 'Github', ($http) ->
       request("put", "repos/#{REPO}/contents/#{options.path}", {
         data: {
           message: options.message
-          content: btoa(options.content) # Base64 encode content
+          content: Base64.encode(options.content)
           sha: options.sha
           branch: BRANCH
         }
