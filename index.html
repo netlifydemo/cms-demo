@@ -11,7 +11,7 @@ home: true
       <ul class="no-bullets">
         {% for post in site.courses | sort: ‘date’, ‘last’ limit:5 %}
           <li>
-            <h3><a href="{{post.url}}"><span>{{post.title}}
+            <h3><a href="{{post.url}}"><span class="chevron">{{post.title}}
               <small>{{post.subtitle | default: post.info | markdownify | strip_html %}}</small></span></a></h3>
           </li>
         {% endfor %}
@@ -28,7 +28,7 @@ home: true
       <ul class="no-bullets">
         {% for post in site.articles | sort: ‘date’, ‘last’ limit:5 %}
           <li>
-            <h3><a href="{{post.url}}"><span>{{post.title}}{%if post.subtitle %} <small>{{post.subtitle}}</small>{% endif %}</span></a></h3>
+            <h3><a href="{{post.url}}"><span class="chevron">{{post.title}}{%if post.subtitle %} <small>{{post.subtitle}}</small>{% endif %}</span></a></h3>
           </li>
         {% endfor %}
       </ul>

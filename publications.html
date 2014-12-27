@@ -13,7 +13,7 @@ title: Publications
       <li>
         <h3>
           <a href="{{book.url}}">
-            <span>{{ book.full_title | default: book.title }}</span>
+            <span class="chevron">{{ book.full_title | default: book.title }}</span>
             {% if book.bib %}
             <small>
               {{ book.bib | markdownify | strip_p }}
@@ -40,7 +40,7 @@ title: Publications
         <li>
           <h3>
             <a href="{{article.url}}">
-              <span>{{article.full_title | default: article.title }}</span>
+              <span class="chevron">{{article.full_title | default: article.title }}</span>
               {% if article.bib %}
               <small>
                 {{ article.bib | markdownify | strip_p }}
