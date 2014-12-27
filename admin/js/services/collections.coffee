@@ -8,7 +8,7 @@ angular.module('cmsApp').service 'Collections', ->
       create: true
       fields: [
         {label: "Title", name: "title", widget: "title"}
-        {label: "Course Info", name: "info", widget: "markdown_string"}
+        {label: "Course Info", name: "info", widget: "markdown_string", class: "meta"}
         {label: "Course Description", name: "body", widget: "markdown"}
       ]
     },

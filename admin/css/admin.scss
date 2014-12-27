@@ -23,8 +23,12 @@
   padding-right: 20px;
   margin-bottom: 20px;
 }
-.markdown {
-  min-height: 10em;
+.markdown-label, .markdown-menu {
+  float: left;
+  width: 50%;
+}
+.markdown-menu {
+  text-align: right;
 }
 .preview {
   padding-left: 20px;

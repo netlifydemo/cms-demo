@@ -30,9 +30,10 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
     content = "---\n"
     meta = {}
     for field in $scope.collection.fields
-      meta[field.name] = item[field.name]
+      meta[field.name] = field.value unless field.name == "body"
+      item[field.name] = field.value
     content += jsyaml.safeDump(meta)
-    content += "---\n"
+    content += "---\n\n"
     content += item.body
     content
 
@@ -50,8 +51,6 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
     Github.repo_file {path: filePath()}, (content) ->
       $scope.item = parseContent(content)
       $scope.loading = false
-      Github.repo_file_info {path: filePath()}, (info) ->
-        $scope.item.$sha = info.sha
   else
     $rootScope.action = if $routeParams.collection then "New #{$scope.collection.singular}" else null
     $scope.new_item = true
@@ -59,17 +58,19 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
 
   $scope.save = ->
     $scope.saving = true
+
     Deploy.withTimestamp ->
       content = generateContent($scope.item)
-      Github.update_file {
-        path: filePath()
-        message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
-        content: content,
-        sha: $scope.item.$sha
-      }, ->
-        $scope.saving = false
-        $scope.deploying = true
-        Deploy.waitForDeploy ->
-          console.log "Site deployed"
-          $scope.deploying = false
+      Github.repo_file_info {path: filePath()}, (info) ->
+        Github.update_file {
+          path: filePath()
+          message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
+          content: content,
+          sha: info.sha
+        }, ->
+          $scope.saving = false
+          $scope.deploying = true
+          Deploy.waitForDeploy ->
+            console.log "Site deployed"
+            $scope.deploying = false
       

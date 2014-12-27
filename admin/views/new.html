@@ -9,7 +9,7 @@
       <div class="preview"><h2>Preview {{collection.singular}}</h2></div>
     </div>
 
-    <cms-widget field="field" item="item" ng-repeat="field in collection.fields"></cms-widget>
+    <cms-widget ng-class="meta" field="field" item="item" ng-repeat="field in collection.fields"></cms-widget>
     <div class="controls">
       <button class="button" ng-disabled="saving">
         <span ng-hide="saving">{{new_item ? "Create" : "Update"}} {{collection.singular}}</span>

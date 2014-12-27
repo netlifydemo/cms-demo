@@ -1,7 +1,6 @@
 angular
   .module('cmsApp', [
     'ngRoute'
-    'monospaced.elastic'
   ])
   .config ($routeProvider, $locationProvider, $httpProvider, $provide) ->
     console.log "Helloooo"

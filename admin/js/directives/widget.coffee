@@ -7,7 +7,9 @@ angular.module('cmsApp')
       restrict: 'E'
       replace: true
       link: (scope, element, attrs) ->
-        console.log "Got linked to %o with scope %o and attrs: %o", element, scope, attrs
+        scope.$watch "item.#{scope.field.name}", ->
+          scope.field.value = scope.item[scope.field.name]
+
         scope.getTemplateUrl = (preview) ->
           "/admin/views/widgets/#{scope.field.widget}#{if preview then "_preview" else ""}.html"
       template: 
@@ -30,25 +32,128 @@ angular.module('cmsApp')
       scope:
         name: "="
         class: "="
-      # compile: (cEl, cAttrs, transclude) ->
-      #   console.log "Compiling: %o, %o", element, attrs
-      #   (scope, element, attrs) ->
-
-      #     element.replaceWith($compile("<#{scope.name} class='#{scope.class || ''}' ng-transclude><#{scope.name}>")(scope))
-          
-      #     console.log "Linking %o", scope
       link: (scope, element, attrs, _, transclude) ->
         el = document.createElement(scope.name || "div")
         el.className = scope.className if scope.className
         transclude scope.$parent, (clone) ->
-          console.log "Got clone: %o", clone
           for node in clone
             el.appendChild(node)
           element.replaceWith(el)
-      #   console.log "TF: %o", transclude, scope
-      #   element.replaceWith($compile("<#{scope.name} class='#{scope.class || ''}' ng-transclude><#{scope.name}>")(scope))
       template: "<ng-transclude></ng-transclude>"
     }
+  .directive 'markdownEditor', ($timeout) ->
+    restrict: 'E'
+    replace: true
+    scope:
+      ngModel: "="
+      label: "="
+    link: (scope, element, attrs) ->
+      textarea = element.find("textarea")[0]
+
+      autoGrow = ->
+        $timeout ->
+          if textarea.scrollHeight > textarea.clientHeight
+            textarea.style.height = textarea.scrollHeight + "px"
+      scope.$watch "ngModel", autoGrow
+
+      getSelection = ->
+        start = textarea.selectionStart
+        end   = textarea.selectionEnd
+        {
+          start: start
+          end: end
+          selected: scope.ngModel.substr(start, end - start)
+        }
+
+      setSelection = (selection) ->
+        $timeout ->
+          textarea.selectionStart = selection.start
+          textarea.selectionEnd = selection.end
+          textarea.focus()        
+
+      withSelection = (cb) ->
+        selection = getSelection()
+        newSelection = cb(selection.start, selection.end, selection.selected)
+        setSelection(newSelection)
+
+      scope.bold = ->
+        withSelection (start, end, selected) ->
+          if selected.match(/^\*\*.+\*\*$/)
+            bolded = selected.substr(2,selected.length - 4)
+          else if scope.ngModel.substr(start-2,2) == "**" && scope.ngModel.substr(end,2) == "**"
+            start = start-2
+            end = end+2
+            bolded = selected
+          else
+            bolded = "**#{selected}**"
+
+          before = scope.ngModel.substr(0, start)
+          after  = scope.ngModel.substr(end)
+
+          scope.ngModel = before + bolded + after
+          {start: start, end: start + bolded.length}
+        
+      scope.em = ->
+        withSelection (start, end, selected) ->
+          if selected.match(/^\*.+\*$/)
+            em = selected.substr(1,selected.length - 2)
+          else if scope.ngModel.substr(start-1,1) == "*" && scope.ngModel.substr(end,2) == "*"
+            start = start-1
+            end = end+1
+            em = selected
+          else
+            em = "*#{selected}*"
+
+          before = scope.ngModel.substr(0, start)
+          after  = scope.ngModel.substr(end)
+
+          scope.ngModel = before + em + after
+          {start: start, end: start + em.length}
+
+      scope.link = ->
+        return if scope.linking
+        input = element[0].querySelector(".markdown-link-url")
+        scope.linkObj = {selection: getSelection()}
+        scope.linking = true
+        $timeout -> input.focus()
+
+      scope.insertLink = ->
+        return unless scope.linking
+        scope.linking = false
+        return unless scope.linkObj.url
+
+        selection = scope.linkObj.selection
+        link = "[#{selection.selected || scope.linkObj.url}](#{scope.linkObj.url})"
+        before = scope.ngModel.substr(0, selection.start)
+        after  = scope.ngModel.substr(selection.end)
+
+        scope.ngModel = before + link + after
+        setSelection(start: selection.start, end: selection.start + link.length)
+
+      scope.linkKey = (e) ->
+        if e.keyCode == 13 # Enter
+          e.preventDefault()
+          scope.insertLink()
+
+    template: '''
+    <div class="markdown-editor">
+      <div class="markdown-label">
+        <label>{{label}}</label>
+      </div>
+      <div class="markdown-menu">
+        <a ng-click="bold()">Bold</a>
+        <a ng-click="em()">Italics</a>
+        <a ng-click="link()">Link</a>
+      </div>
+      <div class="markdown-link-box clearfix" ng-show="linking">
+        <input class="markdown-link-url" ng-model="linkObj.url" placeholder="https://www.netlify.com" ng-blur="insertLink()" ng-keypress="linkKey($event)">
+      </div>
+      <div class="mardown-body">
+        <textarea ng-model="ngModel" style="overflow: hidden;">
+      </div>
+    </div>
+    '''
+
   .provider 'markdown', ->
     opts = {}
     {
