@@ -22,11 +22,9 @@
 @include font-face('alegreya-web', 'Alegreya_regular', normal, normal);
 @include font-face('alegreya-web', 'Alegreya_italic', italic, normal);
 @include font-face('alegreya-web', 'Alegreya_700', normal, bold);
-@include font-face('alegreya-web', 'Alegreya_700italic', italic, bold);
 @include font-face('montserrat-web', 'Montserrat_regular', normal, normal);
-@include font-face('montserrat-web', 'Montserrat_700', normal, bold);
 @include font-face('tenso-web', 'Tenso_regular', normal, normal);
-@include font-face('univers-web', 'Univers_LT_55_Roman', normal, normal);
+@include font-face('dropcap', 'dropcap', normal, normal);
 
 
 /*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
@@ -135,7 +133,7 @@ $color-link: #d40000;
 $font-family-serif: 'alegreya-web', serif; 
 $font-family-sans-serif: 'montserrat-web', sans-serif;
 $font-family-condensed: 'tenso-web', sans-serif;
-$font-family-dropcap: 'univers-web', 'montserrat-web', sans-serif;
+$font-family-dropcap: 'dropcap', 'montserrat-web', sans-serif;
 
 $base-font-size-serif: 20px/16px + 0em;
 $base-font-size-sans-serif: 1em / $base-font-size-serif + 0em; // 16px
@@ -252,9 +250,26 @@ a, a:visited {
   }
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
   a, a:visited {
     color: inherit;
+
+    span:after {
+      content: " ›";
+      color: $color-link;
+    }
+    
+    span small {
+      display: inline;
+      &:before {
+        content: "";
+        display: block;
+      }
+    }
+    
+    .no-touch &:hover span:after {
+      color: $color-text;
+    }
   }
 }
 
@@ -478,7 +493,13 @@ html, body {
   right: 0;
 }
 
-.header, 
+.header,
+.footer {
+  .container {
+    max-width: none;
+  }
+}
+
 .footer {
   background-color: $color-black;
   color: $color-white;
@@ -493,18 +514,11 @@ html, body {
       color: $color-link;
     }
   }
-  
-  .container {
-    max-width: none;
-  }
 }
 
 .header {
   text-transform: uppercase;
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: $color-bg;
-  border-width: 0 $size-l;
+  background: $color-bg;
   
   &.fullscreen {
     border-right: 0;
@@ -515,10 +529,10 @@ html, body {
     display: block;
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: $size-l;
+    right: 0;
     height: 100%;
-    background: $color-black url(../img/vela-bg-lightroom.jpg) no-repeat center top;
+    background: url(../img/vela-bg-lightroom.jpg) no-repeat center top;
     background-size: cover;
   }
 
@@ -548,7 +562,7 @@ html, body {
   }
 
   .container {
-    padding-left: 0;
+    padding-right: 3em;
   }
   
   .fullscreen & {
@@ -557,6 +571,11 @@ html, body {
     left: 0;
     right: 0;
     z-index: 1;
+    border-bottom: 0;
+    
+    .container {
+      padding-right: $size-l;
+    }
   }
 }
 
@@ -644,7 +663,7 @@ html, body {
   font-size: 1em;
   position: absolute;
   top: -$size-s;
-  right: 0;
+  right: 1em;
   
   .fullscreen & {
     display: none;
@@ -679,9 +698,8 @@ html, body {
 }
 
 .main {
-  margin: 1em 0 $size-3xl;
+  margin: 0 0 $size-2xl;
   overflow: hidden;
-  min-height:53%;
   
   h1, h2, h3, h4, h5, h6 {
     a {
@@ -879,6 +897,26 @@ html, body {
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+}
+
+@media only screen and (max-width: 60em) {
+  .body,
+  .body.narrow {
+    margin-left: 10em;
+
+    .pull-left {
+      width: 8em;
+      margin-left: -8em;
+      
+      img {
+        width: 100%;
+      }
+    }
+  }
+  body.contact .main {
+    margin-top: 2em;
+    margin-bottom: 6em;
+  }
 }
 
 @media print,
