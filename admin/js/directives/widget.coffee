@@ -33,12 +33,18 @@ angular.module('cmsApp')
         name: "="
         class: "="
       link: (scope, element, attrs, _, transclude) ->
-        el = document.createElement(scope.name || "div")
-        el.className = scope.className if scope.className
+        tags = (scope.name || "div").split(" ")
+        topLevel = document.createElement(tags.shift())
+        topLevel.className = scope.className if scope.className
+        el = topLevel
+        while tagname = tags.shift()
+          innerEl = document.createElement(tagname)
+          el.appendChild(innerEl)
+          el = innerEl
         transclude scope.$parent, (clone) ->
           for node in clone
             el.appendChild(node)
-          element.replaceWith(el)
+          element.replaceWith(topLevel)
       template: "<ng-transclude></ng-transclude>"
     }
   .directive 'markdownEditor', ($timeout) ->
@@ -111,24 +117,28 @@ angular.module('cmsApp')
           {start: start, end: start + em.length}
 
       scope.link = ->
-        return if scope.linking
+        return scope.linking = false if scope.linking
+
         input = element[0].querySelector(".markdown-link-url")
         scope.linkObj = {selection: getSelection()}
         scope.linking = true
         $timeout -> input.focus()
 
       scope.insertLink = ->
-        return unless scope.linking
-        scope.linking = false
-        return unless scope.linkObj.url
-
         selection = scope.linkObj.selection
-        link = "[#{selection.selected || scope.linkObj.url}](#{scope.linkObj.url})"
-        before = scope.ngModel.substr(0, selection.start)
-        after  = scope.ngModel.substr(selection.end)
+        
+        if scope.linkObj.url
+          scope.linking = false
+          link = "[#{selection.selected || scope.linkObj.url}](#{scope.linkObj.url})"
+          before = scope.ngModel.substr(0, selection.start)
+          after  = scope.ngModel.substr(selection.end)
 
-        scope.ngModel = before + link + after
-        setSelection(start: selection.start, end: selection.start + link.length)
+          scope.ngModel = before + link + after
+          end = selection.start + link.length
+        else
+          end = selection.end
+
+        setSelection(start: selection.start, end: end)
 
       scope.linkKey = (e) ->
         if e.keyCode == 13 # Enter
@@ -141,9 +151,9 @@ angular.module('cmsApp')
         <label>{{label}}</label>
       </div>
       <div class="markdown-menu">
-        <a ng-click="bold()">Bold</a>
-        <a ng-click="em()">Italics</a>
-        <a ng-click="link()">Link</a>
+        <a ng-click="bold()" class="markdown-menu-icon markdown-icon-bold">Bold</a>
+        <a ng-click="em()" class="markdown-menu-icon markdown-icon-italic">Italic</a>
+        <a ng-click="link()" class="markdown-menu-icon markdown-icon-link">Link</a>
       </div>
       <div class="markdown-link-box clearfix" ng-show="linking">
         <input class="markdown-link-url" ng-model="linkObj.url" placeholder="https://www.netlify.com" ng-blur="insertLink()" ng-keypress="linkKey($event)">

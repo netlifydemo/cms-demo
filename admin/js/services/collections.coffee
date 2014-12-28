@@ -20,7 +20,7 @@ angular.module('cmsApp').service 'Collections', ->
       create: true
       fields: [
         {label: "Title", name: "title", widget: "string", tagname: "h1"}
-        {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h3"}
+        {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1 small"}
         {label: "Full Title", name: "full_title", widget: "string", tagname: "h3"}
         {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
         {label: "Links", name: "links", widget: "markdown_string"}
