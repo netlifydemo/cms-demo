@@ -74,17 +74,25 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
                 path: obj.path
                 mode: obj.mode
                 type: obj.type
-                content: fileOrDir.content
+                sha: fileOrDir.sha
               })
             else
               updates.push(@updateTree(obj.sha, obj.path, fileOrDir))
-          else
-            updates.push({
-              path: obj.path
-              mode: obj.mode
-              type: obj.type
-              sha: obj.sha
-            })
+        for filename, data of fileTree when data.hasOwnProperty("content") && !data.added
+          updates.push({
+            path: filename
+            mode: "100644"
+            type: "blob"
+            sha: data.sha
+          })
+
+          # else
+          #   updates.push({
+          #     path: obj.path
+          #     mode: obj.mode
+          #     type: obj.type
+          #     sha: obj.sha
+          #   })
         $q.all(updates).then (updates) ->
           request "post", "repos/#{REPO}/git/trees", {
               data: {
@@ -102,11 +110,21 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
 
       defered.promise
 
+    uploadBlob: (file) ->
+      defered = $q.defer()
+      request "post", "repos/#{REPO}/git/blobs", {
+        data: {content: Base64.encode(file.content), encoding: "base64"}
+      }, (response) ->
+        file.sha = response.sha
+        defered.resolve(file)
+      defered.promise
 
     update_files: (options, cb) ->
       fileTree = {}
       console.log "Got files: %o", options
+      files = []
       for file in options.files 
+        files.push(@uploadBlob(file))
         parts = (part for part in file.path.split("/") when part)
         filename = parts.pop()
         subtree = fileTree
@@ -114,15 +132,16 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
           subtree[part] ||= {}
           subtree = subtree[part]
         subtree[filename] = file
-      console.log "tree: %o", fileTree
-      @repo_branch (branch) =>
-        @updateTree(branch.commit.sha, '/', fileTree).then (changeTree) ->
-          request "post", "repos/#{REPO}/git/commits", {data: {
-            message: options.message
-            tree: changeTree.sha
-            parents: [branch.commit.sha]
-          }}, (response) ->
-            request "patch", "repos/#{REPO}/git/refs/heads/#{BRANCH}", {data: {sha: response.sha}}, (ref) ->
-              cb(ref)
+      $q.all(files).then =>
+        console.log "tree: %o", fileTree
+        @repo_branch (branch) =>
+          @updateTree(branch.commit.sha, '/', fileTree).then (changeTree) ->
+            request "post", "repos/#{REPO}/git/commits", {data: {
+              message: options.message
+              tree: changeTree.sha
+              parents: [branch.commit.sha]
+            }}, (response) ->
+              request "patch", "repos/#{REPO}/git/refs/heads/#{BRANCH}", {data: {sha: response.sha}}, (ref) ->
+                cb(ref)
 
   }
