@@ -4,12 +4,14 @@ title: Courses
 ---
 
 <div class="body">
-  <ul class="no-bullets">
-    {% for course in site.courses | sort: ‘date’, ‘last’ %}
-      <li>
-        <h3><a href="{{course.url}}"><span class="chevron">{{course.title}}</span>
-          <small>{{course.subtitle | default: course.info | markdownify | strip_html %}}</small></a></h4>
-      </li>
-    {% endfor %}
-  </ul>
+  <div class="section">
+    <ul class="no-bullets">
+      {% for course in site.courses | sort: ‘date’, ‘last’ %}
+        <li>
+          <h3><a href="{{course.url}}"><span class="chevron">{{course.title}}</span>
+            <small>{{course.subtitle | default: course.info | markdownify | strip_html %}}</small></a></h4>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>

@@ -608,7 +608,7 @@ html, body {
   
   .masthead {
     float: left;
-    margin-top: $size-l;
+    margin: $size-l 0 0 0;
 
     h1 {
       display: block;
@@ -704,10 +704,6 @@ html, body {
   border-left: 1px solid;
   padding-left: $size-l;
 
-  &.narrow {
-    margin-left: 22em;
-  }
-  
   .pull-left {
     position: relative;
     float: left;
@@ -860,19 +856,27 @@ html, body {
     clear: both;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
 
-@media only screen and (max-width: 60em) {
-  .body,
+@media only screen and (min-width: 60em) {
   .body.narrow {
-    margin-left: 10em;
+    margin-left: 22em;
+  }
+}
+
+@media only screen and (max-width: 50em) {
+  h1 {
+    font-size: 2.618em;
+    margin-top: 3/2.618+0em;
+  }
+  
+  blockquote {
+    margin: $base-line-height*2em $size-l;
   }
   
   .body {
+    margin-left: 10em;
+    margin-right: $size-l;
+
     .pull-left {
       width: 8em;
       margin-left: -8em;
@@ -889,78 +893,11 @@ html, body {
   }
 }
 
-@media only screen and (max-width: 40em) {
-  body {
-    font-size: 1em;
-  }
-  
-  h1 {
-    font-size: 1.618em;
-    letter-spacing: 0;
-    small {
-      font-size: 0.6em;
-    }
-  }
-  
+@media only screen and (max-width: 45em) {
   .container {
     padding: 0 1em;
   }
-  
-  .main {
-    margin: 0;
-  }
-  
-  .content {
-    margin: $size-l 0;
-  }
-  
-  .body,
-  .body.narrow {
-    margin: 0;
-  }
-  
-  .body {
-    padding: 0;
-    border: 0;
-    
-    .pull-left {
-      float: none;
-      width: auto;
-      margin: 0 0 $size-l 0;
-      left: 0;
-      text-align: left;
-      
-      img {
-        width: auto;
-      }
-      
-      &.bottom {
-        position: static;
-      }
-    }
-    
-    .rtl {
-      text-direction: ltr;
-    }
-    
-    .wbr {
-      width: auto;
-    }
-    
-    .section {
-      margin: $size-xs 0;
-      padding-top: $base-line-height + 0em;
-      border-top: 1px solid;
-    }
-  }
-  
-  .meta {
-    h2 {
-      margin-top: 0;
-      margin-bottom: -$size-xs;
-    }
-  }
-   
+
   .footer {
     padding: 0;
     small {
@@ -970,23 +907,19 @@ html, body {
       line-height: $base-line-height;
     }
   }
-   
-  body.contact .main {
-    margin: 0;
-  }
   
   #nav-button {
     right: 1em;
   }
-  
   .masthead {
     display: none;
   }
   
   .fullscreen {
-    background-position: 0;
+    background-position: 1em 0;
     .masthead {
       display: block;
+      float: none;
       margin: 0;
       h6 {
         position: static;
@@ -1020,6 +953,7 @@ html, body {
     }
     .section {
       text-transform: none;
+      padding: 1em 0;
     }
     .bullets {
       li {
@@ -1036,11 +970,87 @@ html, body {
       }
     }
   }
+}
+
+@media only screen and (max-width: 40em) {
+  body {
+    font-size: 1em;
+  }
   
+  h1 {
+    font-size: 1.618em;
+    line-height: 1.2;
+    letter-spacing: 0;
+    small {
+      font-size: 0.7em;
+    }
+  }
+  
+  .main {
+    margin: 0 0 1em;
+    min-height: 80%;
+  }
+  
+  .content {
+    margin: $size-l 0;
+  }
+  
+  .body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    
+    .pull-left {
+      float: none;
+      width: auto;
+      margin: 0 0 $size-l 0;
+      left: 0;
+      text-align: left;
+      
+      img {
+        width: auto;
+        float: left;
+        margin-right: 1em;
+      }
+      
+      &.bottom {
+        position: static;
+      }
+    }
+    
+    .rtl {
+      text-direction: ltr;
+    }
+    
+    .wbr {
+      width: auto;
+    }
+    
+    .section {
+      margin: $size-xs 0;
+      padding-top: $base-line-height + 0em;
+      border-top: 1px solid;
+      &:first-child {
+       border-top: 0;
+      }
+    }
+  }
+  
+  .meta {
+    h2 {
+      margin-top: 0;
+      margin-bottom: -$size-xs;
+    }
+  }
+   
+  .index .body {
+    border-top: 1px solid;
+  }
+ 
   .dropcap {
     > p:first-child:first-letter {
-      font-size: $size-xl;
-      line-height: 1.4;
+      font-size: $size-2xl;
+      line-height: 1;
     }
   }
 }
