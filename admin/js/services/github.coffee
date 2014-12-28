@@ -1,7 +1,7 @@
-angular.module('cmsApp').service 'Github', ($http) ->
+angular.module('cmsApp').service 'Github', ($http, $q) ->
   ENDPOINT = "https://api.github.com/"
   REPO = "biilmann/timespace.dk"
-  BRANCH = "cms"
+  BRANCH = "tree-api"
   GithubToken = localStorage.getItem("gh_token")
 
   request = (method, path, config, cb) ->
@@ -54,4 +54,75 @@ angular.module('cmsApp').service 'Github', ($http) ->
           branch: BRANCH
         }
       }, cb)
+
+    repo_branch: (cb) ->
+      request("get", "repos/#{REPO}/branches/#{BRANCH}", {}, cb)
+
+    repo_tree: (sha, cb) ->
+      request("get", "repos/#{REPO}/git/trees/#{sha}", {}, cb)
+
+
+    updateTree: (sha, path, fileTree) ->
+      defered = $q.defer()
+      @repo_tree sha, (tree) =>
+        updates = []
+        for obj in tree.tree
+          if fileOrDir = fileTree[obj.path]
+            if fileOrDir.content
+              fileOrDir.added = true
+              updates.push({
+                path: obj.path
+                mode: obj.mode
+                type: obj.type
+                content: fileOrDir.content
+              })
+            else
+              updates.push(@updateTree(obj.sha, obj.path, fileOrDir))
+          else
+            updates.push({
+              path: obj.path
+              mode: obj.mode
+              type: obj.type
+              sha: obj.sha
+            })
+        $q.all(updates).then (updates) ->
+          request "post", "repos/#{REPO}/git/trees", {
+              data: {
+                base_tree: sha,
+                tree: updates
+              }
+            }, (response) ->
+              defered.resolve({
+                path: path
+                mode: "040000"
+                type: "tree"
+                sha: response.sha
+              })
+              console.log "Updates: %o", updates
+
+      defered.promise
+
+
+    update_files: (options, cb) ->
+      fileTree = {}
+      console.log "Got files: %o", options
+      for file in options.files 
+        parts = (part for part in file.path.split("/") when part)
+        filename = parts.pop()
+        subtree = fileTree
+        while part = parts.shift()
+          subtree[part] ||= {}
+          subtree = subtree[part]
+        subtree[filename] = file
+      console.log "tree: %o", fileTree
+      @repo_branch (branch) =>
+        @updateTree(branch.commit.sha, '/', fileTree).then (changeTree) ->
+          request "post", "repos/#{REPO}/git/commits", {data: {
+            message: options.message
+            tree: changeTree.sha
+            parents: [branch.commit.sha]
+          }}, (response) ->
+            request "patch", "repos/#{REPO}/git/refs/heads/#{BRANCH}", {data: {sha: response.sha}}, (ref) ->
+              cb(ref)
+
   }

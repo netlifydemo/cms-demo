@@ -61,16 +61,19 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
 
     Deploy.withTimestamp ->
       content = generateContent($scope.item)
-      Github.repo_file_info {path: filePath()}, (info) ->
-        Github.update_file {
-          path: filePath()
-          message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
-          content: content,
-          sha: info.sha
-        }, ->
-          $scope.saving = false
-          $scope.deploying = true
-          Deploy.waitForDeploy ->
-            console.log "Site deployed"
-            $scope.deploying = false
+      Github.update_files {files: [{path: filePath(), content: content}], message: "Updated #{$scope.collection.singular} #{$scope.item.title}"}, ->
+        console.log "Updated"
+        $scope.saving = false
+      # Github.repo_file_info {path: filePath()}, (info) ->
+      #   Github.update_file {
+      #     path: filePath()
+      #     message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
+      #     content: content,
+      #     sha: info.sha
+      #   }, ->
+      #     $scope.saving = false
+      #     $scope.deploying = true
+      #     Deploy.waitForDeploy ->
+      #       console.log "Site deployed"
+      #       $scope.deploying = false
       

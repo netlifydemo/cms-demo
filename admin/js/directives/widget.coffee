@@ -125,6 +125,7 @@ angular.module('cmsApp')
         $timeout -> input.focus()
 
       scope.insertLink = ->
+        return unless scope.linkObj
         selection = scope.linkObj.selection
         
         if scope.linkObj.url
@@ -144,6 +145,8 @@ angular.module('cmsApp')
         if e.keyCode == 13 # Enter
           e.preventDefault()
           scope.insertLink()
+          scope.linkObj.url = ""
+          scope.linkObj = null
 
     template: '''
     <div class="markdown-editor"">
@@ -158,7 +161,7 @@ angular.module('cmsApp')
       <div class="markdown-link-box clearfix" ng-show="linking">
         <input class="markdown-link-url" ng-model="linkObj.url" placeholder="https://www.netlify.com" ng-blur="insertLink()" ng-keypress="linkKey($event)">
       </div>
-      <div class="mardown-body">
+      <div class="markdown-body">
         <textarea ng-model="ngModel" style="overflow: hidden;">
       </div>
     </div>
