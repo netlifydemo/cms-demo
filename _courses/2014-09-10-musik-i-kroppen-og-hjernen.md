@@ -1,8 +1,1 @@
----
-title: Musik i kroppen og hjernen
-info: "5 onsdage kl. 19.15-21. 10/9-8/10. Pris: 440 kr. Folkeuniversitetet i København [www.fukbh.dk](http://www.fukbh.dk/)"
----
-
-## Kursusbeskrivelse
-
-Kurset sætter fokus på den hjerneforskning, der undersøger, hvordan musik aktiverer kroppen, hjernen og nervesystemet. Musik virker direkte på kroppen, den vækker opmærksomhed og følelser, og hele hjernen er aktiv, når vi hører musik. Med billeder af hjernen og mange musikeksempler giver kurset indsigt i musikkens nervebaner og musikkens relationer til lystfølelse, bevægelse, sprog og hukommelse. Ved ph.d. Erik Christensen.
+LS0tCnRpdGxlOiBNdXNpayBpIGtyb3BwZW4gb2cgaGplcm5lbgppbmZvOiAiNSBvbnNkYWdlIGtsLiAxOS4xNS0yMS4gMTAvOS04LzEwLiBQcmlzOiA0NDAga3IuIEZvbGtldW5pdmVyc2l0ZXRldCBpIEvDuGJlbmhhdm4gW3d3dy5mdWtiaC5ka10oaHR0cDovL3d3dy5mdWtiaC5kay8pIgotLS0KCiMjIEt1cnN1c2Jlc2tyaXZlbHNlCgpLdXJzZXQgc8OmdHRlciBmb2t1cyBww6UgZGVuICoqaGplcm5lZm9yc2tuaW5nKiosIGRlciB1bmRlcnPDuGdlciwgaHZvcmRhbiBtdXNpayBha3RpdmVyZXIga3JvcHBlbiwgaGplcm5lbiBvZyBuZXJ2ZXN5c3RlbWV0LiBNdXNpayB2aXJrZXIgZGlyZWt0ZSBww6Uga3JvcHBlbiwgZGVuIHbDpmtrZXIgb3Btw6Zya3NvbWhlZCBvZyBmw7hsZWxzZXIsIG9nIGhlbGUgaGplcm5lbiBlciBha3RpdiwgbsOlciB2aSBow7hyZXIgbXVzaWsuIE1lZCBiaWxsZWRlciBhZiBoamVybmVuIG9nIG1hbmdlIG11c2lrZWtzZW1wbGVyIGdpdmVyIGt1cnNldCBpbmRzaWd0IGkgbXVzaWtrZW5zIG5lcnZlYmFuZXIgb2cgbXVzaWtrZW5zIHJlbGF0aW9uZXIgdGlsIGx5c3Rmw7hsZWxzZSwgYmV2w6ZnZWxzZSwgc3Byb2cgb2cgaHVrb21tZWxzZS4gVmVkIHBoLmQuIEVyaWsgQ2hyaXN0ZW5zZW4u
