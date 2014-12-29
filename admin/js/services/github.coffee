@@ -1,7 +1,7 @@
 angular.module('cmsApp').service 'Github', ($http, $q) ->
   ENDPOINT = "https://api.github.com/"
   REPO = "biilmann/timespace.dk"
-  BRANCH = "tree-api"
+  BRANCH = "image-field"
   GithubToken = localStorage.getItem("gh_token")
 
   request = (method, path, config, cb) ->
@@ -68,7 +68,7 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
         updates = []
         for obj in tree.tree
           if fileOrDir = fileTree[obj.path]
-            if fileOrDir.content
+            if fileOrDir.file
               fileOrDir.added = true
               updates.push({
                 path: obj.path
@@ -78,7 +78,7 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
               })
             else
               updates.push(@updateTree(obj.sha, obj.path, fileOrDir))
-        for filename, data of fileTree when data.hasOwnProperty("content") && !data.added
+        for filename, data of fileTree when data.file && !data.added
           updates.push({
             path: filename
             mode: "100644"
@@ -113,7 +113,10 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
     uploadBlob: (file) ->
       defered = $q.defer()
       request "post", "repos/#{REPO}/git/blobs", {
-        data: {content: Base64.encode(file.content), encoding: "base64"}
+        data: {
+          content: if file.base64 then file.base64() else Base64.encode(file.content)
+          encoding: "base64"
+        }
       }, (response) ->
         file.sha = response.sha
         defered.resolve(file)
@@ -132,6 +135,7 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
           subtree[part] ||= {}
           subtree = subtree[part]
         subtree[filename] = file
+        file.file = true
       $q.all(files).then =>
         console.log "tree: %o", fileTree
         @repo_branch (branch) =>

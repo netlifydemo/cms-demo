@@ -166,15 +166,46 @@ angular.module('cmsApp')
       </div>
     </div>
     '''
-
   .provider 'markdown', ->
     opts = {}
     {
       config: (newOpts) -> opts = newOpts
       $get: -> new Showdown.converter(opts)
     }
- .filter 'markdown', ($sce, markdown) ->
+  .filter 'markdown', ($sce, markdown) ->
     (text) ->
       return '' unless text
       html = markdown.makeHtml(text)
       $sce.trustAsHtml(html)
+  .directive 'mediaSrc', (Media) ->
+    restrict: 'A'
+    scope:
+      mediaSrc: "="
+    link: (scope, element, attr) ->
+      scope.$watch "mediaSrc", (path) ->
+        console.log "Scope: %o element: %o attr: %o", scope, element, attr
+        console.log "Setting src for #{path} to: #{Media.get(path).src}"
+        attr.$set "src", Media.get(path).src
+  .directive 'mediaImage', (Media) ->
+    restrict: 'E'
+    replace: true
+    scope:
+      field: "="
+    link: (scope, element, attrs) ->
+      input = element.find("input")
+      input.on "change", (e) ->
+        file = input[0].files && input[0].files[0]
+        if file
+          Media.add("/" + scope.field.folder + "/" + file.name, file).then (upload) ->
+            scope.field.value = upload.path
+
+    template: '''
+    <div class="media-image">
+      <div class="media-image-upload-box">
+        <button class="button">Choose file...</button> <span class="media-image-path">{{field.value || "No file chosen"}}</span>
+        <input type="file" class="media-image-uploader" title="{{field.value || 'No file chosen'}}">
+      </div>
+    </div>
+    '''
+
+

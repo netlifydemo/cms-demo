@@ -1,5 +1,5 @@
 
-angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams, Github, Deploy, Collections, Content) ->
+angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams, Github, Media, Deploy, Collections, Content) ->
   regexp = /^---\n([^]*?)\n---\n([^]*)$/
   $scope.collections = Collections
   $scope.item = {}
@@ -58,22 +58,17 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
 
   $scope.save = ->
     $scope.saving = true
-
     Deploy.withTimestamp ->
       content = generateContent($scope.item)
-      Github.update_files {files: [{path: filePath(), content: content}], message: "Updated #{$scope.collection.singular} #{$scope.item.title}"}, ->
-        console.log "Updated"
+      uploads = Media.uploads().concat({path: filePath(), content: content})
+      Github.update_files {
+        files: uploads,
+        message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
+      }, ->
+        Media.reset()
         $scope.saving = false
-      # Github.repo_file_info {path: filePath()}, (info) ->
-      #   Github.update_file {
-      #     path: filePath()
-      #     message: "Updated #{$scope.collection.singular} #{$scope.item.title}"
-      #     content: content,
-      #     sha: info.sha
-      #   }, ->
-      #     $scope.saving = false
-      #     $scope.deploying = true
-      #     Deploy.waitForDeploy ->
-      #       console.log "Site deployed"
-      #       $scope.deploying = false
+        # $scope.deploying = true
+        # Deploy.waitForDeploy ->
+        #   console.log "Site deployed"
+        #   $scope.deploying = false
       

@@ -38,7 +38,7 @@ angular.module('cmsApp').service 'Collections', ->
         {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h3"}
         {label: "Full Title", name: "full_title", widget: "string", tagname: "h3"}
         {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
-        {label: "Image", name: "image", widget: "image", folder: "images"}
+        {label: "Image", name: "image", widget: "image", folder: "img/media"}
         {label: "Book Abstract", name: "body", widget: "markdown"}
       ]
     },
