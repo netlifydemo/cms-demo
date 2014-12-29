@@ -167,15 +167,24 @@ angular.module('cmsApp')
     </div>
     '''
   .provider 'markdown', ->
-    opts = {}
+    # marked.setOptions({
+    #   renderer: new marked.Renderer(),
+    #   gfm: true,
+    #   tables: true,
+    #   breaks: false,
+    #   pedantic: false,
+    #   sanitize: true,
+    #   smartLists: true,
+    #   smartypants: false
+    # })
     {
-      config: (newOpts) -> opts = newOpts
-      $get: -> new Showdown.converter(opts)
+      config: (newOpts) -> marked.setOptions(newOpts)
+      $get: -> marked
     }
   .filter 'markdown', ($sce, markdown) ->
     (text) ->
       return '' unless text
-      html = markdown.makeHtml(text)
+      html = markdown(text)
       $sce.trustAsHtml(html)
   .directive 'mediaSrc', (Media) ->
     restrict: 'A'
