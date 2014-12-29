@@ -328,20 +328,23 @@ ul {
     padding: 0;
     max-width: none;
     li {
-      display: inline-block;
-      padding: 0 $size-s;
+      display: inline;
+      padding: 0;
+      margin: 0 $size-s;
     }
   }
 
   &.bullets {
     li {
-      padding-left: 0;
-      padding-right: 0;
+      margin: 0;
     }
     li:before {
       content: '•';
-      display: inline-block;
-      padding: 0 1em;
+      display: inline;
+      margin: 0 1em;
+    }
+    li:first-child:before {
+      display: none;
     }
   }
 }
@@ -406,7 +409,6 @@ blockquote {
 
 /* Forms */
 form {
-  margin: $size-xl auto;
   label {
     @include vertical-rhythm($size-s);
     display: block;
@@ -601,6 +603,7 @@ html, body {
 .fullscreen {
   background: url(../img/vela-bg-lightroom.jpg) no-repeat $size-l;
   background-size: cover;
+  min-height: 30em;
   
   .top-bar {
     border-bottom: 0;
@@ -669,7 +672,8 @@ html, body {
 }
 
 .main {
-  margin: 0 0 $size-2xl;
+  margin: 0 0 $size-l;
+  min-height: 85%;
   overflow: hidden;
   
   h1, h2, h3, h4, h5, h6 {
@@ -733,6 +737,12 @@ html, body {
       * {
         margin-bottom: 0;
       }
+    }
+    
+    &.top {
+      position: absolute;
+      top: 0;
+      left: -$size-l;
     }
   }
   
@@ -856,13 +866,14 @@ html, body {
     clear: both;
 }
 
-
+// 960px or more
 @media only screen and (min-width: 60em) {
   .body.narrow {
     margin-left: 22em;
   }
 }
 
+// 800px or less
 @media only screen and (max-width: 50em) {
   h1 {
     font-size: 2.618em;
@@ -886,31 +897,36 @@ html, body {
       }
     }
   }
+}
 
-  body.contact .main {
-    margin-top: 2em;
-    margin-bottom: 6em;
+// 720px or less
+@media only screen and (max-width: 45em) {
+  body {
+    font-size: 1.125em;
+  }
+  .logo {
+    width: 9em;
   }
 }
 
-@media only screen and (max-width: 45em) {
+// 640px or less
+@media only screen and (max-width: 40em) {
+  h1 {
+    font-size: 2em;
+  }
+
   .container {
     padding: 0 1em;
   }
 
-  .footer {
-    padding: 0;
-    small {
-      float: none !important;
-      margin-left: 0;
-      display: block;
-      line-height: $base-line-height;
-    }
+  .logo {
+    width: 10em;
   }
   
   #nav-button {
     right: 1em;
   }
+  
   .masthead {
     display: none;
   }
@@ -953,44 +969,34 @@ html, body {
     }
     .section {
       text-transform: none;
-      padding: 1em 0;
+      .bullets {
+        li:before {
+          display: none;
+        }
+        li:after {
+          content: ', ';
+        }
+        li:last-child:after {
+          content: '';
+        }
+      }
     }
-    .bullets {
-      li {
-        display: inline;
-      }
-      li:before {
-        display: none;
-      }
-      li:after {
-        content: ", ";
-      }
-      li:last-child:after {
-        content: '';
-      }
+  }
+
+  .footer {
+    padding: 0;
+    small {
+      float: none !important;
+      margin-left: 0;
+      display: block;
+      line-height: $base-line-height;
     }
   }
 }
 
-@media only screen and (max-width: 40em) {
-  body {
-    font-size: 1em;
-  }
-  
-  h1 {
-    font-size: 1.618em;
-    line-height: 1.2;
-    letter-spacing: 0;
-    small {
-      font-size: 0.7em;
-    }
-  }
-  
-  .main {
-    margin: 0 0 1em;
-    min-height: 80%;
-  }
-  
+// 480px or less
+@media only screen and (max-width: 30em) {
+
   .content {
     margin: $size-l 0;
   }
@@ -1013,7 +1019,8 @@ html, body {
         margin-right: 1em;
       }
       
-      &.bottom {
+      &.bottom,
+      &.top {
         position: static;
       }
     }
