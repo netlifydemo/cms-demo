@@ -6,8 +6,6 @@ bib: "Christensen, Erik: *Overt and hidden processes in 20th century music*, Axi
 links:
   - label: Full Document
     url: "https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music"
-  - url: /docs/Intensive.2007.doc
-    label: Intensive Listening
 footer: null
 ---
 
