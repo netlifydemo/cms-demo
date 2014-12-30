@@ -1,7 +1,7 @@
 angular.module('cmsApp').service 'Github', ($http, $q) ->
   ENDPOINT = "https://api.github.com/"
   REPO = "biilmann/timespace.dk"
-  BRANCH = "master"
+  BRANCH = "links"
   GithubToken = localStorage.getItem("gh_token")
 
   request = (method, path, config, cb) ->

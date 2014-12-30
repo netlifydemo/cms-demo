@@ -3,7 +3,9 @@ title: Consciousness, Embodiment and Music Listening
 subtitle: An overview according to the findings of Gerald Edelman, Antonio Damasio and Daniel Stern
 full_title: "Consciousness, Embodiment and Music Listening: An overview according to the findings of Gerald Edelman, Antonio Damasio and Daniel Stern"
 bib: Chapters 6 and 7 from *Music Listening, Music Therapy, Phenomenology and Neuroscience*, PhD Thesis, Aalborg University 2012
-links: "[Full Document](http://www.academia.edu/2514070/Consciousness_Embodiment_and_Music_Listening_An_overview_according_to_the_findings_of_Gerald_Edelman_Antonio_Damasio_and_Daniel_Stern)"
+links:
+  - label: Full Document
+    url: http://www.academia.edu/2514070/Consciousness_Embodiment_and_Music_Listening_An_overview_according_to_the_findings_of_Gerald_Edelman_Antonio_Damasio_and_Daniel_Stern
 date: 2014-12-21
 ---
 

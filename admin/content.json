@@ -6,12 +6,7 @@
     {
       "slug": {{ article.url | replace:'/publications/',''| replace:'.html','' | json}},
       "title": {{ article.title | json }},
-      "subtitle": {{ article.subtitle | json }},
-      "full_title": {{ article.full_title | json }},
-      "bib": {{ article.bib | markdownify | strip_html | json }},
-      "links": {{ article.links | markdownify | strip_html| json }},
-      "date": {{ article.date | json }},
-      "body": {{ article.content | markdownify | strip_html| json }}
+      "subtitle": {{ article.subtitle | json }}
     }{% if forloop.last == false %},{% endif %}
     {% endfor %}
   ],
@@ -20,8 +15,7 @@
     {
       "slug": {{ course.url | replace:'/courses/',''| replace:'.html','' | json}},
       "title": {{ course.title | json }},
-      "info": {{ course.info | markdownify | strip_html | json }},
-      "body": {{ course.content | markdownify | strip_html| json }}
+      "subtitle": {{ course.info | markdownify | strip_html | json }}
     }{% if forloop.last == false %},{% endif %}
     {% endfor %}
   ],
@@ -30,11 +24,7 @@
     {
       "slug": {{ book.url | replace:'/publications/',''| replace:'.html','' | json}},
       "title": {{ book.title | json }},
-      "info": {{ book.info | json }},
-      "subtitle": {{ book.subtitle | json }},
-      "full_title": {{ book.full_title | json }},
-      "bib": {{ book.bib | markdownify | strip_html| json }},
-      "body": {{ book.content | markdownify | strip_html | json }}
+      "subtitle": {{ book.subtitle | json }}
     }{% if forloop.last == false %},{% endif %}
     {% endfor %}
   ]

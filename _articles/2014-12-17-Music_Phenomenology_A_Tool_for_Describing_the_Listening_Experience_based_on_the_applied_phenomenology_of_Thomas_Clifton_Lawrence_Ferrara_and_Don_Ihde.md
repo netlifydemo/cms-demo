@@ -3,7 +3,9 @@ title: Music Phenomenology
 subtitle: A Tool for Describing the Listening Experience based on the applied phenomenology of Thomas Clifton, Lawrence Ferrara and Don Ihde
 full_title: "Music Phenomenology: A Tool for Describing the Listening Experience based on the applied phenomenology of Thomas Clifton, Lawrence Ferrara and Don Ihde"
 bib: Chapter 2 from *Music Listening, Music Therapy, Phenomenology and Neuroscience*, PhD Thesis, Aalborg University 2012
-links: "[Full Document](http://www.academia.edu/2406089/Music_Phenomenology_A_Tool_for_Describing_the_Listening_Experience_based_on_the_applied_phenomenology_of_Thomas_Clifton_Lawrence_Ferrara_and_Don_Ihde)"
+links: 
+  - label: Full Document
+    url: http://www.academia.edu/2406089/Music_Phenomenology_A_Tool_for_Describing_the_Listening_Experience_based_on_the_applied_phenomenology_of_Thomas_Clifton_Lawrence_Ferrara_and_Don_Ihde
 date: 2014-12-17
 ---
 

@@ -1,7 +1,9 @@
 ---
 title: Overt and hidden processes in 20th century music
 bib: "Christensen, Erik: *Overt and hidden processes in 20th century music*, Axiomathes, Springer 2004"
-links: "[Full Document](https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music)"
+links: 
+  - label: Full Document
+    url: https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music
 date: 2014-12-15
 ---
 

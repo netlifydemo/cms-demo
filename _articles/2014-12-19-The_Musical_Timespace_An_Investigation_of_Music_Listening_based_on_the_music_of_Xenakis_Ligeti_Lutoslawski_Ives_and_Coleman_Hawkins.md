@@ -3,7 +3,9 @@ title: The Musical Timespace
 subtitle: An Investigation of Music Listening based on the music of Xenakis, Ligeti, Lutoslawski, Ives and Coleman Hawkins
 full_title: "The Musical Timespace: An Investigation of Music Listening based on the music of Xenakis, Ligeti, Lutoslawski, Ives and Coleman Hawkins"
 bib: Chapter 4 from *Music Listening, Music Therapy, Phenomenology and Neuroscience*, PhD Thesis, Aalborg University 2012
-links: "[Full Document](http://www.academia.edu/2407728/The_Musical_Timespace_An_Investigation_of_Music_Listening_based_on_the_music_of_Xenakis_Ligeti_Lutoslawski_Ives_and_Coleman_Hawkins)"
+links:
+  - label: Full Document
+    url: http://www.academia.edu/2407728/The_Musical_Timespace_An_Investigation_of_Music_Listening_based_on_the_music_of_Xenakis_Ligeti_Lutoslawski_Ives_and_Coleman_Hawkins
 date: 2014-12-19
 ---
 

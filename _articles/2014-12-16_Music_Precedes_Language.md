@@ -3,7 +3,9 @@ title: Music Precedes Language
 subtitle: A comment on Grinde’s article
 full_title: "Music Precedes Language"
 bib: "Christensen, Erik (2000) 'Music Precedes Language', Nordic Journal of Music Therapy,9(2), 32-35.Author’s manuscript. A comment on the article: Grinde, Bjørn (2000) 'A Biological Perspective on Musical Appreciation’, Nordic Journal of Music Therapy, 9(2), 18-27."
-links: "[Full Document](https://www.academia.edu/516211/Music_Precedes_Language)"
+links: 
+  - label: Full Document
+    url: https://www.academia.edu/516211/Music_Precedes_Language
 date: 2014-12-16
 ---
 
