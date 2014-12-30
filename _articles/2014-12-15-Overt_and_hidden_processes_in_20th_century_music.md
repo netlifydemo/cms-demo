@@ -1,10 +1,14 @@
 ---
 title: Overt and hidden processes in 20th century music
+subtitle: null
+full_title: null
 bib: "Christensen, Erik: *Overt and hidden processes in 20th century music*, Axiomathes, Springer 2004"
-links: 
+links:
   - label: Full Document
-    url: https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music
-date: 2014-12-15
+    url: "https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music"
+  - url: /docs/Intensive.2007.doc
+    label: Intensive Listening
+footer: null
 ---
 
 For the purpose of contributing to a clariﬁcation of the term “process”,different kinds of musical processes are investigated: A rule-determined phase shiftingprocess in Steve Reich’s
