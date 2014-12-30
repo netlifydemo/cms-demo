@@ -8,6 +8,14 @@ name: Courses
   <div class="body">
     <div class="pull-left meta">
       {{page.info | markdownify}}
+
+      {% if page.links %}
+        <div class="links">
+          {% for link in page.links %}
+          <p><a href="{{link.url}}">{{link.label}}</a></p>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
     <div class="content">
       {{ content }}

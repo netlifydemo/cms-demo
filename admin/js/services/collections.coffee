@@ -9,6 +9,7 @@ angular.module('cmsApp').service 'Collections', ->
       fields: [
         {label: "Title", name: "title", widget: "title"}
         {label: "Course Info", name: "info", widget: "markdown", class: "meta"}
+        {label: "Links", name: "links", widget: "links", folder: "docs/courses"}
         {label: "Course Description", name: "body", widget: "markdown"}
       ]
     },
@@ -23,7 +24,7 @@ angular.module('cmsApp').service 'Collections', ->
         {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1 small"}
         {label: "Full Title", name: "full_title", widget: "string", tagname: "h3"}
         {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
-        {label: "Links", name: "links", widget: "links"}
+        {label: "Links", name: "links", widget: "links", folder: "docs/articles"}
         {label: "Footer", name: "footer", widget: "markdown"}
         {label: "Article Abstract", name: "body", widget: "markdown"}
       ]

@@ -1,5 +1,20 @@
 angular.module('cmsApp')
-  .directive 'cmsWidget', ($location) ->
+  .directive 'cmsWidget', ($location, $rootScope) ->
+    # Since some widget uses drag and drop uploads, we make sure dropping files unto the body won't change the browser view
+    document.body.addEventListener "dragenter", (e) ->
+      e.preventDefault()
+      $rootScope.$apply -> $rootScope.dragging = true
+    , false
+
+    document.body.addEventListener "dragover", (e) ->
+      e.preventDefault()
+    , false
+
+    document.body.addEventListener "drop", (e) -> 
+      e.preventDefault()
+      $rootScope.$apply -> $rootScope.dragging = false
+    , false
+
     {
       scope:
         field: "="
@@ -167,16 +182,6 @@ angular.module('cmsApp')
     </div>
     '''
   .provider 'markdown', ->
-    # marked.setOptions({
-    #   renderer: new marked.Renderer(),
-    #   gfm: true,
-    #   tables: true,
-    #   breaks: false,
-    #   pedantic: false,
-    #   sanitize: true,
-    #   smartLists: true,
-    #   smartypants: false
-    # })
     {
       config: (newOpts) -> marked.setOptions(newOpts)
       $get: -> marked

@@ -4,6 +4,19 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
   $scope.collections = Collections
   $scope.item = {}
 
+  # Get rid of any $ attributes added to objects by angular 
+  cleanup = (value) =>
+    return null unless value
+    return value if typeof(value) != "object"
+    if Array.isArray(value)
+      (cleanup(e) for e in value)
+    else
+      obj = {}
+      for k,v of value when k.indexOf("$") == -1
+        console.log "Setting "
+        obj[k] = v
+      obj
+
   slugify = (text) ->
      text.toString().toLowerCase()
       .replace(/\s+/g, '-')           # Replace spaces with -
@@ -30,8 +43,9 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
     content = "---\n"
     meta = {}
     for field in $scope.collection.fields
-      meta[field.name] = field.value unless field.name == "body"
+      meta[field.name] = cleanup(field.value) unless field.name == "body"
       item[field.name] = field.value
+    console.log "Dumping meta: %o", meta
     content += jsyaml.safeDump(meta)
     content += "---\n\n"
     content += item.body
@@ -61,6 +75,8 @@ angular.module('cmsApp').controller 'CMSCtrl', ($rootScope, $scope, $routeParams
     Deploy.withTimestamp ->
       content = generateContent($scope.item)
       uploads = Media.uploads().concat({path: filePath(), content: content})
+
+      console.log "Content: %o uploads: %o", content, uploads
       Github.update_files {
         files: uploads,
         message: "Updated #{$scope.collection.singular} #{$scope.item.title}"

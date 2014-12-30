@@ -59,17 +59,17 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
       request("get", "repos/#{REPO}/branches/#{BRANCH}", {}, cb)
 
     repo_tree: (sha, cb) ->
-      request("get", "repos/#{REPO}/git/trees/#{sha}", {}, cb)
-
+      if sha then request("get", "repos/#{REPO}/git/trees/#{sha}", {}, cb) else cb({tree: []})
 
     updateTree: (sha, path, fileTree) ->
+      console.log "updateTree %s, %s: %o", sha, path, fileTree
       defered = $q.defer()
       @repo_tree sha, (tree) =>
         updates = []
         for obj in tree.tree
           if fileOrDir = fileTree[obj.path]
+            fileOrDir.$added = true
             if fileOrDir.file
-              fileOrDir.added = true
               updates.push({
                 path: obj.path
                 mode: obj.mode
@@ -78,22 +78,18 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
               })
             else
               updates.push(@updateTree(obj.sha, obj.path, fileOrDir))
-        for filename, data of fileTree when data.file && !data.added
-          updates.push({
-            path: filename
-            mode: "100644"
-            type: "blob"
-            sha: data.sha
-          })
-
-          # else
-          #   updates.push({
-          #     path: obj.path
-          #     mode: obj.mode
-          #     type: obj.type
-          #     sha: obj.sha
-          #   })
+        for filename, data of fileTree when !(data.$added || filename.indexOf("$") == 0)
+          if data.file
+            updates.push({
+              path: filename
+              mode: "100644"
+              type: "blob"
+              sha: data.sha
+            })
+          else
+            updates.push(@updateTree(null, filename, data))
         $q.all(updates).then (updates) ->
+          console.log "Updates for %s: %o", path, updates
           request "post", "repos/#{REPO}/git/trees", {
               data: {
                 base_tree: sha,
@@ -127,7 +123,7 @@ angular.module('cmsApp').service 'Github', ($http, $q) ->
       console.log "Got files: %o", options
       files = []
       for file in options.files 
-        files.push(@uploadBlob(file))
+        files.push(if file.upload then file else @uploadBlob(file))
         parts = (part for part in file.path.split("/") when part)
         filename = parts.pop()
         subtree = fileTree
