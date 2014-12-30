@@ -506,6 +506,10 @@ html, body {
       color: $color-link;
     }
   }
+  
+  .no-touch & a:hover:not(.no-underline) {
+    @include underline($color-white, $color-black);
+  }
 }
 
 .header {
