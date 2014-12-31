@@ -253,23 +253,6 @@ a, a:visited {
 h1, h2, h3, h4, h5, h6 {
   a, a:visited {
     color: inherit;
-
-    span:after {
-      content: " ›";
-      color: $color-link;
-    }
-    
-    span small {
-      display: inline;
-      &:before {
-        content: "";
-        display: block;
-      }
-    }
-    
-    .no-touch &:hover span:after {
-      color: $color-text;
-    }
   }
 }
 
@@ -313,6 +296,23 @@ a.icon-link {
   }
 }
 
+.chevron {
+  &:after {
+    content: " ›";
+    color: $color-link;
+    .no-touch a:hover & {
+      color: $color-text;
+    }
+  }
+  small {
+    display: inline;
+    &:before {
+      content: "";
+      display: block;
+    }
+  }
+}
+
 /* Lists */
 ul {
 
@@ -328,26 +328,23 @@ ul {
     padding: 0;
     max-width: none;
     li {
-      display: inline-block;
-      padding: 0 $size-s;
+      display: inline;
+      padding: 0;
+      margin: 0 $size-s;
     }
   }
 
   &.bullets {
     li {
-      padding-left: 0;
-      padding-right: 0;
+      margin: 0;
     }
     li:before {
       content: '•';
-      display: inline-block;
-      padding: 0 1em;
+      display: inline;
+      margin: 0 1em;
     }
-    li:first-child {
-      padding-left: 0;
-      &:before {
-        display: none;
-      }
+    li:first-child:before {
+      display: none;
     }
   }
 }
@@ -412,7 +409,6 @@ blockquote {
 
 /* Forms */
 form {
-  margin: $size-xl auto;
   label {
     @include vertical-rhythm($size-s);
     display: block;
@@ -503,7 +499,6 @@ html, body {
 .footer {
   background-color: $color-black;
   color: $color-white;
-  text-shadow: rgba(0,0,0,0.9) 1px 1px 5px;
   
   a, 
   a:visited, 
@@ -514,32 +509,19 @@ html, body {
       color: $color-link;
     }
   }
+  
+  .no-touch & a:hover:not(.no-underline) {
+    @include underline($color-white, $color-black);
+  }
 }
 
 .header {
   text-transform: uppercase;
   background: $color-bg;
   
-  &.fullscreen {
-    border-right: 0;
-  }
-  
-  &.fullscreen:before {
-    content:'';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: $size-l;
-    right: 0;
-    height: 100%;
-    background: url(../img/vela-bg-lightroom.jpg) no-repeat center top;
-    background-size: cover;
-  }
-
   .section {
     background-color: $color-bg;
     color: $color-text;
-    text-shadow: none;
     margin: 0;
     padding: $size-xs 0;
     text-align: center;
@@ -552,7 +534,6 @@ html, body {
 .top-bar {
   background: $color-bg;
   color: $color-text;
-  text-shadow: none;
   padding: 1em 0;
   border-bottom: 1px solid;
   overflow: hidden;
@@ -560,29 +541,17 @@ html, body {
   a, a:visited, a:hover {
     color: inherit;
   }
-
-  .container {
-    padding-right: 3em;
-  }
-  
-  .fullscreen & {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    border-bottom: 0;
-    
-    .container {
-      padding-right: $size-l;
-    }
-  }
 }
 
 .masthead {
+  margin-right: 2em;
   
-  h1 { 
+  h1 {
+    margin: 0;
     display: none;
+    img {
+      max-width: 100%;
+    }
   }
 
   h6 {
@@ -592,34 +561,10 @@ html, body {
     
     span {
       display: none;
-
-      &:before {
-        content: "• ";
-      }
     }
     
     a {
       display: inline-block;
-    }
-  }
-
-  .fullscreen & {
-
-    h1 {
-      display: block;
-      float: left;
-      clear: left;
-      margin: 0;
-    }
-    
-    h6 {
-      float: left;
-      text-align: left;
-      margin-bottom: $size-s;
-      
-      span {
-        display: inline-block;
-      }
     }
   }
 }  
@@ -628,7 +573,6 @@ html, body {
   float: right;
   clear: right;
   text-align: right;
-  overflow: hidden;
   
   ul {
     list-style: none;
@@ -647,25 +591,62 @@ html, body {
 #navigation {
   transition: height 150ms ease-in;
   height: 0;
+  overflow: hidden;
 
   &:target,
   &.active {
     padding-top: $size-s;
     height: 7em;
   }
-  
-  .fullscreen & {
-    height: auto;
-  }
 }
 
 #nav-button {
   font-size: 1em;
   position: absolute;
-  top: -$size-s;
-  right: 1em;
+  bottom: -0.5em;
+  right: $size-l;
+}
+
+.fullscreen {
+  background: url(../img/vela-bg-lightroom.jpg) no-repeat $size-l;
+  background-size: cover;
+  min-height: 30em;
   
-  .fullscreen & {
+  .top-bar {
+    border-bottom: 0;
+  }
+  
+  .masthead {
+    float: left;
+    margin: $size-l 0 0 0;
+
+    h1 {
+      display: block;
+    }
+
+    h6 {
+      position: absolute;
+      top: -$size-2xs;
+
+      span {
+        display: inline-block;
+        text-transform: uppercase;
+        &:before {
+          content: " • ";
+        }
+      }
+    }
+  }
+  
+  .nav {
+    margin-top: $size-l;
+  }
+  
+  #navigation {
+    height: auto;
+  }
+  
+  #nav-button {
     display: none;
   }
 }
@@ -698,7 +679,8 @@ html, body {
 }
 
 .main {
-  margin: 0 0 $size-2xl;
+  margin: 0 0 $size-l;
+  min-height: 85%;
   overflow: hidden;
   
   h1, h2, h3, h4, h5, h6 {
@@ -733,10 +715,6 @@ html, body {
   border-left: 1px solid;
   padding-left: $size-l;
 
-  &.narrow {
-    margin-left: 22em;
-  }
-  
   .pull-left {
     position: relative;
     float: left;
@@ -766,6 +744,12 @@ html, body {
       * {
         margin-bottom: 0;
       }
+    }
+    
+    &.top {
+      position: absolute;
+      top: 0;
+      left: -$size-l;
     }
   }
   
@@ -889,20 +873,27 @@ html, body {
     clear: both;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
+// 960px or more
+@media only screen and (min-width: 60em) {
+  .body.narrow {
+    margin-left: 22em;
+  }
 }
 
-@media only screen and (max-width: 60em) {
-  .body,
-  .body.narrow {
+// 800px or less
+@media only screen and (max-width: 50em) {
+  h1 {
+    font-size: 2.618em;
+    margin-top: 3/2.618+0em;
+  }
+  
+  blockquote {
+    margin: $base-line-height*2em $size-l;
+  }
+  
+  .body {
     margin-left: 10em;
+    margin-right: $size-l;
 
     .pull-left {
       width: 8em;
@@ -913,11 +904,171 @@ html, body {
       }
     }
   }
-  body.contact .main {
-    margin-top: 2em;
-    margin-bottom: 6em;
+}
+
+// 720px or less
+@media only screen and (max-width: 45em) {
+  body {
+    font-size: 1.125em;
+  }
+  .logo {
+    width: 9em;
   }
 }
+
+// 640px or less
+@media only screen and (max-width: 40em) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .container {
+    padding: 0 1em;
+  }
+
+  .logo {
+    width: 10em;
+  }
+  
+  #nav-button {
+    right: 1em;
+  }
+  
+  .masthead {
+    display: none;
+  }
+  
+  .fullscreen {
+    background-position: 1em 0;
+    .masthead {
+      display: block;
+      float: none;
+      margin: 0;
+      h6 {
+        position: static;
+        float: none;
+        text-align: left;
+        margin-top: 1em;
+        margin-right: 2em;
+        span {
+          text-transform: none;
+          &:before {
+            display: none;
+          }
+        }
+      }
+    }
+    .nav {
+      margin-top: 0;
+      position: relative;
+    }
+    #nav-button {
+      display: block;
+      top: -2em;
+      right: 0;
+    }
+    #navigation {
+      height: 0;
+      &:target,
+      &.active {
+        height: 7em;
+      }
+    }
+    .section {
+      text-transform: none;
+      .bullets {
+        li:before {
+          display: none;
+        }
+        li:after {
+          content: ', ';
+        }
+        li:last-child:after {
+          content: '';
+        }
+      }
+    }
+  }
+
+  .footer {
+    padding: 0;
+    small {
+      float: none !important;
+      margin-left: 0;
+      display: block;
+      line-height: $base-line-height;
+    }
+  }
+}
+
+// 480px or less
+@media only screen and (max-width: 30em) {
+
+  .content {
+    margin: $size-l 0;
+  }
+  
+  .body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    
+    .pull-left {
+      float: none;
+      width: auto;
+      margin: 0 0 $size-l 0;
+      left: 0;
+      text-align: left;
+      
+      img {
+        width: auto;
+        float: left;
+        margin-right: 1em;
+      }
+      
+      &.bottom,
+      &.top {
+        position: static;
+      }
+    }
+    
+    .rtl {
+      text-direction: ltr;
+    }
+    
+    .wbr {
+      width: auto;
+    }
+    
+    .section {
+      margin: $size-xs 0;
+      padding-top: $base-line-height + 0em;
+      border-top: 1px solid;
+      &:first-child {
+       border-top: 0;
+      }
+    }
+  }
+  
+  .meta {
+    h2 {
+      margin-top: 0;
+      margin-bottom: -$size-xs;
+    }
+  }
+   
+  .index .body {
+    border-top: 1px solid;
+  }
+ 
+  .dropcap {
+    > p:first-child:first-letter {
+      font-size: $size-2xl;
+      line-height: 1;
+    }
+  }
+}
+
 
 @media print,
        (-o-min-device-pixel-ratio: 5/4),
