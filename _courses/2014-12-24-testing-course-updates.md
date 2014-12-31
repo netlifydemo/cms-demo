@@ -1,5 +1,6 @@
 ---
 title: Testing Course Updates
+date: null
 info: "This is a new course added through the web UI  \n31. Januar Test"
 links:
   - url: /docs/courses/Intensive.2007.doc
