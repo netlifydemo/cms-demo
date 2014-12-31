@@ -6,7 +6,7 @@
     <ul class="no-bullets">
       <li ng-repeat="collection in collections | filter:{create:true}">
         <h3>
-          <a ng-href="/admin/{{collection.slug}}/new">New {{collection.singular}} <small>Add a new {{collection.singular}} to your website</small></a>
+          <a ng-href="/admin/{{collection.slug}}/new">New {{collection.label}} <small>Add a new {{collection.label}} to your website</small></a>
         </h3>
       </li>
     </ul>
@@ -17,7 +17,7 @@
       <h2>Edit Existing Courses</h2>
     </div>
     <ul class="no-bullets">
-      <li ng-repeat="course in sitemap.courses">
+      <li ng-repeat="course in sitemap.courses | orderBy:'-date'">
         <h3><a ng-href="/admin/courses/{{course.slug}}/edit">{{course.title}} <small>{{course.subtitle}}</small></a></h3>
       </li>
     </ul>
@@ -28,7 +28,7 @@
       <h2>Edit Existing Articles</h2>
     </div>
     <ul class="no-bullets">
-      <li ng-repeat="article in sitemap.articles">
+      <li ng-repeat="article in sitemap.articles | orderBy:'-date'">
         <h3><a ng-href="/admin/articles/{{article.slug}}/edit">{{article.title}} <small>{{article.subtitle}}</small></a></h3>
       </li>
     </ul>
@@ -39,7 +39,7 @@
       <h2>Edit Books</h2>
     </div>
     <ul class="no-bullets">
-      <li ng-repeat="book in sitemap.books">
+      <li ng-repeat="book in sitemap.books | orderBy:'-date'">
         <h3><a ng-href="/admin/books/{{book.slug}}/edit">{{book.title}} <small>{{book.subtitle}}</small></a></h3>
       </li>
     </ul>

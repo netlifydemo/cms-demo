@@ -14,6 +14,9 @@
   display: table;
   width: 100%;
 }
+input.ng-invalid, textarea.ng-invalid {
+  box-shadow: 0 0 5px #ED2121;
+}
 .widget {
   display: table-row;
 }
@@ -99,7 +102,7 @@
   opacity: 0;
 }
 
-.link-inputs {
+.link-inputs, .file-inputs {
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
@@ -116,7 +119,7 @@
   .link-label {
     border-right: none;
   }
-  .link-icon {
+  .link-icon, .file-icon {
     box-sizing: border-box;
     font-family: Icomoon;
     position: absolute;
@@ -131,11 +134,16 @@
     font-size: 12px;
     padding: 8px 5px;
   }
-  .link-remove-icon:after {
+  .link-remove-icon:after, .file-remove-icon:after {
     content: "\ea0f";
   }
-  .link-add-icon:after {
+  .link-add-icon:after, .file-add-icon:after {
     content: "\ea0a";
+  }
+}
+.file-inputs {
+  input {
+    width: 100%;
   }
 }
 .timespace-dropzone {

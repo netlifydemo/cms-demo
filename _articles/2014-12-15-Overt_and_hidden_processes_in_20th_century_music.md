@@ -7,6 +7,7 @@ links:
   - label: Full Document
     url: "https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music"
 footer: null
+date: 2004-03-01
 ---
 
 For the purpose of contributing to a clariﬁcation of the term “process”,different kinds of musical processes are investigated: A rule-determined phase shiftingprocess in Steve Reich’s

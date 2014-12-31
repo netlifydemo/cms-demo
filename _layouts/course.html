@@ -9,10 +9,13 @@ name: Courses
     <div class="pull-left meta">
       {{page.info | markdownify}}
 
-      {% if page.links %}
+      {% if page.links || page.docs %}
         <div class="links">
           {% for link in page.links %}
           <p><a href="{{link.url}}">{{link.label}}</a></p>
+          {% endfor %}
+          {% for doc in page.docs %}
+          <p><a href="{{doc.url}}">{{doc.label}}</a></p>
           {% endfor %}
         </div>
       {% endif %}

@@ -5,7 +5,8 @@ title: Courses
 
 <div class="body">
   <ul class="no-bullets">
-    {% for course in site.courses | sort: ‘date’, ‘last’ %}
+    {% assign items = site.courses | sort: 'date' | reverse %}
+    {% for course in items %}
       <li>
         <h3><a href="{{course.url}}"><span>{{course.title}}</span>
           <small>{{course.subtitle | default: course.info | markdownify | strip_html %}}</small></a></h4>
