@@ -1,5 +1,5 @@
 repo: biilmann/timespace.dk
-branch: links
+branch: master
 collections:
   - slug: "courses"
     label: "Course"
