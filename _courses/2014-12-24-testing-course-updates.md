@@ -1,6 +1,6 @@
 ---
 title: Testing Course Updates
-info: "This is a new course added through the web UI  \n31. Januar Test"
+info: "This is a new course added through the web UI  \n31. Januar Test  \nAlso testing deploy notifications."
 links:
   - url: /docs/courses/Intensive.2007.doc
     label: Intensive.2007.doc
