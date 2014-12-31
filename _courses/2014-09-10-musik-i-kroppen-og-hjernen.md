@@ -1,6 +1,9 @@
 ---
 title: Musik i kroppen og hjernen
+date: null
 info: "5 onsdage kl. 19.15-21. 10/9-8/10. Pris: 440 kr. Folkeuniversitetet i København [www.fukbh.dk](http://www.fukbh.dk/)"
+links: null
+docs: null
 ---
 
 ## Kursusbeskrivelse
