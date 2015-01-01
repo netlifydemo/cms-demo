@@ -1,5 +1,5 @@
 <div class="links">
   <p ng-repeat="file in field.value track by $index">
-    <a href="{{file.src}}" target="_blank">{{file.label}}</a>
+    <a href="{{file.$upload.src}}" target="_blank" download="{{file.$upload.name}}">{{file.label}}</a>
   </p>
 </div>

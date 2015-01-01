@@ -23,7 +23,6 @@ collections:
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3"}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
       - {label: "Article Abstract", name: "body", widget: "markdown"}
-      - {label: "Footer", name: "footer", widget: "markdown"}
       - {label: "Links", name: "links", widget: "links"}
       - {label: "Files", name: "docs", widget: "files", folder: "docs/articles"}
   - slug: "books"
