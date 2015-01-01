@@ -7,6 +7,9 @@ exclude:
   - gulpfile.js
   - admin/**/*.coffee
 
+include:
+  - _redirects
+
 sass:
   sass_dir: _sass
 
