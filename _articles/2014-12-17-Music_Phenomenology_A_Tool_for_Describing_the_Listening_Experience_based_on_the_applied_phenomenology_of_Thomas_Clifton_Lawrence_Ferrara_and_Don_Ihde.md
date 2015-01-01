@@ -6,7 +6,7 @@ bib: Chapter 2 from *Music Listening, Music Therapy, Phenomenology and Neuroscie
 links: 
   - label: Full Document
     url: http://www.academia.edu/2406089/Music_Phenomenology_A_Tool_for_Describing_the_Listening_Experience_based_on_the_applied_phenomenology_of_Thomas_Clifton_Lawrence_Ferrara_and_Don_Ihde
-date: 2014-12-17
+date: 2014-12-17T00:00:00.000Z
 ---
 
 ## Research questions

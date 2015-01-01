@@ -4,7 +4,7 @@ subtitle: A Theory of Music Listening
 full_title: The Musical Timespace. A Theory of Music Listening
 bib: "Erik Christensen: *The Musical Timespace. A Theory of Music Listening*. Aalborg University Press 1996. Vol. I: Text, 174 pp. Vol. II: Notation Examples and Graphs, 67 pp. See also: *The Musical Timespace. A Concise Version 2012.*"
 image: /img/media/musical_timespace.jpg
-date: 2012-01-01
+date: 2012-01-01T00:00:00.000Z
 ---
 
 ###Hearing is not designed for music listening 

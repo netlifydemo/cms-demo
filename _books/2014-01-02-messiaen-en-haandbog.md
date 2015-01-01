@@ -3,7 +3,7 @@ title: Messiaen – En håndbog
 bib: "Poul Borum og Erik Christensen: *MESSIAEN - en håndbog*. Edition Egtved 1977, 210 pp."
 image: /img/media/messiaen.jpg
 footer: "[Interview med Messiaen](http://dvm.nu/periodical/dmt/dmt_1992-1993/dmt_1992-1993_01/fuglene-synger-videre/)"
-date: 1977-01-01
+date: 1977-01-01T00:00:00.000Z
 ---
 
 >Den menneskelige bevidsthed søger bestandig ikke

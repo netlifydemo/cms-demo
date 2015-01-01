@@ -67,12 +67,12 @@ name: Admin
   <div ng-view=""></div>
 
   <!-- Netlify CMS -->
-  <!-- Run locally
-  <script>window.NETLIFY_CFG = {api_base: "http://api.netlify.lo/api/v1/"}</script>
+  <!-- Run locally -->
   <script src="http://localhost:9999/cms.js"></script>
-  -->
+  <script>netlify.configure({site_id: "timespace.netlify.com"})</script>
+  <!-- 
   <script src="//cms.netlify.com/cms.js"></script> 
-   
+   --> 
   <!-- Site specific directives -->
   <script src="/admin/js/directives/links.js"></script>
 </body>

@@ -6,7 +6,7 @@ bib: "Christensen, Erik (2000) 'Music Precedes Language', Nordic Journal of Musi
 links: 
   - label: Full Document
     url: https://www.academia.edu/516211/Music_Precedes_Language
-date: 2014-12-16
+date: 2014-12-16T00:00:00.000Z
 ---
 
 

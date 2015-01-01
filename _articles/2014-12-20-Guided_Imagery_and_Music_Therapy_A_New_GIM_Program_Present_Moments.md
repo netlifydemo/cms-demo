@@ -7,7 +7,7 @@ links:
   - label: Full Document
     url: https://www.academia.edu/2408181/Guided_Imagery_and_Music_Therapy_-_A_New_GIM_Program_Present_Moments
 footer: "[Read the full article](https://www.academia.edu/2408181/Guided_Imagery_and_Music_Therapy_-_A_New_GIM_Program_Present_Moments)"
-date: 2014-12-20
+date: 2014-12-20T00:00:00.000Z
 ---
 
 What is ‘music’ to one person’s ears is often offensive to another’s.

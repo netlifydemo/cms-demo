@@ -1,6 +1,6 @@
 ---
 title: Musik i kroppen og hjernen
-date: "2014-09-10"
+date: 2014-09-10T00:00:00.000Z
 info: "5 onsdage kl. 19.15-21. 10/9-8/10. Pris: 440 kr."
 links:
   - url: "http://www.fukbh.dk/"
