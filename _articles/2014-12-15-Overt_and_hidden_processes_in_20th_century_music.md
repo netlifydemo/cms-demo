@@ -1,16 +1,16 @@
 ---
 title: Overt and hidden processes in 20th century music
 subtitle: null
+date: 2004-03-01T00:00:00.000Z
 full_title: null
 bib: "Christensen, Erik: *Overt and hidden processes in 20th century music*, Axiomathes, Springer 2004"
 links:
   - label: Full Document
     url: "https://www.academia.edu/516212/Overt_and_hidden_processes_in_20th_century_music"
-footer: null
-date: 2004-03-01T00:00:00.000Z
+docs: null
 ---
 
-For the purpose of contributing to a clariﬁcation of the term “process”,different kinds of musical processes are investigated: A rule-determined phase shiftingprocess in Steve Reich’s
+For the purpose of contributing to a clariﬁcation of the term “process”, different kinds of musical processes are investigated: A rule-determined phase shifting process in Steve Reich’s
 Piano Phase
 (1966), a model for an indeterminate compositionprocess in John Cage’s
 Variations II 
