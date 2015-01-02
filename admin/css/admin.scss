@@ -14,14 +14,16 @@
   display: table;
   width: 100%;
   margin: 2.666em 0;
+  input, textarea {
+    &.ng-touched.ng-invalid {
+      box-shadow: 0 0 5px #ED2121;
+    }
+  } 
 }
 .controls {
   width: 100%;
   border-right: 1px solid;
   padding: 1.333em 0 0;
-}
-input.ng-invalid, textarea.ng-invalid {
-  box-shadow: 0 0 5px #ED2121;
 }
 .widget {
   display: table-row;
