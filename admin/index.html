@@ -12,6 +12,8 @@ name: Admin
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/admin/css/admin.css" />
 
+   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
   <base href="/admin/">
 </head>
 <body ng-app="cmsApp">
@@ -67,13 +69,14 @@ name: Admin
   <div ng-view=""></div>
 
   <!-- Netlify CMS -->
-  <!-- Run locally 
+  {% if site.cms == "local" %}
   <script src="http://localhost:9999/cms.js"></script>
-  <script>netlify.configure({site_id: "timespace.netlify.com"})</script>
-  -->
+  {% else %}
   <script src="//cms.netlify.com/cms.js"></script> 
+  {% endif %}
    
   <!-- Site specific directives -->
   <script src="/admin/js/directives/links.js"></script>
+  }
 </body>
 </html>
