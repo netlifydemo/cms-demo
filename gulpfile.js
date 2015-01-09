@@ -57,17 +57,11 @@ gulp.task('dev', function(){
       stdout: true // default = true, false means don't write stdout
   }
 
-  gulp.watch(['*.html', '_layouts/*.html','_includes/*.html', 'css/*.css', 'css/*.scss', 'js/*.js', 'pages/*.md', '_courses/*.md', '_articles/*.md', '_books/*.md', 'admin/**/*.html', 'admin/css/*.scss', 'admin/**/*.coffee', 'admin/config.yml'], function(e) {
+  gulp.watch(['*.html', '_layouts/*.html','_includes/*.html', 'css/*.css', 'css/*.scss', 'js/*.js', 'pages/*.md', '_courses/*.md', '_articles/*.md', '_books/*.md', 'admin/**/*.html', 'admin/css/*.scss', 'admin/**/*.js', 'admin/config.yml'], function(e) {
     console.log("watch event: ", e)
     childProcess.exec('bin/jekyll build', function(err) {
       if (err) return gutil.log(err) // return error
-      gulp.src("admin/**/*.coffee")
-        //.pipe(gulpFilter("**/*.coffee"))
-        .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(ngAnnotate())
-        .pipe(gulp.dest("_site/admin"))
-        .pipe(connect.reload());  
-    });
+    })  
   })
     
 });
