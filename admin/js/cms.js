@@ -59,24 +59,20 @@ CMS.FieldController = Ember.ObjectController.extend({
   value: null
 });
 
-Ember.Handlebars.registerHelper("cms-widget-control", function(field, options) {
-  var context = (options.contexts && options.contexts.length) ? options.contexts[0] : this,
-      view = options.data.view,
-      model = Ember.Handlebars.get(this, field, options),
-      template = view.templateForName("widgets/" + model.get("widget"));
-
-  template(context, {data: options.data});
-});
-
-Ember.Handlebars.registerHelper("cms-widget-preview", function(field, options) {
-  var context = (options.contexts && options.contexts.length) ? options.contexts[0] : this,
-      view = options.data.view,
-      model = Ember.Handlebars.get(this, field, options),
-      template = view.templateForName("widgets/" + (model.get("preview") || model.get("widget") + "_preview"));
-
-  template(context, {data: options.data});
-});
-
 Ember.Handlebars.registerBoundHelper("cms-markdown-viewer", function(value) {
   return new Ember.Handlebars.SafeString(marked(value || ""));
+});
+
+CMS.CmsWidgetControlComponent = Ember.Component.extend({
+  init: function() {
+    this._super.apply(this, arguments);
+    this.set("templateName", "widgets/" + this.field.get("widget"));
+  }
+});
+
+CMS.CmsWidgetPreviewComponent = Ember.Component.extend({
+  init: function() {
+    this._super.apply(this, arguments);
+    this.set("templateName", "widgets/" + (this.field.get("preview") || this.field.get("widget") + "_preview"));
+  }
 });

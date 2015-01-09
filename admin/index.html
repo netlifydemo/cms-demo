@@ -32,7 +32,6 @@
     <div class="section courses">
       <div class="pull-left meta rtl">
         <h2>Add new content</h2>
-        {{cms-time}}
       </div>
       <ul class="no-bullets">
         {{#each collection in collections}}
@@ -62,10 +61,10 @@
       {{#each field in fields itemController="field"}}
         <div class="widget">
           <div class="form-control">
-            {{cms-widget-control field}}
+            {{cms-widget-control field=field}}
           </div>
           <div class="preview">
-            {{cms-widget-preview field}}
+            {{cms-widget-preview field=field}}
           </div>
         </div>
       {{/each}}

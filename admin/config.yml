@@ -18,7 +18,7 @@ collections:
     create: true
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1 small", optional: true}
+      - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", optional: true}
       - {label: "Publication Date", name: "date", widget: "date"}
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3", optional: true}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
@@ -30,7 +30,7 @@ collections:
     folder: "_books"
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1 small", optional: true}
+      - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", optional: true}
       - {label: "Publication Date", name: "date", widget: "date"}
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3", optional: true}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
