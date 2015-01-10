@@ -127,16 +127,13 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name='widgets/markdown'>
-  <label>{{field.label}}</label>
-  {{textarea value=field.value}}
+  {{cms-markdown-editor label=field.label value=field.value}}
   </script>
 
   <script type="text/x-handlebars" data-template-name='widgets/links'>
-  
   </script>
 
   <script type="text/x-handlebars" data-template-name='widgets/files'>
-
   </script>
 
 
@@ -165,6 +162,28 @@
   <script type="text/x-handlebars" data-template-name='widgets/files_preview'>
   </script>
 
+
+
+  <script type="text/x-handlebars" data-template-name='components/cms-markdown-editor'>
+  <div class="markdown-editor"">
+    <div class="markdown-label">
+      <label>{{label}}</label>
+    </div>
+    <div class="markdown-menu">
+      <a class="markdown-menu-icon markdown-icon-bold" {{action 'bold'}}>Bold</a>
+      <a class="markdown-menu-icon markdown-icon-italic" {{action 'italic'}}>Italic</a>
+      <a class="markdown-menu-icon markdown-icon-link" {{action 'link'}}>Link</a>
+    </div>
+    {{#if showLinkbox}}
+    <div class="markdown-link-box clearfix">
+      {{input type="text" class="markdown-link-url" placeholder="https://www.netlify.com" value=linkUrl focus-out="insertLink" enter="insertLink"}}      
+    </div>
+    {{/if}}
+    <div class="markdown-body">
+      {{cms-expanding-textarea value=value}}
+    </div>
+  </div>
+  </script>  
 
 
   <!-- Netlify CMS -->
