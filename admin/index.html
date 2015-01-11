@@ -58,7 +58,7 @@
         <div class="preview"><h2>Preview {{label}}</h2></div>
       </div>
 
-      {{#each field in fields itemController="field"}}
+      {{#each field in fields}}
         <div class="widget">
           <div class="form-control">
             {{cms-widget-control field=field}}
@@ -130,7 +130,18 @@
   {{cms-markdown-editor label=field.label value=field.value}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name='widgets/links'>
+  <script type="text/x-handlebars" data-template-name='widgets/list'>
+  <label>{{field.label}}</label>
+  {{#cms-list field=field as |item|}}
+    {{#each field in item.fields}}
+    <div class="widget">
+      <div class="form-control">
+        {{cms-widget-control field=field}}
+      </div>
+    </div>
+    {{/each}}
+    
+  {{/cms-list}}
   </script>
 
   <script type="text/x-handlebars" data-template-name='widgets/files'>
@@ -155,17 +166,28 @@
   {{/view}}
   </script>
 
-  <script type="text/x-handlebars" data-template-name='widgets/links_preview'>
-
+  <script type="text/x-handlebars" data-template-name='widgets/list_preview'>
+  <ul class="cms-list-preview">
+  {{#each item in field.value}}
+    <li class="cms-list-item-preview widget">
+    {{#each field in item.fields}}
+      {{cms-widget-preview field=field}}
+    {{/each}}
+    </li>
+  {{/each}}
+  </ul>
   </script>
+
 
   <script type="text/x-handlebars" data-template-name='widgets/files_preview'>
   </script>
 
 
 
+
+
   <script type="text/x-handlebars" data-template-name='components/cms-markdown-editor'>
-  <div class="markdown-editor"">
+  <div class="markdown-editor">
     <div class="markdown-label">
       <label>{{label}}</label>
     </div>
@@ -185,13 +207,33 @@
   </div>
   </script>  
 
+  <script type="text/x-handlebars" data-template-name='components/cms-list'>
+  <ul class="cms-list">
+    {{#each item in field.value}}
+    <li class="cms-list-item">
+    <div class="cms-list-ordering">
+      <a class="cms-list-icon up cms-action" title="Move up" {{action "moveUp" item}}></a>
+      <a class="cms-list-icon drag" title="Grab to drag"></a>
+      <a class="cms-list-icon down cms-action" title="Move down" {{action "moveDown" item}}></a>
+    </div>
+    <div class="cms-list-actions">
+      <a class="cms-list-icon remove cms-action" {{action "removeItem" item}}></a>
+    </div>
+    {{yield item}}
+    </li>
+    {{/each}}
+    <li class="cms-list-controls">
+      <a class="cms-action" {{action 'addItem'}}>Add new</a>
+    </li>
+  </ul>
+  </script>
+
 
   <!-- Netlify CMS -->
   <script src="/admin/js/lib/js-yaml.js"></script>
   <script src="/admin/js/lib/marked.js"></script>
 
   <script src="/admin/js/lib/jquery.js"></script>
-  <script src="/admin/js/lib/handlebars.js"></script>
   <script src="/admin/js/lib/ember.js"></script>
   <script src="/admin/js/cms.js"></script>
   

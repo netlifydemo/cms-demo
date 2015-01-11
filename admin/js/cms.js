@@ -1,20 +1,25 @@
 "use strict";
 
 window.CMS = Ember.Application.create();
+CMS.deferReadiness();
+$.get("config.yml").then(function(data) {
+  CMS.config = CMS.Config.create(jsyaml.safeLoad(data));
+  CMS.advanceReadiness();
+});
+
+CMS.Config = Ember.Object.extend({
+  init: function() {
+    var collections = [];
+    for (var i=0, len=this.collections.length; i<len; i++) {
+      collections.push(CMS.Collection.create(this.collections[i]));
+    }
+    this.collections = collections;
+  }
+});
 
 CMS.ApplicationView = Ember.View.extend({});
 CMS.ApplicationController = Ember.Controller.extend({
   currentAction: "Dashboard"
-});
-
-CMS.Config = new Ember.RSVP.Promise(function(resolve, reject) {
-  $.get("config.yml").then(function(data) {
-    //var config = Ember.Object.extend({}).create(jsyaml.safeLoad(data));
-    //resolve(config);
-    resolve(jsyaml.safeLoad(data))
-  }, function(err) {
-    reject(err);
-  })
 });
 
 CMS.Router.map(function() {
@@ -25,39 +30,26 @@ CMS.Router.map(function() {
 });
 
 CMS.HomeRoute = Ember.Route.extend({
-  model: function() { return CMS.Config; }
+  model: function() { return CMS.config; }
 });
 
-CMS.HomeController = Ember.ObjectController.extend({
-  collections: function() {
-    return (this.get("model.collections") || []).map(function(c) {
-      c.id = c.slug
-      return c;
-    });
-  }.property("model.collections")
+CMS.Collection = Ember.Object.extend({
+  init: function() {
+    this.id = this.slug;
+    var fields = [];
+    for (var i=0, len=this.fields.length; i<len; i++) {
+      fields.push(CMS.Field.create(this.fields[i]));
+    }
+    this.fields = fields;
+  }
 });
-
-CMS.Collection = Ember.Object.extend({})
 CMS.Collection.reopenClass({
   find: function(id) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      CMS.Config.then(function(config) {
-        var collection = config.collections.filter(function(c) { return c.slug == id})[0];
-        if (collection) {
-          collection.id = collection.slug;
-          resolve(CMS.Collection.create(collection));
-        } else {
-          reject("No collection found");
-        }
-      })
-    });
+    return CMS.config.collections.filter(function(c) { return c.id == id})[0];
   }
-})
-
-CMS.Field = Ember.Object.extend({});
-CMS.FieldController = Ember.ObjectController.extend({
-  value: null
 });
+
+CMS.Field = Ember.Object.extend({value: null});
 
 Ember.Handlebars.registerBoundHelper("cms-markdown-viewer", function(value) {
   return new Ember.Handlebars.SafeString(marked(value || ""));
@@ -84,6 +76,73 @@ CMS.CmsExpandingTextareaComponent = Ember.TextArea.extend({
     }
   }.observes("value")
 })
+
+CMS.CmsListComponent = Ember.Component.extend({
+  _itemId: 0,
+  _newItem: function(value) {
+    var item = {id: ++this._itemId, fields: []},
+        field = null,
+        fields = this.field.get("fields");
+
+    for (var i=0; i<fields.length; i++) {
+      var field  = $.extend(true, {}, fields[i]);
+      field.value = value && value[fields[i].name];
+      item.fields.push(CMS.Field.create(field));
+    }
+    return item;
+  },
+  
+  init: function() {
+    this._super.apply(this, arguments);
+    var items = this.get("field.value");
+    var newItems = Ember.A();
+    if (items && items.length) {
+      for (var i=0; i<items.length; i++) {
+        newItems.pushObject(this._newItem(items[i]));
+      }
+      this.set("field.value", newItems);
+    } else {
+      newItems.pushObject(this._newItem());
+      this.set("field.value", newItems);
+    }
+    console.log("Set items to %o", newItems);
+  },
+
+  _moveItem: function(item, direction) {
+    var item, swapWith, index;
+    var items = this.get("field.value");
+    for (var i=0; i<items.length; i++) {
+      if (items[i].id == item.id) {
+        swapWith = items[i+direction];
+        item   = items[i];
+        index  = i;
+        break;
+      }
+    }
+    if (swapWith) {
+      if (direction < 0 ) {
+        items.replace(index-1, 2, [item, swapWith]);
+      } else {
+        items.replace(index, 2, [swapWith, item]);
+      }
+      
+    }
+  },
+  actions: {
+    addItem: function() {
+      this.get("field.value").pushObject(this._newItem());
+    },
+    removeItem: function(item) {
+      this.set("field.value", this.get("field.value").reject(function(i) { return i.id == item.id; }));
+    },
+    moveUp: function(item) {
+      this._moveItem(item, -1);
+    },
+    moveDown: function(item) {
+      this._moveItem(item, 1);
+    }
+  }
+});
 
 CMS.CmsMarkdownEditorComponent = Ember.Component.extend({
   showLinkbox: false,
@@ -151,11 +210,14 @@ CMS.CmsMarkdownEditorComponent = Ember.Component.extend({
           before    = value.substr(0, selection.start),
           after     = value.substr(selection.end);
 
+      if (this.get("linkUrl")) {
+        this.set("value", before + link + after);
+        selection.end = selection.start + link.end;
+      }
       this.set("showLinkbox", false);
       this.set("linkUrl", null);
-      this.set("value", before + link + after)
-      selection.end = selection.start + link.end;
       this._setSelection(selection);
+      this._currentSelection = null;
     }
   }
 });

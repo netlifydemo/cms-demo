@@ -1,5 +1,13 @@
 repo: biilmann/timespace.dk
 branch: master
+# Set up a reference for this more complex field so we can use it in multiple collections
+linkField: &linkField 
+  label: "Links"
+  name: "links"
+  widget: "list"
+  fields:
+    - {label: "Link text", name: "label", widget: "string"}
+    - {label: "URL", name: "url", widget: "string"}
 collections:
   - slug: "courses"
     label: "Course"
@@ -10,7 +18,7 @@ collections:
       - {label: "Date", name: "date", widget: "date"}
       - {label: "Course Info", name: "info", widget: "markdown", class: "meta"}
       - {label: "Course Description", name: "body", widget: "markdown"}
-      - {label: "Links", name: "links", widget: "links"}
+      - *linkField # use the predefined linkField here
       - {label: "Files", name: "docs", widget: "files", folder: "docs/courses"}
   - slug: "articles"
     label: "Article"
@@ -23,7 +31,7 @@ collections:
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3", optional: true}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
       - {label: "Article Abstract", name: "body", widget: "markdown"}
-      - {label: "Links", name: "links", widget: "links"}
+      - *linkField
       - {label: "Files", name: "docs", widget: "files", folder: "docs/articles"}
   - slug: "books"
     label: "Book"
