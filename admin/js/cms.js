@@ -111,6 +111,8 @@ CMS.CmsListComponent = Ember.Component.extend({
 
   didInsertElement: function() {
     this.$().sortable({
+      placeholder: "<li class='cms-list-placeholder'/>",
+      itemSelector: ".cms-list-item",
       onDrop: function($item, container, _super) {
         _super($item, container);
         var items = this.get("field.value");
@@ -123,7 +125,14 @@ CMS.CmsListComponent = Ember.Component.extend({
           newItems.push(itemLookup[$(this).data("item")]);
         });
         this.set("field.value", newItems);
-      }.bind(this)
+      }.bind(this),
+      afterMove: function($placeholder, container, $closestItemOrContainer) {
+        var css = {
+          height: $closestItemOrContainer.height(),
+          width: $closestItemOrContainer.width(),
+        };
+        $placeholder.css(css);
+      }
     });
   },
 
