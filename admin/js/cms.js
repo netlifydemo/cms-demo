@@ -78,6 +78,8 @@ CMS.CmsExpandingTextareaComponent = Ember.TextArea.extend({
 })
 
 CMS.CmsListComponent = Ember.Component.extend({
+  tagName: "ul",
+  classNames: ["cms-list"],
   _itemId: 0,
   _newItem: function(value) {
     var item = {id: ++this._itemId, fields: []},
@@ -105,7 +107,24 @@ CMS.CmsListComponent = Ember.Component.extend({
       newItems.pushObject(this._newItem());
       this.set("field.value", newItems);
     }
-    console.log("Set items to %o", newItems);
+  },
+
+  didInsertElement: function() {
+    this.$().sortable({
+      onDrop: function($item, container, _super) {
+        _super($item, container);
+        var items = this.get("field.value");
+        var newItems = Ember.A();
+        var itemLookup = {};
+        for (var i=0, len=items.length; i<len; i++) {
+          itemLookup[items[i].id] = items[i]
+        }
+        this.$().children(".cms-list-item").each(function() {
+          newItems.push(itemLookup[$(this).data("item")]);
+        });
+        this.set("field.value", newItems);
+      }.bind(this)
+    });
   },
 
   _moveItem: function(item, direction) {
@@ -158,7 +177,6 @@ CMS.CmsMarkdownEditorComponent = Ember.Component.extend({
     var textarea = this.element.getElementsByTagName("textarea")[0],
         start = textarea.selectionStart,
         end   = textarea.selectionEnd;
-    console.log(this.element);
     return {start: start, end: end, selected: (this.get("value") || "").substr(start, end-start)};
   },
   _setSelection: function(selection) {

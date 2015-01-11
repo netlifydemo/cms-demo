@@ -208,9 +208,8 @@
   </script>  
 
   <script type="text/x-handlebars" data-template-name='components/cms-list'>
-  <ul class="cms-list">
     {{#each item in field.value}}
-    <li class="cms-list-item">
+    <li class="cms-list-item" {{bind-attr data-item="item.id"}}>
     <div class="cms-list-ordering">
       <a class="cms-list-icon up cms-action" title="Move up" {{action "moveUp" item}}></a>
       <a class="cms-list-icon drag" title="Grab to drag"></a>
@@ -225,7 +224,6 @@
     <li class="cms-list-controls">
       <a class="cms-action" {{action 'addItem'}}>Add new</a>
     </li>
-  </ul>
   </script>
 
 
@@ -234,6 +232,7 @@
   <script src="/admin/js/lib/marked.js"></script>
 
   <script src="/admin/js/lib/jquery.js"></script>
+  <script src="/admin/js/lib/jquery-sortable.js"></script>
   <script src="/admin/js/lib/ember.js"></script>
   <script src="/admin/js/cms.js"></script>
   
