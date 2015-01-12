@@ -81,7 +81,7 @@
 
   <script type="text/x-handlebars" data-template-name='create'>
   <div class="container no-max-width">
-    <form name="contentForm" class="cms-form">
+    <form name="contentForm" class="cms-form" {{action "save"}}>
       <div class="widget meta">
         <div class="form-control"><h2>Create {{label}}</h2></div>
         <div class="preview"><h2>Preview {{label}}</h2></div>
@@ -107,7 +107,7 @@
 
   <script type="text/x-handlebars" data-template-name='edit'>
   <div class="container no-max-width">
-    <form name="contentForm" class="cms-form">
+    <form name="contentForm" class="cms-form" {{action "save" on="submit"}}>
       <div class="widget meta">
         <div class="form-control"><h2>Edit {{collection.label}}</h2></div>
         <div class="preview"><h2>Preview {{collection.label}}</h2></div>
@@ -285,6 +285,7 @@
   <!-- Netlify CMS -->
   <script src="/admin/js/lib/js-yaml.js"></script>
   <script src="/admin/js/lib/marked.js"></script>
+  <script src="/admin/js/lib/base64.js"></script>
   <script src="/admin/js/lib/authentication.js"></script>
 
   <script src="/admin/js/lib/jquery.js"></script>

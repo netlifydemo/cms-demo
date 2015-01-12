@@ -1,5 +1,5 @@
 repo: biilmann/timespace.dk
-branch: master
+branch: ember-test
 # Set up a reference for this more complex field so we can use it in multiple collections
 linkField: &linkField 
   label: "Links"

@@ -31,7 +31,7 @@ CMS.Repository = (function() {
   var token = null;
 
   function request(url, settings) {
-    return $.ajax(url, $.extend(true, {headers: {Authorization: "Bearer " + token}}, settings || {}));
+    return $.ajax(url, $.extend(true, {headers: {Authorization: "Bearer " + token}, contentType: "application/json"}, settings || {}));
   };
 
   function getBranch() {
@@ -44,12 +44,12 @@ CMS.Repository = (function() {
 
   function uploadBlob(file) {
     return new Promise(function(resolve, reject) {
-      request(base + "/git/blobls", {
+      request(base + "/git/blobs", {
         type: "POST",
-        data: {
+        data: JSON.stringify({
           content: file.base64 ? file.base64() : Base64.encode(file.content),
           encoding: "base64"
-        }
+        })
       }).then(function(response) {
         file.sha = response.sha;
         resolve(file);
@@ -61,20 +61,24 @@ CMS.Repository = (function() {
 
   function updateTree(sha, path, fileTree) {
     return new Promise(function(resolve, reject) {
+      console.log("Getting tree %o", sha);
       getTree(sha).then(function(tree) {
-        var obj, fileOrDir;
-        var update = [];
+        var obj, filename, fileOrDir;
+        var updates = [];
+        console.log("Got tree %o for sha %o", tree, sha);
         for (var i=0, len=tree.tree.length; i<len; i++) {
           obj = tree.tree[i];
           if (fileOrDir = fileTree[obj.path]) {
-            fileOrDir._added = true;
-            updates.push(
-              fileOrDir.file ?
-                {path: obj.path, mode: obj.mode, type: obj.type, sha: fileOrDir.sha} :
-                updateTree(obj.sha, obj.path, fileOrDir)
-            );
-          } else {
-            updates.push(updateTree(obj.sha, obj.path, fileOrDir));
+            if (fileOrDir.file) {
+              fileOrDir._added = true;
+              updates.push(
+                fileOrDir.file ?
+                  {path: obj.path, mode: obj.mode, type: obj.type, sha: fileOrDir.sha} :
+                  updateTree(obj.sha, obj.path, fileOrDir)
+              );  
+            } else {
+              updates.push(updateTree(obj.sha, obj.path, fileOrDir));
+            }
           }
         }
         for (filename in fileTree) {
@@ -86,17 +90,18 @@ CMS.Repository = (function() {
               updateTree(null, filename, fileOrDir)
           );
         }
+        console.log("Updates: %o", updates);
         Promise.all(updates).then(function(updates) {
           request(base + "/git/trees", {
             type: "POST",
-            data: {base_tree: sha, tree: updates}
+            data: JSON.stringify({base_tree: sha, tree: updates})
           }).then(function(response) {
             resolve({path: path, mode: "040000", type: "tree", sha: response.sha});
           }, function(err) {
             reject(err);
           })
         });
-      })
+      }, function(err) { reject(err); })
     });
   };
 
@@ -135,11 +140,11 @@ CMS.Repository = (function() {
             updateTree(branchData.commit.sha, "/", fileTree).then(function(changeTree) {
               request(base + "/git/commits", {
                 type: "POST",
-                data: {message: options.message, tree: changeTree.sha, parents: [branchData.commit.sha]}
+                data: JSON.stringify({message: options.message, tree: changeTree.sha, parents: [branchData.commit.sha]})
               }).then(function(response) {
                 request(base + "/git/refs/heads/" + branch, {
                   type: "PATCH",
-                  data: {sha: response.sha}
+                  data: JSON.stringify({sha: response.sha})
                 }).then(function(ref) {
                   resolve(ref);
                 }, function(err) { reject(err); });
@@ -209,9 +214,31 @@ CMS.EditRoute = CMS.AuthenticatedRoute.extend({
   }
 });
 CMS.EditController = Ember.Controller.extend({
+  _filePath: function() {
+    return this.get("collection").folder + "/" + this.model.slug + ".md";
+  },
   collection: function() {
     return this.get("model._collection");
-  }.property("model._collection")
+  }.property("model._collection"),
+  actions: {
+    save: function() {
+      var content = this.model.generateContent();
+      CMS.Repository.updateFiles({
+        files: [{path: this.model._path, content: content}],
+        message: "Updated " + this.get("collection").label + " " + this.model.title
+      }).then(function() {
+        console.log("Done!");
+      })
+    }
+  }
+});
+
+CMS.CreateController = Ember.Controller.extend({
+  actions: {
+    save: function() {
+
+    }
+  }
 });
 
 CMS.Collection = Ember.Object.extend({
@@ -237,7 +264,24 @@ CMS.Collection.reopenClass({
 });
 
 CMS.Entry = Ember.Object.extend({
-  _collection: null
+  _collection: null,
+  generateContent: function() {
+    var field;
+    var content = "---\n";
+    var meta = {};
+    for (var i=0, len=this._collection.fields.length; i<len; i++) {
+      field = this._collection.fields[i];
+      if (field.name !== "body") {
+        meta[field.name] = field.getValue()
+      }
+      this[field.name] = field.getValue();
+    }
+    console.log("Got meta: %o", meta);
+    content += jsyaml.safeDump(meta);
+    content += "---\n\n";
+    content += this.body;
+    return content;
+  },
 });
 CMS.Entry.reopenClass({
   pathFor: function(collection, slug) {
@@ -253,8 +297,9 @@ CMS.Entry.reopenClass({
   find: function(collection_id, slug) {
     var collection = CMS.Collection.find(collection_id);
     return new Promise(function(resolve, reject){
-      CMS.Repository.readFile(CMS.Entry.pathFor(collection, slug)).then(function(content) {
-        var entry = CMS.Entry.create($.extend(CMS.Entry.parseContent(content), {_collection: collection}));
+      var path = CMS.Entry.pathFor(collection, slug);
+      CMS.Repository.readFile(path).then(function(content) {
+        var entry = CMS.Entry.create($.extend(CMS.Entry.parseContent(content), {_collection: collection, _path: path}));
         collection.setEntry(entry);
         resolve(entry);
       }.bind(this));
@@ -262,7 +307,12 @@ CMS.Entry.reopenClass({
   }
 });
 
-CMS.Field = Ember.Object.extend({value: null});
+CMS.Field = Ember.Object.extend({
+  value: null,
+  getValue: function() {
+    return this.get("value");
+  }
+});
 
 Ember.Handlebars.registerBoundHelper("cms-markdown-viewer", function(value) {
   return new Ember.Handlebars.SafeString(marked(value || ""));
@@ -313,6 +363,7 @@ CMS.CmsListComponent = Ember.Component.extend({
   
   init: function() {
     this._super.apply(this, arguments);
+    var field = this.get("field");
     var items = this.get("field.value");
     var newItems = Ember.A();
     if (items && items.length) {
@@ -323,6 +374,22 @@ CMS.CmsListComponent = Ember.Component.extend({
     } else {
       newItems.pushObject(this._newItem());
       this.set("field.value", newItems);
+    }
+    field.getValue = function() {
+      var obj, field, fields;
+      var items = [];
+      var value = this.get("value") || [];
+      for (var i=0, len=value.length; i<len; i++) {
+        obj = {};
+        fields = value[i].fields;
+        for (var j=0; j<fields.length; j++) {
+          obj[fields[j].name] = fields[j].getValue();
+        }
+        if (!Object.keys(obj).every(function(key) { return obj[key] == null; })) {
+          items.push(obj);
+        }
+      }
+      return items;
     }
   },
 
