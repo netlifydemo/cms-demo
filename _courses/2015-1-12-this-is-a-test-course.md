@@ -1,6 +1,6 @@
 ---
 title: This is a test Course
-date: "2015-02-31T00:00:00.000Z"
+date: 2015-02-15T00:00:00.000Z
 info: A test Course about testing courses
 links:
   - label: Testing

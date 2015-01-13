@@ -197,6 +197,7 @@ CMS.LoginController = Ember.Controller.extend({
 
 CMS.AuthenticatedRoute = Ember.Route.extend({
   activate: function() {
+    console.log("Checking Auth");
     if (!CMS.loggedIn) {
       this.transitionTo("login");
     }
@@ -206,17 +207,21 @@ CMS.AuthenticatedRoute = Ember.Route.extend({
 CMS.HomeRoute = CMS.AuthenticatedRoute.extend({
   model: function() { return CMS.config; }
 });
-
-CMS.CreateRoute = CMS.AuthenticatedRoute.extend({});
+CMS.CreateRoute = CMS.AuthenticatedRoute.extend({
+  afterModel: function(model) {
+    model.setEntry(CMS.Entry.create({_collection: model}));
+  }
+});
 CMS.EditRoute = CMS.AuthenticatedRoute.extend({
+  activate: function(params) {
+    this._super.apply(this, arguments);
+    console.log("Activating EditRoute");
+  },
   model: function(params) {
     return CMS.Entry.find(params.collection_id, params.slug);
   }
 });
 CMS.EditController = Ember.Controller.extend({
-  _filePath: function() {
-    return this.get("collection").folder + "/" + this.model.slug + ".md";
-  },
   collection: function() {
     return this.get("model._collection");
   }.property("model._collection"),
@@ -225,7 +230,7 @@ CMS.EditController = Ember.Controller.extend({
       var content = this.model.generateContent();
       CMS.Repository.updateFiles({
         files: [{path: this.model._path, content: content}],
-        message: "Updated " + this.get("collection").label + " " + this.model.title
+        message: "Updated " + this.model._collection.label + " " + this.model.title
       }).then(function() {
         console.log("Done!");
       })
@@ -234,9 +239,29 @@ CMS.EditController = Ember.Controller.extend({
 });
 
 CMS.CreateController = Ember.Controller.extend({
+  _slugify: function(text) {
+     return text.toString().toLowerCase()
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text
+  },
+  _generateSlug: function() {
+    var date = new Date;
+    return "" + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "-" + this._slugify(this.model.entry.title);
+  },
   actions: {
     save: function() {
-
+      var content = this.model.entry.generateContent();
+      var slug = this._generateSlug();
+      CMS.Repository.updateFiles({
+        files: [{path: this.model.folder + "/" + slug + ".md", content: content}],
+        message: "Created " + this.model.label + " " + this.model.entry.title
+      }).then(function() {
+        console.log("Done!");
+        
+      }.bind(this));
     }
   }
 });
@@ -310,7 +335,7 @@ CMS.Entry.reopenClass({
 CMS.Field = Ember.Object.extend({
   value: null,
   getValue: function() {
-    return this.get("value");
+    return this.get("value") || null;
   }
 });
 

@@ -81,13 +81,13 @@
 
   <script type="text/x-handlebars" data-template-name='create'>
   <div class="container no-max-width">
-    <form name="contentForm" class="cms-form" {{action "save"}}>
+    <form name="contentForm" class="cms-form" {{action "save" on="submit"}}>
       <div class="widget meta">
-        <div class="form-control"><h2>Create {{label}}</h2></div>
-        <div class="preview"><h2>Preview {{label}}</h2></div>
+        <div class="form-control"><h2>Create {{model.label}}</h2></div>
+        <div class="preview"><h2>Preview {{model.label}}</h2></div>
       </div>
 
-      {{#each field in fields}}
+      {{#each field in model.fields}}
         <div class="widget">
           <div class="form-control">
             {{cms-widget-control field=field}}
@@ -99,7 +99,7 @@
       {{/each}}
 
       <div class="controls">
-        <button class="button">Create {{label}}</button>
+        <button class="button">Create {{model.label}}</button>
       </div>
     </form>
   </div>
