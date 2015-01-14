@@ -39,70 +39,64 @@ CMS.Repository = (function() {
   };
 
   function getTree(sha) {
-    return sha ? request(base + "/git/trees/" + sha) : new Promise(function(resolve) { resolve({tree: []})});
+    return sha ? request(base + "/git/trees/" + sha) : Promise.resolve({tree: []});
   };
 
   function uploadBlob(file) {
-    return new Promise(function(resolve, reject) {
-      request(base + "/git/blobs", {
-        type: "POST",
-        data: JSON.stringify({
-          content: file.base64 ? file.base64() : Base64.encode(file.content),
-          encoding: "base64"
-        })
-      }).then(function(response) {
-        file.sha = response.sha;
-        resolve(file);
-      }, function(err) {
-        reject(err);
-      });
+    return request(base + "/git/blobs", {
+      type: "POST",
+      data: JSON.stringify({
+        content: file.base64 ? file.base64() : Base64.encode(file.content),
+        encoding: "base64"
+      })
+    }).then(function(response) {
+      file.sha = response.sha;
+      return file;
     });
   };
 
   function updateTree(sha, path, fileTree) {
-    return new Promise(function(resolve, reject) {
       console.log("Getting tree %o", sha);
-      getTree(sha).then(function(tree) {
-        var obj, filename, fileOrDir;
-        var updates = [];
-        console.log("Got tree %o for sha %o", tree, sha);
-        for (var i=0, len=tree.tree.length; i<len; i++) {
-          obj = tree.tree[i];
-          if (fileOrDir = fileTree[obj.path]) {
-            if (fileOrDir.file) {
-              fileOrDir._added = true;
-              updates.push(
-                fileOrDir.file ?
-                  {path: obj.path, mode: obj.mode, type: obj.type, sha: fileOrDir.sha} :
-                  updateTree(obj.sha, obj.path, fileOrDir)
-              );  
-            } else {
-              updates.push(updateTree(obj.sha, obj.path, fileOrDir));
+      return getTree(sha)
+        .then(function(tree) {
+          var obj, filename, fileOrDir;
+          var updates = [];
+          console.log("Got tree %o for sha %o", tree, sha);
+          for (var i=0, len=tree.tree.length; i<len; i++) {
+            obj = tree.tree[i];
+            if (fileOrDir = fileTree[obj.path]) {
+              if (fileOrDir.file) {
+                fileOrDir._added = true;
+                updates.push(
+                  fileOrDir.file ?
+                    {path: obj.path, mode: obj.mode, type: obj.type, sha: fileOrDir.sha} :
+                    updateTree(obj.sha, obj.path, fileOrDir)
+                );  
+              } else {
+                updates.push(updateTree(obj.sha, obj.path, fileOrDir));
+              }
             }
           }
-        }
-        for (filename in fileTree) {
-          fileOrDir = fileTree[filename];
-          if (fileOrDir._added) { continue; }
-          updates.push(
-            fileOrDir.file ?
-              {path: filename, mode: "100644", type: "blob", sha: fileOrDir.sha} :
-              updateTree(null, filename, fileOrDir)
-          );
-        }
-        console.log("Updates: %o", updates);
-        Promise.all(updates).then(function(updates) {
-          request(base + "/git/trees", {
-            type: "POST",
-            data: JSON.stringify({base_tree: sha, tree: updates})
-          }).then(function(response) {
-            resolve({path: path, mode: "040000", type: "tree", sha: response.sha});
-          }, function(err) {
-            reject(err);
-          })
-        });
-      }, function(err) { reject(err); })
-    });
+          for (filename in fileTree) {
+            fileOrDir = fileTree[filename];
+            if (fileOrDir._added) { continue; }
+            updates.push(
+              fileOrDir.file ?
+                {path: filename, mode: "100644", type: "blob", sha: fileOrDir.sha} :
+                updateTree(null, filename, fileOrDir)
+            );
+          }
+          console.log("Updates: %o", updates);
+          return Promise.all(updates)
+            .then(function(updates) {
+              return request(base + "/git/trees", {
+                type: "POST",
+                data: JSON.stringify({base_tree: sha, tree: updates})
+              });
+            }).then(function(response) {
+              return {path: path, mode: "040000", type: "tree", sha: response.sha, parentSha: sha};
+            });
+          });
   };
 
   return {
@@ -118,41 +112,38 @@ CMS.Repository = (function() {
       });
     },
     updateFiles: function(options) {
-      return new Promise(function(resolve, reject) {
-        var file, filename, part, parts, subtree;
-        var fileTree = {};
-        var files = [];
-        for (var i=0, len=options.files.length; i<len; i++) {
-          file = options.files[i];
-          files.push(file.upload ? file : uploadBlob(file));
-          parts = file.path.split("/").filter(function(part) { return part; });
-          filename = parts.pop();
-          subtree = fileTree;
-          while (part = parts.shift()) {
-            subtree[part] = subtree[part] || {}
-            subtree = subtree[part];
-          }
-          subtree[filename] = file;
-          file.file = true;
+      var file, filename, part, parts, subtree;
+      var fileTree = {};
+      var files = [];
+      for (var i=0, len=options.files.length; i<len; i++) {
+        file = options.files[i];
+        files.push(file.upload ? file : uploadBlob(file));
+        parts = file.path.split("/").filter(function(part) { return part; });
+        filename = parts.pop();
+        subtree = fileTree;
+        while (part = parts.shift()) {
+          subtree[part] = subtree[part] || {}
+          subtree = subtree[part];
         }
-        Promise.all(files).then(function() {
-          getBranch().then(function(branchData) { 
-            updateTree(branchData.commit.sha, "/", fileTree).then(function(changeTree) {
-              request(base + "/git/commits", {
-                type: "POST",
-                data: JSON.stringify({message: options.message, tree: changeTree.sha, parents: [branchData.commit.sha]})
-              }).then(function(response) {
-                request(base + "/git/refs/heads/" + branch, {
-                  type: "PATCH",
-                  data: JSON.stringify({sha: response.sha})
-                }).then(function(ref) {
-                  resolve(ref);
-                }, function(err) { reject(err); });
-              }, function(err) { reject(err); });
-            }, function(err) { reject(err); });
-          }, function(err) { reject(err); });
-        }, function(err) { reject(err); });
-      });
+        subtree[filename] = file;
+        file.file = true;
+      }
+      return Promise.all(files)
+        .then(getBranch)
+        .then(function(branchData) {
+          return updateTree(branchData.commit.sha, "/", fileTree);
+        })
+        .then(function(changeTree) {
+          return request(base + "/git/commits", {
+            type: "POST",
+            data: JSON.stringify({message: options.message, tree: changeTree.sha, parents: [changeTree.parentSha]})
+          });
+        }).then(function(response) {
+          return request(base + "/git/refs/heads/" + branch, {
+            type: "PATCH",
+            data: JSON.stringify({sha: response.sha})
+          });
+        });
     }
   }
 })();
@@ -255,13 +246,14 @@ CMS.CreateController = Ember.Controller.extend({
     save: function() {
       var content = this.model.entry.generateContent();
       var slug = this._generateSlug();
-      CMS.Repository.updateFiles({
-        files: [{path: this.model.folder + "/" + slug + ".md", content: content}],
-        message: "Created " + this.model.label + " " + this.model.entry.title
-      }).then(function() {
-        console.log("Done!");
-        
-      }.bind(this));
+      console.log("Saving content: %o", content);
+      // CMS.Repository.updateFiles({
+      //   files: [{path: this.model.folder + "/" + slug + ".md", content: content}],
+      //   message: "Created " + this.model.label + " " + this.model.entry.title
+      // }).then(function() {
+      //   console.log("Done!");
+
+      // }.bind(this));
     }
   }
 });
@@ -321,14 +313,12 @@ CMS.Entry.reopenClass({
   },
   find: function(collection_id, slug) {
     var collection = CMS.Collection.find(collection_id);
-    return new Promise(function(resolve, reject){
-      var path = CMS.Entry.pathFor(collection, slug);
-      CMS.Repository.readFile(path).then(function(content) {
-        var entry = CMS.Entry.create($.extend(CMS.Entry.parseContent(content), {_collection: collection, _path: path}));
-        collection.setEntry(entry);
-        resolve(entry);
-      }.bind(this));
-    })
+    var path = CMS.Entry.pathFor(collection, slug);
+    return CMS.Repository.readFile(path).then(function(content) {
+      var entry = CMS.Entry.create($.extend(CMS.Entry.parseContent(content), {_collection: collection, _path: path}));
+      collection.setEntry(entry);
+      return entry;
+    }.bind(this));
   }
 });
 
