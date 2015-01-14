@@ -10,6 +10,6 @@ docs: null
 
 ## Kursusbeskrivelse
 
-Kurset sætter fokus på den **hjerneforskning**, der undersøger, hvordan musik aktiverer kroppen, hjernen og nervesystemet. Musik virker direkte på kroppen, den vækker opmærksomhed og følelser, og hele hjernen er aktiv, når vi hører musik. Med billeder af hjernen og mange musikeksempler giver kurset indsigt i musikkens nervebaner og musikkens relationer til lystfølelse, bevægelse, sprog og hukommelse. 
+Kurset sætter fokus på den hjerneforskning, der undersøger, hvordan musik aktiverer kroppen, hjernen og nervesystemet. Musik virker direkte på kroppen, den vækker opmærksomhed og følelser, og hele hjernen er aktiv, når vi hører musik. Med billeder af hjernen og mange musikeksempler giver kurset indsigt i musikkens nervebaner og musikkens relationer til lystfølelse, bevægelse, sprog og hukommelse. 
 
 Ved ph.d. Erik Christensen.
