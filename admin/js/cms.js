@@ -3,6 +3,7 @@
 var Promise = Ember.RSVP.Promise;
 
 window.CMS = Ember.Application.create();
+
 CMS.deferReadiness();
 $.get("config.yml").then(function(data) {
   CMS.config = CMS.Config.create(jsyaml.safeLoad(data));
@@ -56,47 +57,43 @@ CMS.Repository = (function() {
   };
 
   function updateTree(sha, path, fileTree) {
-      console.log("Getting tree %o", sha);
-      return getTree(sha)
-        .then(function(tree) {
-          var obj, filename, fileOrDir;
-          var updates = [];
-          console.log("Got tree %o for sha %o", tree, sha);
-          for (var i=0, len=tree.tree.length; i<len; i++) {
-            obj = tree.tree[i];
-            if (fileOrDir = fileTree[obj.path]) {
-              if (fileOrDir.file) {
-                fileOrDir._added = true;
-                updates.push(
-                  fileOrDir.file ?
-                    {path: obj.path, mode: obj.mode, type: obj.type, sha: fileOrDir.sha} :
-                    updateTree(obj.sha, obj.path, fileOrDir)
-                );  
-              } else {
-                updates.push(updateTree(obj.sha, obj.path, fileOrDir));
-              }
+    console.log("Getting tree %o", sha);
+    return getTree(sha)
+      .then(function(tree) {
+        var obj, filename, fileOrDir;
+        var updates = [];
+        console.log("Got tree %o for sha %o", tree, sha);
+        for (var i=0, len=tree.tree.length; i<len; i++) {
+          obj = tree.tree[i];
+          if (fileOrDir = fileTree[obj.path]) {
+            if (fileOrDir.file) {
+              fileOrDir._added = true;
+              updates.push({path: obj.path, mode: obj.mode, type: obj.type, sha: fileOrDir.sha});
+            } else {
+              updates.push(updateTree(obj.sha, obj.path, fileOrDir));
             }
           }
-          for (filename in fileTree) {
-            fileOrDir = fileTree[filename];
-            if (fileOrDir._added) { continue; }
-            updates.push(
-              fileOrDir.file ?
-                {path: filename, mode: "100644", type: "blob", sha: fileOrDir.sha} :
-                updateTree(null, filename, fileOrDir)
-            );
-          }
-          console.log("Updates: %o", updates);
-          return Promise.all(updates)
-            .then(function(updates) {
-              return request(base + "/git/trees", {
-                type: "POST",
-                data: JSON.stringify({base_tree: sha, tree: updates})
-              });
-            }).then(function(response) {
-              return {path: path, mode: "040000", type: "tree", sha: response.sha, parentSha: sha};
+        }
+        for (filename in fileTree) {
+          fileOrDir = fileTree[filename];
+          if (fileOrDir._added) { continue; }
+          updates.push(
+            fileOrDir.file ?
+              {path: filename, mode: "100644", type: "blob", sha: fileOrDir.sha} :
+              updateTree(null, filename, fileOrDir)
+          );
+        }
+        console.log("Updates: %o", updates);
+        return Promise.all(updates)
+          .then(function(updates) {
+            return request(base + "/git/trees", {
+              type: "POST",
+              data: JSON.stringify({base_tree: sha, tree: updates})
             });
+          }).then(function(response) {
+            return {path: path, mode: "040000", type: "tree", sha: response.sha, parentSha: sha};
           });
+        });
   };
 
   return {
@@ -184,16 +181,15 @@ CMS.LoginController = Ember.Controller.extend({
       }.bind(this));
     }
   }
-})
+});
 
 CMS.AuthenticatedRoute = Ember.Route.extend({
   activate: function() {
-    console.log("Checking Auth");
     if (!CMS.loggedIn) {
       this.transitionTo("login");
     }
   }
-})
+});
 
 CMS.HomeRoute = CMS.AuthenticatedRoute.extend({
   model: function() { return CMS.config; }
@@ -206,7 +202,6 @@ CMS.CreateRoute = CMS.AuthenticatedRoute.extend({
 CMS.EditRoute = CMS.AuthenticatedRoute.extend({
   activate: function(params) {
     this._super.apply(this, arguments);
-    console.log("Activating EditRoute");
   },
   model: function(params) {
     return CMS.Entry.find(params.collection_id, params.slug);
@@ -246,14 +241,14 @@ CMS.CreateController = Ember.Controller.extend({
     save: function() {
       var content = this.model.entry.generateContent();
       var slug = this._generateSlug();
-      console.log("Saving content: %o", content);
-      // CMS.Repository.updateFiles({
-      //   files: [{path: this.model.folder + "/" + slug + ".md", content: content}],
-      //   message: "Created " + this.model.label + " " + this.model.entry.title
-      // }).then(function() {
-      //   console.log("Done!");
+      
+      CMS.Repository.updateFiles({
+        files: [{path: this.model.folder + "/" + slug + ".md", content: content}],
+        message: "Created " + this.model.label + " " + this.model.entry.title
+      }).then(function() {
+        console.log("Done!");
 
-      // }.bind(this));
+      }.bind(this));
     }
   }
 });
