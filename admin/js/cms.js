@@ -328,6 +328,14 @@ Ember.Handlebars.registerBoundHelper("cms-markdown-viewer", function(value) {
   return new Ember.Handlebars.SafeString(marked(value || ""));
 });
 
+// CMS.CmsWidgetComponent = Ember.Component.extend({
+//   tagName: "",
+//   init: function() {
+//     this._super.apply(this, arguments);
+    
+//   }
+// });
+
 CMS.CmsWidgetControlComponent = Ember.Component.extend({
   init: function() {
     this._super.apply(this, arguments);
