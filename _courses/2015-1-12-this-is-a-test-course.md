@@ -5,9 +5,13 @@ info: A test Course about testing courses
 links:
   - label: Testing
     url: "https://www.netlify.com"
-docs: null
+docs:
+  - label: logo-dark.png
+    path: /docs/courses/logo-dark.png
 ---
 
 This is a test.
 
-It's testing the test thingy
+It's testing the test thingy.
+
+With some test text.
