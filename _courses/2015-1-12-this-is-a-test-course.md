@@ -11,5 +11,3 @@ docs: []
 This is a test.
 
 It's testing the test thingy.
-
-Removed a doc...
