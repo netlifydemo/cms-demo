@@ -50,3 +50,5 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
       - {label: "Body Text", name: "body", widget: "markdown"}
+      - {name: "layout", widget: "hidden"}
+      - {name: "permalink", widget: "hidden"}
