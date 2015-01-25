@@ -36,6 +36,9 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Body", name: "body", widget: "markdown"}
 ```
 
+
+
+
 That's all, you now have a CMS that'll let people post new blogposts with a title and a body.
 
 ## Widgets

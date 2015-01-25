@@ -1,5 +1,5 @@
 repo: biilmann/timespace.dk
-branch: ember-test
+branch: master
 # Set up a reference for this more complex field so we can use it in multiple collections
 linkField: &linkField 
   label: "Links"
@@ -19,7 +19,7 @@ collections:
       - {label: "Course Info", name: "info", widget: "markdown", class: "meta"}
       - {label: "Course Description", name: "body", widget: "markdown"}
       - *linkField # use the predefined linkField here
-      - {label: "Files", name: "docs", widget: "files", folder: "docs/courses"}
+      - {label: "Files", name: "docs", widget: "files", folder: "docs/courses", optional: true}
   - slug: "articles"
     label: "Article"
     folder: "_articles"
@@ -38,7 +38,7 @@ collections:
     folder: "_books"
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", optional: true}
+      - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", class: "subtitle", optional: true}
       - {label: "Publication Date", name: "date", widget: "date"}
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3", optional: true}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}

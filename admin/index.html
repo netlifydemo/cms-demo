@@ -8,6 +8,11 @@
   <link rel="stylesheet" href="/css/normalize.css" />
   <link rel="stylesheet" href="/css/main.css" />
   
+  {% if site.cms == "local" %}
+  <link rel="stylesheet" href="//localhost:4200/assets/cms.css" />
+  {% else %}
+  <link rel="stylesheet" href="//ember-cms.netlify.com/assets/cms.css" />
+  {% end %}
   <link rel="stylesheet" href="/admin/css/admin.css" />
 
    <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -63,10 +68,16 @@
     </div>
   </div>
 
-  {{outlet}}
+  <div class="main">
+    {{outlet}}
+  </div>
   </script>
-
+  {% if site.cms == "local" %}
   <script src="//localhost:4200/assets/vendor.js"></script>
   <script src="//localhost:4200/assets/cms.js"></script>
+  {% else %}
+  <script src="//ember-cms.netlify.com/assets/vendor.js"></script>
+  <script src="//ember-cms.netlify.com/assets/cms.js"></script>
+  {% end %}
 </body>
 </html>
