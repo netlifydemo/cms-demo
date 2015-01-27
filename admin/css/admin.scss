@@ -1,7 +1,18 @@
 ---
 ---
 
-.preview h1.subtitle {
+.cms-section-title, .cms-form-title {
+  text-transform: uppercase;
+  font-family: montserrat-web, sans-serif;
+  font-size: .9064em;
+  line-height: 1.47065em;
+}
+.cms-form-title {
+  margin-top: 2.94131em;
+  margin-bottom: 1.47065em;
+}
+
+.cms-preview h1.subtitle {
   font-size: 1.5em;
   font-style: italic;
   line-height: 1.5;
