@@ -13,4 +13,4 @@ Den nyeste forskning peger på, at musik gør brug af størstedelen af hjernen. 
 
 Med billeder af hjernen og musik fra mange genrer giver foredraget indsigt i musikkens nervebaner, hjernens aktive netværk og musikkens forbindelse til lystfølelse, bevægelse og hukommelse.
 
-Slides fra kurset: Kontakt erc@timespace.dk
+Slides fra kurset: Kontakt [erc@timespace.dk]
