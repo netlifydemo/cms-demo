@@ -6,11 +6,11 @@ name: admin
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Timespace CMS</title>
+
+  <title>Netlify CMS</title>
   <link rel="stylesheet" href="/css/normalize.css" />
   <link rel="stylesheet" href="/css/main.css" />
-  
+
   {% if site.cms == "local" %}
   <link rel="stylesheet" href="//localhost:4200/assets/cms.css" />
   {% else %}
@@ -24,7 +24,7 @@ name: admin
 </head>
 <body>
   <!-- SVG Definitions
-       XML namespace is removed to prevent IE8 from choking on the tag 
+       XML namespace is removed to prevent IE8 from choking on the tag
        (http://stuntbox.com/blog/2013/06/bulletproof-inline-svg/)
   -->
   <svg display="none">
@@ -41,13 +41,13 @@ name: admin
   <div class="header">
     <div class="top-bar">
       <div class="container">
-        
+
         <div class="masthead">
           <h6>
             <a href="/about" target="_self">Erik Christensen <span>Musicologist, Educator &amp; Researcher</span></a>
           </h6>
         </div>
-        
+
         <div class="breadcrumb">
           <a href="/" target="_self">Timespace</a>
           {{#link-to 'home'}}/ Admin{{/link-to}}
@@ -64,11 +64,11 @@ name: admin
             </svg>
           </a>
           <ul id="navigation">
-          
+
             <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
           </ul>
         </div>
-        
+
       </div>
     </div>
   </div>

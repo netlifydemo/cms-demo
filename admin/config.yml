@@ -1,4 +1,4 @@
-repo: biilmann/timespace.dk
+repo: netlifydemo/cms-demo
 branch: master
 # Set up a reference for this more complex field so we can use it in multiple collections
 linkField: &linkField 
