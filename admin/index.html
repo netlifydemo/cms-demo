@@ -65,7 +65,7 @@ name: admin
           </a>
           <ul id="navigation">
 
-            <li>{{#link-to 'logout'}}Logout{{/link-to}}</li>
+            <li><a {{action 'logout'}}>Logout</a></li>
           </ul>
         </div>
 
@@ -76,6 +76,14 @@ name: admin
   <div class="main">
     {{outlet}}
   </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name='components/links-preview'>
+    <div class="links">
+    {{#each link in widget.value}}
+      <p><a href="{{link.url}}" target="_blank">{{link.label}}</a></p>
+    {{/each}}
+    </div>
   </script>
   {% endraw %}
 

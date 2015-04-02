@@ -33,12 +33,12 @@ gulp.task('dev', function(){
     host: '0.0.0.0',
     root: '_site',
     port: 3000,
-    livereload: true,
+    livereload: {port: 35740},
     middleware: function(connect, opt) {
       return [function(req, response, next) {
         if (req.method !== 'GET') {
           return next();
-        } 
+        }
         var parsedUrl = url.parse(req.url);
         if (parsedUrl.pathname.match(/^\/admin\/.+/) && parsedUrl.pathname.indexOf(".") === -1) {
           req.url = "/admin/";
@@ -61,7 +61,7 @@ gulp.task('dev', function(){
     console.log("watch event: ", e)
     childProcess.exec('bin/jekyll build', function(err) {
       if (err) return gutil.log(err) // return error
-    })  
+    })
   })
-    
+
 });
