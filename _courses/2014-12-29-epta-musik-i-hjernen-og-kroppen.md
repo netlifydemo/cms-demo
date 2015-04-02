@@ -8,8 +8,7 @@ docs: []
 
 ## Musik i hjernen og kroppen   
  
-Hvad sker der i hjernen, når vi spiller, synger og lytter til musik?  
-Den nyeste forskning peger på, at musik gør brug af størstedelen af hjernen. Musik aktiverer opmærksomhed, hukommelse, forventning, følelser og bevægelse, og kroppen reagerer med forandringer af hjerteslag og åndedræt.  
+Hvad sker der i hjernen, når vi spiller, synger og lytter til musik?  Den nyeste forskning peger på, at musik gør brug af størstedelen af hjernen. Musik aktiverer opmærksomhed, hukommelse, forventning, følelser og bevægelse, og kroppen reagerer med forandringer af hjerteslag og åndedræt.  
 
 Med billeder af hjernen og musik fra mange genrer giver foredraget indsigt i musikkens nervebaner, hjernens aktive netværk og musikkens forbindelse til lystfølelse, bevægelse og hukommelse.
 
