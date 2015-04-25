@@ -123,14 +123,14 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-   
+
 $color-black: #181818;
 $color-white: #fff;
 $color-bg: $color-white;
 $color-text: #333;
 $color-link: #d40000;
 
-$font-family-serif: 'alegreya-web', serif; 
+$font-family-serif: 'alegreya-web', serif;
 $font-family-sans-serif: 'montserrat-web', sans-serif;
 $font-family-condensed: 'tenso-web', sans-serif;
 $font-family-dropcap: 'dropcap', 'montserrat-web', sans-serif;
@@ -158,8 +158,8 @@ $font-size-h4: $base-font-size-sans-serif * 1.133 + 0em;
 $font-size-h5: $base-font-size-sans-serif;
 $font-size-h6: $size-s;
 
-/* 
- * Global Typography 
+/*
+ * Global Typography
  */
 @import "gridlover";
 @include gridlover-typography();
@@ -173,16 +173,17 @@ body {
 /* Font family */
 body {
   font-family: $font-family-serif;
-}                    
+}
 
 h4,
-h5, 
+h5,
 h6,
 label,
 .content h2,
 .content h3,
 .header,
 .button,
+.cms-button,
 .meta {
   font-family: $font-family-sans-serif;
 }
@@ -194,7 +195,7 @@ label,
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-  
+
   small {
     display: block;
     font-weight: normal;
@@ -257,7 +258,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .button,
-a.button { 
+a.button,
+.cms-button {
   display: inline-block;
   @include vertical-rhythm($size-xs);
   font-weight: normal;
@@ -268,7 +270,7 @@ a.button {
   border: 1px solid;
   position: relative;
   top: -2px;
-  
+
   .no-touch &:hover {
     color: $color-text;
     background: transparent;
@@ -357,7 +359,7 @@ dl dd {
 
 p.dropcap,
 .dropcap > p:first-child {
-  
+
   &:first-letter {
     float: left;
     font-size: $size-3xl;
@@ -420,7 +422,7 @@ form {
     width: 100%;
     border: 1px solid $color-text;
   }
-  .button {
+  .button, .cms-button {
     padding: 0 $size-l;
   }
 }
@@ -458,7 +460,7 @@ html, body {
 
 .container,
 .body,
-.header, 
+.header,
 .footer {
   position: relative;
 }
@@ -499,17 +501,17 @@ html, body {
 .footer {
   background-color: $color-black;
   color: $color-white;
-  
-  a, 
-  a:visited, 
+
+  a,
+  a:visited,
   a:hover {
     color: $color-white;
-    
+
     strong {
       color: $color-link;
     }
   }
-  
+
   .no-touch & a:hover:not(.no-underline) {
     @include underline($color-white, $color-black);
   }
@@ -518,7 +520,7 @@ html, body {
 .header {
   text-transform: uppercase;
   background: $color-bg;
-  
+
   .section {
     background-color: $color-bg;
     color: $color-text;
@@ -545,7 +547,7 @@ html, body {
 
 .masthead {
   margin-right: 2em;
-  
+
   h1 {
     margin: 0;
     display: none;
@@ -558,28 +560,28 @@ html, body {
     float: right;
     text-align: right;
     margin: 0;
-    
+
     span {
       display: none;
     }
-    
+
     a {
       display: inline-block;
     }
   }
-}  
+}
 
 .nav {
   float: right;
   clear: right;
   text-align: right;
-  
+
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  
+
   a {
     display: inline-block;
     font-size: $size-s;
@@ -611,11 +613,11 @@ html, body {
   background: url(../img/vela-bg-lightroom.jpg) no-repeat $size-l;
   background-size: cover;
   min-height: 30em;
-  
+
   .top-bar {
     border-bottom: 0;
   }
-  
+
   .masthead {
     float: left;
     margin: $size-l 0 0 0;
@@ -637,15 +639,15 @@ html, body {
       }
     }
   }
-  
+
   .nav {
     margin-top: $size-l;
   }
-  
+
   #navigation {
     height: auto;
   }
-  
+
   #nav-button {
     display: none;
   }
@@ -658,7 +660,7 @@ html, body {
   }
 }
 
-.meta, 
+.meta,
 .content {
   h2, h3, h4, h5, h6 {
     text-transform: uppercase;
@@ -682,7 +684,7 @@ html, body {
   margin: 0 0 $size-l;
   min-height: 85%;
   overflow: hidden;
-  
+
   h1, h2, h3, h4, h5, h6 {
     a {
       font-weight: bold;
@@ -697,10 +699,10 @@ html, body {
   p, ul, ol, blockquote {
     margin-top: 0;
   }
-  
+
   li {
     margin-bottom: $base-line-height * 1em;
-    
+
     h1,h2, h3, h4, h5, h6 {
       margin-top: 0;
       margin-bottom: 0;
@@ -722,21 +724,21 @@ html, body {
     margin-left: -12em;
     left: -$size-l * 2;
     text-align: right;
-    
+
     * {
       margin-top: 0;
     }
-    
+
     img {
       display: inline-block;
       width: 12em - $size-l;
       margin-bottom: $base-line-height + 0em;
     }
-    
+
     h1, h2, h3, h4, h6, h6 {
       margin-right: (-$size-l + 1);
     }
-    
+
     &.bottom {
       position: absolute;
       bottom: 0;
@@ -745,14 +747,14 @@ html, body {
         margin-bottom: 0;
       }
     }
-    
+
     &.top {
       position: absolute;
       top: 0;
       left: -$size-l;
     }
   }
-  
+
   .rtl {
     direction: rtl;
   }
@@ -760,32 +762,32 @@ html, body {
   .wbr {
     width: 0;
   }
-  
+
   .section {
     margin: ($base-line-height * 2em) 0;
   }
-  
+
   .buttons {
     float: right;
     margin: 0;
   }
-}  
+}
 
 .footer {
   overflow: hidden;
   padding-bottom: $size-l;
-  
+
   small {
     font-size: $size-s;
     opacity: 0.8;
     float: left;
     margin-left: $size-xs;
   }
-  
+
   small:first-child {
     margin-left: 0;
   }
-  
+
   small:last-child {
     float: right;
   };
@@ -886,11 +888,11 @@ html, body {
     font-size: 2.618em;
     margin-top: 3/2.618+0em;
   }
-  
+
   blockquote {
     margin: $base-line-height*2em $size-l;
   }
-  
+
   .body {
     margin-left: 10em;
     margin-right: $size-l;
@@ -898,7 +900,7 @@ html, body {
     .pull-left {
       width: 8em;
       margin-left: -8em;
-      
+
       img {
         width: 100%;
       }
@@ -929,15 +931,15 @@ html, body {
   .logo {
     width: 10em;
   }
-  
+
   #nav-button {
     right: 1em;
   }
-  
+
   .masthead {
     display: none;
   }
-  
+
   .fullscreen {
     background-position: 1em 0;
     .masthead {
@@ -1007,39 +1009,39 @@ html, body {
   .content {
     margin: $size-l 0;
   }
-  
+
   .body {
     margin: 0;
     padding: 0;
     border: 0;
-    
+
     .pull-left {
       float: none;
       width: auto;
       margin: 0 0 $size-l 0;
       left: 0;
       text-align: left;
-      
+
       img {
         width: auto;
         float: left;
         margin-right: 1em;
       }
-      
+
       &.bottom,
       &.top {
         position: static;
       }
     }
-    
+
     .rtl {
       text-direction: ltr;
     }
-    
+
     .wbr {
       width: auto;
     }
-    
+
     .section {
       margin: $size-xs 0;
       padding-top: $base-line-height + 0em;
@@ -1049,18 +1051,18 @@ html, body {
       }
     }
   }
-  
+
   .meta {
     h2 {
       margin-top: 0;
       margin-bottom: -$size-xs;
     }
   }
-   
+
   .index .body {
     border-top: 1px solid;
   }
- 
+
   .dropcap {
     > p:first-child:first-letter {
       font-size: $size-2xl;

@@ -48,11 +48,7 @@ name: admin
           </h6>
         </div>
 
-        <div class="breadcrumb">
-          <a href="/" target="_self">Timespace</a>
-          {{#link-to 'home'}}/ Admin{{/link-to}}
-          <span> / {{ currentAction }} </span>
-        </div>
+        {{cms-breadcrumbs}}
 
         <div class="nav">
           <a id="nav-button" class="icon-link no-underline" href="#navigation">
@@ -78,7 +74,7 @@ name: admin
   </div>
   </script>
 
-  <script type="text/x-handlebars" data-template-name='components/links-preview'>
+  <script type="text/x-handlebars" data-template-name='cms/widgets/links-preview'>
     <div class="links">
     {{#each link in widget.value}}
       <p><a href="{{link.url}}" target="_blank">{{link.label}}</a></p>
