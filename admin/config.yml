@@ -1,6 +1,8 @@
-repo: netlifydemo/cms-demo
-branch: master
+backend:
+  name: "netlify_api"
+  url: "http://localhost:8080"
 # Set up a reference for this more complex field so we can use it in multiple collections
+
 linkField: &linkField
   label: "Links"
   name: "links"
@@ -9,21 +11,26 @@ linkField: &linkField
   fields:
     - {label: "Link text", name: "label", widget: "string"}
     - {label: "URL", name: "url", widget: "string"}
+
 collections:
-  - slug: "courses"
+  - name: "courses"
     label: "Course"
     folder: "_courses"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     create: true
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Date", name: "date", widget: "date"}
+      - {label: "Date", name: "date", widget: "datetime"}
       - {label: "Course Info", name: "info", widget: "markdown", class: "meta"}
       - {label: "Course Description", name: "body", widget: "markdown"}
       - *linkField # use the predefined linkField here
       - {label: "Files", name: "docs", widget: "files", preview: "links-preview", folder: "docs/courses", optional: true}
-  - slug: "articles"
+
+
+  - name: "articles"
     label: "Article"
     folder: "_articles"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     create: true
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
@@ -34,9 +41,10 @@ collections:
       - {label: "Article Abstract", name: "body", widget: "markdown"}
       - *linkField
       - {label: "Files", name: "docs", widget: "files", preview: "links-preview", folder: "docs/articles"}
-  - slug: "books"
+  - name: "books"
     label: "Book"
     folder: "_books"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
       - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", class: "subtitle", optional: true}
@@ -45,7 +53,8 @@ collections:
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
       - {label: "Image", name: "image", widget: "image", folder: "img/media"}
       - {label: "Book Abstract", name: "body", widget: "markdown"}
-  - slug: "pages"
+      - {label: "Author", name: "author", widget: "author", authors: ["Matt", "Chris"]}
+  - name: "pages"
     label: "Page"
     folder: "pages"
     fields:
