@@ -20,7 +20,7 @@ collections:
     create: true
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Date", name: "datetime", widget: "datetime", dateFormat: "YYYY-MM-DD", timeFormat: "T00:00:00.000Z"}
+      - {label: "Date", name: "datetime", widget: "datetime", dateFormat: "YYYY-MM-DD", timeFormat: "THH:MM:SS.SSSZ"}
       - {label: "Course Info", name: "info", widget: "markdown", class: "meta"}
       - {label: "Course Description", name: "body", widget: "markdown"}
       - *linkField # use the predefined linkField here
