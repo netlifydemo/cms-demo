@@ -1,6 +1,6 @@
 ---
 "title": "Musik i kroppen og hjernen"
-"datetime": 2015-06-01 01:00pm
+"datetime": 2015-06-01 05:00pm
 "info": "5 onsdage kl. 19.15-21. 10/9-8/10. Pris: 440 kr."
 "links":
   - "label": "Folkeuniversitetet i København"
