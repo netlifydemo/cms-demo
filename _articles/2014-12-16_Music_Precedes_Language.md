@@ -1,7 +1,7 @@
 ---
 title: Music Precedes Language
 subtitle: A comment on Grinde’s article
-date: 2014-12-16T00:00:00.000Z
+date: 2014-12-16
 full_title: Music Precedes Language
 bib: "Christensen, Erik (2000) 'Music Precedes Language', Nordic Journal of Music Therapy,9(2), 32-35.Author’s manuscript. A comment on the article: Grinde, Bjørn (2000) 'A Biological Perspective on Musical Appreciation’, Nordic Journal of Music Therapy, 9(2), 18-27."
 links:
@@ -10,7 +10,7 @@ links:
 docs: []
 ---
 
-Dear Björn Grinde: I have been given the opportunity to comment on your article “A Biological Perspective on Musical Appreciation.” I respect your approach, but I disagree with some of your assumptions, and wish to contribute to an open-minded discussion of your viewpoints. 
+Dear Björn Grinde: I have been given the opportunity to comment on your article “A Biological Perspective on Musical Appreciation.” I respect your approach, but I disagree with some of your assumptions, and wish to contribute to an open-minded discussion of your viewpoints.
 
 Reading your summary (p. 18) arouses immediate reactions for my part. You assume that preoccupation with sounds is mainly related to behaviour associated with our dependence on language. This cannot be true. The ability of listening to sounds and producing sounds precedes the acquirement of language, not vice versa.
 

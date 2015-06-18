@@ -1,7 +1,7 @@
 ---
 title: Overt and hidden processes in 20th century music
 subtitle: null
-date: 2004-03-01T00:00:00.000Z
+date: 2004-03-01
 full_title: null
 bib: "Christensen, Erik: *Overt and hidden processes in 20th century music*, Axiomathes, Springer 2004"
 links:

@@ -1,7 +1,7 @@
 ---
 title: Guided Imagery and Music Therapy
 subtitle: "A New GIM Program: Present Moments"
-date: 2014-12-20T00:00:00.000Z
+date: 2014-12-20
 full_title: "Guided Imagery and Music Therapy - A New GIM Program: Present Moments"
 bib: "Chapter 5 from *Music Listening, Music Therapy, Phenomenology and Neuroscience*, PhD Thesis, Aalborg University 2012"
 links:

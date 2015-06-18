@@ -20,7 +20,7 @@ collections:
     create: true
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Date", name: "datetime", widget: "datetime", dateFormat: "YYYY-MM-DD", timeFormat: "T00:00:00.000Z"}
       - {label: "Course Info", name: "info", widget: "markdown", class: "meta"}
       - {label: "Course Description", name: "body", widget: "markdown"}
       - *linkField # use the predefined linkField here
@@ -35,7 +35,7 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
       - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", class: "subtitle", optional: true}
-      - {label: "Publication Date", name: "date", widget: "date"}
+      - {label: "Publication Date", name: "date", widget: "date", dateFormat: "YYYY-MM-DD"}
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3", optional: true}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
       - {label: "Article Abstract", name: "body", widget: "markdown"}
@@ -48,7 +48,7 @@ collections:
     fields:
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
       - {label: "Subtitle", name: "subtitle", widget: "string", tagname: "h1", class: "subtitle", optional: true}
-      - {label: "Publication Date", name: "date", widget: "date"}
+      - {label: "Publication Date", name: "date", widget: "date", dateFormat: "YYYY-MM-DD"}
       - {label: "Full Title", name: "full_title", widget: "string", tagname: "h3", optional: true}
       - {label: "Bibliography entry", name: "bib", widget: "markdown", class: "condensed"}
       - {label: "Image", name: "image", widget: "image", folder: "img/media"}

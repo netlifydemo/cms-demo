@@ -4,10 +4,10 @@ subtitle: A Theory of Music Listening
 full_title: The Musical Timespace. A Theory of Music Listening
 bib: "Erik Christensen: *The Musical Timespace. A Theory of Music Listening*. Aalborg University Press 1996. Vol. I: Text, 174 pp. Vol. II: Notation Examples and Graphs, 67 pp. See also: *The Musical Timespace. A Concise Version 2012.*"
 image: /img/media/musical_timespace.jpg
-date: 2012-01-01T00:00:00.000Z
+date: 2012-01-01
 ---
 
-###Hearing is not designed for music listening 
+###Hearing is not designed for music listening
 
 Hearing is designed for survival in a natural environment, permitting the auditory perception of sound sources, movements and spatial relations in the surrounding world. Five listening dimensions provide a basis for orientation in the natural environment: Intensity, Timbre, Space, Movement and Pulse.
 

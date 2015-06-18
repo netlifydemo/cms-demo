@@ -1,7 +1,7 @@
 ---
 title: The Neurosciences and Music
 subtitle: An Overview and Discussion
-date: 2014-12-18T00:00:00.000Z
+date: 2014-12-18
 full_title: "The Neurosciences and Music: An Overview and Discussion"
 bib: "Chapter 3 from *Music Listening, Music Therapy, Phenomenology and Neuroscience*, PhD Thesis, Aalborg University 2012"
 links:
