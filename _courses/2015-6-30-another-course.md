@@ -1,6 +1,6 @@
 ---
-"title": "Another Course"
-"date": 2015-06-30T12:00:00-07:00
+"title": "Another Course In Music"
+"date": 2015-06-30T19:00:00.000Z
 "info": "This course is a fake"
 "links":
   - "label": "First Link"
