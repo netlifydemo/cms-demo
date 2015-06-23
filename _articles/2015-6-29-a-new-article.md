@@ -1,7 +1,7 @@
 ---
-"title": "Hello, World!"
+"title": "Hello, World..."
 "subtitle": "This is an article subtitle"
-"date": 0029-06-30 
+"date": 1929-06-30T00:00:00.000Z
 "full_title": "Hello world, testing the static CMS"
 "bib": "Lets see if the permissions works as they should"
 "links": []
