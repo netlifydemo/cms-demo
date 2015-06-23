@@ -1,5 +1,5 @@
 ---
-"title": "A course in Music"
+"title": "This is a Course"
 "date": 2015-01-21T00:00:00.000Z
 "info": "Kursus for [European Piano Teachers' Association](http://www.epta.dk)   \nD. 31. januar 2015 kl. 12.30-14.30  \nBrofogedvej 10, 2400 København NV"
 "links":
