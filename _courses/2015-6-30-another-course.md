@@ -1,6 +1,6 @@
 ---
 "title": "Another Course In Music & Stuff"
-"datetime": 2015-06-24T07:00:00.000Z
+"datetime": 2015-06-24T02:00:00-07:00
 "info": "This course is a fake"
 "links":
   - "label": "First Link"
