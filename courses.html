@@ -6,6 +6,7 @@ title: Courses
 <div class="body">
   <div class="section">
     <ul class="no-bullets">
+      
       {% assign items = site.courses | sort: 'date' | reverse %}
       {% for course in items %}
         <li>
