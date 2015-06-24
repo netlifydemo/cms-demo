@@ -10,4 +10,4 @@
 "date": 2015-06-30T19:00:00.000Z
 ---
 
-There is no **course**. Go away... Really...
+There is no **course**. Go away... Really... More edits..
