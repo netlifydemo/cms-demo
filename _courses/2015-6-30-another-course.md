@@ -1,7 +1,7 @@
 ---
 "title": "Another Course In Music & Stuff"
 "datetime": 2015-06-24T09:00:00.000Z
-"info": "This course is a fake. Totally fakish..."
+"info": "This course is a fake. Totally fake.."
 "links":
   - "label": "First Link"
     "url": "https://www.netlify.com"
