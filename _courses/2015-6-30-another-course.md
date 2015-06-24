@@ -1,5 +1,5 @@
 ---
-"title": "Another Course In Music"
+"title": "Another Course In Musics"
 "datetime": 2015-06-24T07:00:00.000Z
 "info": "This course is a fake"
 "links":
