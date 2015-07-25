@@ -1,12 +1,12 @@
+# backend:
+#   name: "netlify-api"
+#   url: "http://localhost:8080"
+
 backend:
-  name: "netlify-api"
-  url: "http://localhost:8080"
+  name: "github-api"
+  repo: "netlifydemo/cms-demo"
+
 # Set up a reference for this more complex field so we can use it in multiple collections
-
-authenticator:
-  name: "netlify-api"
-  url: "http://localhost:8080"
-
 linkField: &linkField
   label: "Links"
   name: "links"
